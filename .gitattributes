@@ -1,0 +1,4 @@
+# Preserve upstream license text byte-for-byte, including its formatting.
+Veylume/Kit/Resources/Acknowledgements/* -whitespace
+# Preserve the supplied brand kit's checksummed prompt provenance verbatim.
+Branding/Veylume-v1/PROMPTS.md -whitespace

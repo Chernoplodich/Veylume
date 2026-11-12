@@ -1,0 +1,34 @@
+name: Build and test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  macos:
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Toolchain
+        run: |
+          uname -m
+          swift --version
+          xcrun --sdk macosx --show-sdk-version
+      - name: Prepare dependencies
+        run: bash scripts/bootstrap-dependencies.sh
+      - name: Test
+        run: bash scripts/test.sh
+      - name: Build
+        run: bash scripts/build.sh release

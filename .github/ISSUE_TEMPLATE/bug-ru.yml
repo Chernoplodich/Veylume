@@ -1,0 +1,25 @@
+name: Сообщить об ошибке
+description: Запись, вставка, настройка или интерфейс
+body:
+  - type: markdown
+    attributes:
+      value: Используйте короткий пример без личных данных. Не прикладывайте записи, пароли, ключи и личные диктовки.
+  - type: input
+    id: version
+    attributes:
+      label: Версии Veylume и macOS
+      placeholder: Veylume 0.1.0 (13), macOS …, M-чип …
+    validations:
+      required: true
+  - type: input
+    id: destination
+    attributes:
+      label: Приложение и поле ввода
+      description: Для проблемы со вставкой укажите приложение и тип поля.
+  - type: textarea
+    id: steps
+    attributes:
+      label: Что произошло?
+      description: Как повторить ошибку, чего вы ожидали и что получилось.
+    validations:
+      required: true

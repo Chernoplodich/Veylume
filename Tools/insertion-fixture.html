@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Veylume — проверка вставки</title>
+<style>
+  :root { color-scheme: light dark; font: 15px system-ui; }
+  body { max-width: 620px; margin: 48px auto; padding: 0 24px; }
+  h1 { font-size: 22px; }
+  label { display: block; margin: 24px 0 8px; }
+  input, textarea, [contenteditable] { box-sizing: border-box; width: 100%; padding: 12px; border: 1px solid #8888; border-radius: 8px; font: inherit; }
+  textarea, [contenteditable] { min-height: 100px; }
+  output { display: block; margin-top: 24px; font-variant-numeric: tabular-nums; }
+  p { opacity: .75; }
+</style>
+<h1>Проверка вставки Veylume</h1>
+<p>Локальная страница. Текст никуда не отправляется и не сохраняется. Нажатия Enter считаются, отправка формы заблокирована.</p>
+<form>
+  <label for="single">Обычное поле</label><input id="single" autocomplete="off">
+  <label for="multiline">Многострочное поле</label><textarea id="multiline"></textarea>
+  <label for="editable">Редактор contenteditable</label><div id="editable" role="textbox" aria-multiline="true" contenteditable="true"></div>
+  <label for="secure">Защищённое поле: автовставки быть не должно</label><input id="secure" type="password" autocomplete="off">
+</form>
+<output aria-live="polite"></output>
+<script>
+  const qa = { inputEvents: 0, pasteEvents: 0, enterEvents: 0, submitEvents: 0 };
+  const fields = [...document.querySelectorAll('input,textarea,[contenteditable]')];
+  window.qaSnapshot = () => ({ ...qa, fields: fields.map(e => ({ id: e.id, characters: (e.value ?? e.textContent).length })) });
+  function render() { document.querySelector('output').textContent = JSON.stringify(window.qaSnapshot()); }
+  document.addEventListener('input', () => { qa.inputEvents++; render(); });
+  document.addEventListener('paste', () => { qa.pasteEvents++; render(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Enter') { qa.enterEvents++; e.preventDefault(); render(); } });
+  document.querySelector('form').addEventListener('submit', e => { e.preventDefault(); qa.submitEvents++; render(); });
+  render();
+</script>
+</html>

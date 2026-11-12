@@ -1,0 +1,4 @@
+// Copy to Release.local.xcconfig (ignored), then set your real public identifiers.
+PRODUCT_BUNDLE_IDENTIFIER =
+DEVELOPMENT_TEAM =
+CODE_SIGN_IDENTITY =

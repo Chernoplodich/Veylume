@@ -1,0 +1,117 @@
+{
+  "id": "cohere-transcribe",
+  "name": "Cohere Transcribe",
+  "publisher": "Cohere",
+  "engine": "FluidAudio",
+  "revision": "e1ce10d4cae2ca9a8b36cef5786fa3660f070050",
+  "repository": "FluidInference/cohere-transcribe-03-2026-coreml",
+  "license": "apache-2.0",
+  "licenseURL": "https://huggingface.co/FluidInference/cohere-transcribe-03-2026-coreml/blob/e1ce10d4cae2ca9a8b36cef5786fa3660f070050/README.md",
+  "modelCardURL": "https://huggingface.co/FluidInference/cohere-transcribe-03-2026-coreml/tree/e1ce10d4cae2ca9a8b36cef5786fa3660f070050",
+  "minimumOS": 15,
+  "recommendedMemoryGB": 16,
+  "languages": [
+    "en",
+    "de",
+    "fr",
+    "it",
+    "es",
+    "pt",
+    "el",
+    "nl",
+    "pl",
+    "vi",
+    "zh",
+    "ar",
+    "ja",
+    "ko"
+  ],
+  "supportsAutoLanguage": false,
+  "supportsLanguageHint": true,
+  "speed": 5,
+  "accuracy": 5,
+  "ratingRevision": 1,
+  "allowedHosts": [
+    "huggingface.co",
+    "cdn-lfs.huggingface.co",
+    "cdn-lfs-us-1.huggingface.co",
+    "cdn-lfs-eu-1.huggingface.co",
+    "cas-bridge.xethub.hf.co",
+    "us.aws.cdn.hf.co",
+    "eu.aws.cdn.hf.co"
+  ],
+  "artifacts": [
+    {
+      "path": "cohere_decoder_cache_external_v3.mlmodelc/analytics/coremldata.bin",
+      "url": "https://huggingface.co/FluidInference/cohere-transcribe-03-2026-coreml/resolve/e1ce10d4cae2ca9a8b36cef5786fa3660f070050/q8/cohere_decoder_cache_external_v3.mlmodelc/analytics/coremldata.bin",
+      "bytes": 243,
+      "sha256": "cb638328d2252a3d59415d9173cffe3ee0b4afc98f8fc90feb27c6533318f1ff"
+    },
+    {
+      "path": "cohere_decoder_cache_external_v3.mlmodelc/coremldata.bin",
+      "url": "https://huggingface.co/FluidInference/cohere-transcribe-03-2026-coreml/resolve/e1ce10d4cae2ca9a8b36cef5786fa3660f070050/q8/cohere_decoder_cache_external_v3.mlmodelc/coremldata.bin",
+      "bytes": 1688,
+      "sha256": "4dd714b7bcf84597341e7509dcda42b8581a7c5c73953e8c85a3bb723a89cc17"
+    },
+    {
+      "path": "cohere_decoder_cache_external_v3.mlmodelc/metadata.json",
+      "url": "https://huggingface.co/FluidInference/cohere-transcribe-03-2026-coreml/resolve/e1ce10d4cae2ca9a8b36cef5786fa3660f070050/q8/cohere_decoder_cache_external_v3.mlmodelc/metadata.json",
+      "bytes": 13693,
+      "sha256": "033da8e98cfdad16b95a07ca0a51b8bc761b21765e6cd2c1b69de67eb4d9e9fe"
+    },
+    {
+      "path": "cohere_decoder_cache_external_v3.mlmodelc/model.mil",
+      "url": "https://huggingface.co/FluidInference/cohere-transcribe-03-2026-coreml/resolve/e1ce10d4cae2ca9a8b36cef5786fa3660f070050/q8/cohere_decoder_cache_external_v3.mlmodelc/model.mil",
+      "bytes": 203705,
+      "sha256": "1902c4b078f118648e866804e835138c9432edf34453ce0141db83afb193ef22"
+    },
+    {
+      "path": "cohere_decoder_cache_external_v3.mlmodelc/weights/weight.bin",
+      "url": "https://huggingface.co/FluidInference/cohere-transcribe-03-2026-coreml/resolve/e1ce10d4cae2ca9a8b36cef5786fa3660f070050/q8/cohere_decoder_cache_external_v3.mlmodelc/weights/weight.bin",
+      "bytes": 304453120,
+      "sha256": "86eac4bce6ca5d4ca49f5bf1078a1b42ab75f59d7c809678592a493742c29568"
+    },
+    {
+      "path": "cohere_encoder.mlmodelc/analytics/coremldata.bin",
+      "url": "https://huggingface.co/FluidInference/cohere-transcribe-03-2026-coreml/resolve/e1ce10d4cae2ca9a8b36cef5786fa3660f070050/q8/cohere_encoder.mlmodelc/analytics/coremldata.bin",
+      "bytes": 243,
+      "sha256": "b3144d7325a5c55145e5c46487379ad9fb0718f90f2a63fce63a6f0084b09a48"
+    },
+    {
+      "path": "cohere_encoder.mlmodelc/coremldata.bin",
+      "url": "https://huggingface.co/FluidInference/cohere-transcribe-03-2026-coreml/resolve/e1ce10d4cae2ca9a8b36cef5786fa3660f070050/q8/cohere_encoder.mlmodelc/coremldata.bin",
+      "bytes": 421,
+      "sha256": "2c677b62b835a6a7cd69499119df60c43e55eed1042063ede032ca5583802c9d"
+    },
+    {
+      "path": "cohere_encoder.mlmodelc/metadata.json",
+      "url": "https://huggingface.co/FluidInference/cohere-transcribe-03-2026-coreml/resolve/e1ce10d4cae2ca9a8b36cef5786fa3660f070050/q8/cohere_encoder.mlmodelc/metadata.json",
+      "bytes": 2587,
+      "sha256": "016f3faa32e8b6a5de7f6bb4967f277d6756be31c866510c77a4452e6dc0ad9c"
+    },
+    {
+      "path": "cohere_encoder.mlmodelc/model.mil",
+      "url": "https://huggingface.co/FluidInference/cohere-transcribe-03-2026-coreml/resolve/e1ce10d4cae2ca9a8b36cef5786fa3660f070050/q8/cohere_encoder.mlmodelc/model.mil",
+      "bytes": 2444649,
+      "sha256": "cb8d91e619d789de269a7256a85a83d2282977bbc333f3adfd3054d337b74826"
+    },
+    {
+      "path": "cohere_encoder.mlmodelc/weights/weight.bin",
+      "url": "https://huggingface.co/FluidInference/cohere-transcribe-03-2026-coreml/resolve/e1ce10d4cae2ca9a8b36cef5786fa3660f070050/q8/cohere_encoder.mlmodelc/weights/weight.bin",
+      "bytes": 1881964672,
+      "sha256": "f2992beb02730c9b751fe73c0fd898d83b013241531793e659776e5b3b9bc8a7"
+    },
+    {
+      "path": "README.md",
+      "url": "https://huggingface.co/FluidInference/cohere-transcribe-03-2026-coreml/resolve/e1ce10d4cae2ca9a8b36cef5786fa3660f070050/README.md",
+      "bytes": 8441,
+      "sha256": "e2d5f1f44cf6c8673424dbac3277a51e75ddef35e5377306c9bd9d0a7b117ce7"
+    },
+    {
+      "path": "vocab.json",
+      "url": "https://huggingface.co/FluidInference/cohere-transcribe-03-2026-coreml/resolve/e1ce10d4cae2ca9a8b36cef5786fa3660f070050/vocab.json",
+      "bytes": 338520,
+      "sha256": "38fd9d5f3ce45bf9eb65810ae19b823d504f70fa5a2fc906ee298a07d312ef91"
+    }
+  ]
+}

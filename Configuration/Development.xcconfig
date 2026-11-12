@@ -1,0 +1,15 @@
+PRODUCT_NAME = Veylume
+MARKETING_VERSION = 0.1.0
+CURRENT_PROJECT_VERSION = 13
+PRODUCT_BUNDLE_IDENTIFIER = local.Veylume.dev
+MACOSX_DEPLOYMENT_TARGET = 14.0
+ARCHS = arm64
+SWIFT_VERSION = 5.0
+INFOPLIST_FILE = Configuration/Info.plist
+CODE_SIGN_ENTITLEMENTS = Configuration/Veylume.entitlements
+CODE_SIGN_STYLE = Manual
+CODE_SIGN_IDENTITY = -
+ENABLE_HARDENED_RUNTIME = YES
+GENERATE_INFOPLIST_FILE = NO
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/../Frameworks
+#include? "Development.local.xcconfig"

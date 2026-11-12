@@ -1,0 +1,51 @@
+# macOS / local editors
+.DS_Store
+._*
+.idea/
+.vscode/
+
+# Swift / Xcode generated output; keep Package.resolved tracked
+.build/
+DerivedData/
+build/
+dist/
+*.xcuserstate
+xcuserdata/
+*.xcarchive/
+*.dSYM/
+*.app/
+*.dmg
+*.pkg
+
+# Local configuration and signing secrets
+.env
+.env.*
+!.env.example
+*.p8
+*.p12
+*.key
+*.pem
+*.mobileprovision
+*.provisionprofile
+.secrets/
+
+# Downloaded weights, recordings and recovery data belong outside source control
+.models/
+ModelDownloads/
+RecoveryData/
+Recordings/
+*.mlmodelc/
+
+# Temporary browser verification artifacts
+.agent-browser/
+artifacts/
+Configuration/Release.local.xcconfig
+Configuration/Development.local.xcconfig
+Configuration/LocalSigning*.local.json
+Configuration/release.env
+__pycache__/
+tmp/
+*.log
+
+# Original branding handoff archives stay local.
+Branding/*.zip

@@ -1,0 +1,13 @@
+{
+  "checked": "2026-11-10",
+  "failures": [
+    {
+      "repository": "FluidInference/cohere-transcribe-q8-cache-external-coreml",
+      "status": 401
+    },
+    {
+      "repository": "FluidInference/cohere-transcribe-cache-external-coreml",
+      "status": 401
+    }
+  ]
+}

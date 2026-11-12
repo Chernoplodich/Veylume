@@ -1,0 +1,6 @@
+#include "Development.xcconfig"
+CODE_SIGN_IDENTITY = Developer ID Application
+DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
+SWIFT_OPTIMIZATION_LEVEL = -O
+// Owner supplies stable public identity; template values never become URLs.
+#include? "Release.local.xcconfig"

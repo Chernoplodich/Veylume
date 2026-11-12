@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Installation help · Помощь с установкой
+    url: https://github.com/Chernoplodich/Veylume#start-dictating
+    about: Setup, permissions, and updates · Настройка, разрешения и обновления
+  - name: Security report · Сообщить об уязвимости
+    url: https://github.com/Chernoplodich/Veylume/security/advisories/new
+    about: Keep security details out of public issues · Не публикуйте подробности уязвимости в Issues
