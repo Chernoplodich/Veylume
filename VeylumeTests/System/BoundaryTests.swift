@@ -104,11 +104,15 @@ struct BoundaryTests {
             }
         }
     }
-    @Test @MainActor func recorderExposesStandardAccessibilityAction() {
-        let button = RecorderButton(frame: .zero)
+    @Test @MainActor func recorderRegistersAndDispatchesItsStandardTargetAction() throws {
+        _ = NSApplication.shared
+        let button = RecorderButton(frame: NSRect(x: 0, y: 0, width: 170, height: 28))
         #expect(button.target === button)
-        #expect(button.action != nil)
-        button.performClick(nil); #expect(button.listening)
+        let action = try #require(button.action)
+        // performClick animates an unattached cell and re-enters the shared
+        // AppKit run loop. Test the real synchronous control action instead.
+        #expect(button.sendAction(action, to: button.target))
+        #expect(button.listening)
         button.finish(); #expect(!button.listening)
     }
 }
