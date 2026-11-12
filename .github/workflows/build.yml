@@ -15,7 +15,9 @@ concurrency:
 
 jobs:
   macos:
-    runs-on: macos-26
+    # Run the unit tests on Intel; build.sh explicitly cross-compiles the app
+    # for arm64. Avoid the constrained hosted ARM runner pool.
+    runs-on: macos-26-intel
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
