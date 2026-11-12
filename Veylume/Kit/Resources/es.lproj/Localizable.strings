@@ -62,6 +62,7 @@
 "Choose your shortcut" = "Elige tu atajo";
 "Clear shortcut" = "Quitar atajo";
 "Click below, then choose Allow in the macOS dialog." = "Pulsa el botón de abajo y elige «Permitir» en el aviso de macOS.";
+"Clipboard" = "Portapapeles";
 "Close" = "Cerrar";
 "Cohere language" = "Idioma de Cohere";
 "Cold load" = "Carga inicial";
@@ -256,6 +257,7 @@
 "Secure input — shortcut unavailable" = "Entrada segura: atajo no disponible";
 "Secure storage" = "Almacenamiento seguro";
 "Select All" = "Seleccionar todo";
+"Set up clipboard access" = "Configurar acceso al portapapeles";
 "Settings sections" = "Secciones de configuración";
 "Settings…" = "Configuración…";
 "Shortcut is ready" = "Atajo listo";
@@ -334,6 +336,8 @@
 "days" = "días";
 "macOS Live Activities are unavailable. Veylume uses its own indicator." = "Las Actividades en directo no están disponibles en macOS. Se utiliza el indicador de Veylume.";
 "macOS Settings…" = "Configuración de macOS…";
+"macOS has denied clipboard access. Allow it for Veylume in System Settings. Your previous clipboard is unchanged." = "macOS ha bloqueado el acceso al portapapeles. Permite a Veylume acceder desde Ajustes del Sistema. El contenido anterior sigue intacto.";
+"macOS has denied clipboard access. Allow it to preserve the previous contents during paste." = "macOS ha bloqueado el acceso al portapapeles. Permítelo para conservar su contenido anterior al insertar texto.";
 "macOS is not reporting a camera cutout on this display. The compact indicator will be used." = "macOS no detecta un recorte de cámara en esta pantalla. Se usará el indicador compacto.";
 "macOS will ask you to enable Veylume. Only you can grant access." = "macOS te pedirá que actives Veylume. Solo tú puedes conceder el permiso.";
 "min" = "min";

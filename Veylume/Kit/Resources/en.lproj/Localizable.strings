@@ -62,6 +62,7 @@
 "Choose your shortcut" = "Choose your shortcut";
 "Clear shortcut" = "Clear shortcut";
 "Click below, then choose Allow in the macOS dialog." = "Click below, then choose Allow in the macOS dialog.";
+"Clipboard" = "Clipboard";
 "Close" = "Close";
 "Cohere language" = "Cohere language";
 "Cold load" = "Cold load";
@@ -256,6 +257,7 @@
 "Secure input — shortcut unavailable" = "Secure input — shortcut unavailable";
 "Secure storage" = "Secure storage";
 "Select All" = "Select All";
+"Set up clipboard access" = "Set up clipboard access";
 "Settings sections" = "Settings sections";
 "Settings…" = "Settings…";
 "Shortcut is ready" = "Shortcut is ready";
@@ -334,6 +336,8 @@
 "days" = "days";
 "macOS Live Activities are unavailable. Veylume uses its own indicator." = "macOS Live Activities are unavailable. Veylume uses its own indicator.";
 "macOS Settings…" = "macOS Settings…";
+"macOS has denied clipboard access. Allow it for Veylume in System Settings. Your previous clipboard is unchanged." = "macOS has denied clipboard access. Allow it for Veylume in System Settings. Your previous clipboard is unchanged.";
+"macOS has denied clipboard access. Allow it to preserve the previous contents during paste." = "macOS has denied clipboard access. Allow it to preserve the previous contents during paste.";
 "macOS is not reporting a camera cutout on this display. The compact indicator will be used." = "macOS is not reporting a camera cutout on this display. The compact indicator will be used.";
 "macOS will ask you to enable Veylume. Only you can grant access." = "macOS will ask you to enable Veylume. Only you can grant access.";
 "min" = "min";

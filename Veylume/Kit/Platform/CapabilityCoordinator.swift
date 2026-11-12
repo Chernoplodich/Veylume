@@ -9,6 +9,7 @@ import Carbon
     @Published private(set) var accessibility = false
     @Published private(set) var listen = false
     @Published private(set) var post = false
+    @Published private(set) var clipboardAccessDenied = false
     @Published private(set) var secureInput = false
     @Published private(set) var loginEnabled = false
     @Published private(set) var loginApprovalRequired = false
@@ -26,6 +27,7 @@ import Carbon
         refreshCaptureAccess()
         let currentListen = CGPreflightListenEventAccess(), currentPost = CGPreflightPostEventAccess()
         if listen != currentListen { listen = currentListen }; if post != currentPost { post = currentPost }
+        refreshClipboardAccess()
         let loginStatus = SMAppService.mainApp.status
         let login = loginStatus == .enabled
         if loginEnabled != login { loginEnabled = login }
@@ -100,6 +102,7 @@ import Carbon
             self.refreshCaptureAccess()
             if self.pendingRequests.contains(.listen) { self.listen = CGPreflightListenEventAccess() }
             if self.pendingRequests.contains(.post) { self.post = CGPreflightPostEventAccess() }
+            if self.pendingRequests.contains(.clipboard) { self.refreshClipboardAccess() }
             self.resolveGrantedRequests()
         } }
         permissionWatch?.tolerance = 0.1
@@ -109,7 +112,7 @@ import Carbon
         stopWatchingIfFinished(); onPermissionResolved?(request)
     }
     private func resolveGrantedRequests() {
-        let granted: [(PermissionRequest, Bool)] = [(.microphone, microphone == .authorized), (.accessibility, accessibility), (.listen, listen), (.post, post)]
+        let granted: [(PermissionRequest, Bool)] = [(.microphone, microphone == .authorized), (.accessibility, accessibility), (.listen, listen), (.post, post), (.clipboard, !clipboardAccessDenied)]
         for (request, allowed) in granted where allowed && pendingRequests.contains(request) { resolved(request) }
     }
     func cancelRequests(_ requests: Set<PermissionRequest>) {
@@ -117,6 +120,14 @@ import Carbon
     }
     private func stopWatchingIfFinished() {
         if pendingRequests.isEmpty { permissionWatch?.invalidate(); permissionWatch = nil; permissionDeadline = nil }
+    }
+    private func refreshClipboardAccess() {
+        let denied = ClipboardSnapshot.accessBehaviorCode() == "always_deny"
+        if clipboardAccessDenied != denied { clipboardAccessDenied = denied }
+    }
+    func openClipboardSettings() {
+        begin(.clipboard)
+        explainAndOpen(section: "Privacy_Pasteboard", name: I18n.tr("Буфер обмена", "Clipboard"))
     }
     deinit { permissionWatch?.invalidate() }
     func setLogin(_ enabled: Bool) throws {

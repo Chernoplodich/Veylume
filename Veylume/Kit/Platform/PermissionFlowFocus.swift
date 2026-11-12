@@ -1,6 +1,6 @@
 import AppKit
 
-enum PermissionRequest: Hashable { case microphone, accessibility, listen, post, storage }
+enum PermissionRequest: Hashable { case microphone, accessibility, listen, post, clipboard, storage }
 
 /// Focus belongs to an explicit permission action, not to background status
 /// polling. A closed window or a completed request can never pull the app back.

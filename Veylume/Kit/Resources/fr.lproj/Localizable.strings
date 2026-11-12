@@ -62,6 +62,7 @@
 "Choose your shortcut" = "Choisissez votre raccourci";
 "Clear shortcut" = "Supprimer le raccourci";
 "Click below, then choose Allow in the macOS dialog." = "Cliquez ci-dessous, puis choisissez « Autoriser » dans la fenêtre macOS.";
+"Clipboard" = "Presse-papiers";
 "Close" = "Fermer";
 "Cohere language" = "Langue de Cohere";
 "Cold load" = "Premier chargement";
@@ -256,6 +257,7 @@
 "Secure input — shortcut unavailable" = "Saisie sécurisée : raccourci indisponible";
 "Secure storage" = "Stockage sécurisé";
 "Select All" = "Tout sélectionner";
+"Set up clipboard access" = "Régler l’accès au presse-papiers";
 "Settings sections" = "Rubriques des réglages";
 "Settings…" = "Réglages…";
 "Shortcut is ready" = "Raccourci prêt";
@@ -334,6 +336,8 @@
 "days" = "jours";
 "macOS Live Activities are unavailable. Veylume uses its own indicator." = "Les activités en direct ne sont pas disponibles sur macOS. L’indicateur de Veylume est utilisé.";
 "macOS Settings…" = "Réglages macOS…";
+"macOS has denied clipboard access. Allow it for Veylume in System Settings. Your previous clipboard is unchanged." = "macOS a bloqué l’accès au presse-papiers. Autorisez Veylume dans Réglages Système. Le contenu précédent n’a pas été modifié.";
+"macOS has denied clipboard access. Allow it to preserve the previous contents during paste." = "macOS a bloqué l’accès au presse-papiers. Autorisez-le pour conserver son contenu précédent lors du collage.";
 "macOS is not reporting a camera cutout on this display. The compact indicator will be used." = "macOS ne signale aucune encoche sur cet écran. L’indicateur compact sera utilisé.";
 "macOS will ask you to enable Veylume. Only you can grant access." = "macOS vous demandera d’activer Veylume. Vous seul pouvez accorder cette autorisation.";
 "min" = "min";

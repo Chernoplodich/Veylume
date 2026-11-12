@@ -1793,6 +1793,34 @@
         }
       }
     },
+    "Clipboard": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clipboard"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Буфер обмена"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Portapapeles"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Presse-papiers"
+          }
+        }
+      }
+    },
     "Close": {
       "localizations": {
         "en": {
@@ -7225,6 +7253,34 @@
         }
       }
     },
+    "Set up clipboard access": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set up clipboard access"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Настроить доступ к буферу"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configurar acceso al portapapeles"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Régler l’accès au presse-papiers"
+          }
+        }
+      }
+    },
     "Settings sections": {
       "localizations": {
         "en": {
@@ -9405,6 +9461,62 @@
           "stringUnit": {
             "state": "translated",
             "value": "Réglages macOS…"
+          }
+        }
+      }
+    },
+    "macOS has denied clipboard access. Allow it for Veylume in System Settings. Your previous clipboard is unchanged.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS has denied clipboard access. Allow it for Veylume in System Settings. Your previous clipboard is unchanged."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS запретила доступ к буферу. Разрешите его для Veylume в Системных настройках. Старый буфер сохранён."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS ha bloqueado el acceso al portapapeles. Permite a Veylume acceder desde Ajustes del Sistema. El contenido anterior sigue intacto."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS a bloqué l’accès au presse-papiers. Autorisez Veylume dans Réglages Système. Le contenu précédent n’a pas été modifié."
+          }
+        }
+      }
+    },
+    "macOS has denied clipboard access. Allow it to preserve the previous contents during paste.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS has denied clipboard access. Allow it to preserve the previous contents during paste."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS запретила доступ к буферу. Разрешите его для сохранения прежнего содержимого при вставке."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS ha bloqueado el acceso al portapapeles. Permítelo para conservar su contenido anterior al insertar texto."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS a bloqué l’accès au presse-papiers. Autorisez-le pour conserver son contenu précédent lors du collage."
           }
         }
       }

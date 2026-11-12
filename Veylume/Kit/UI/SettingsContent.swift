@@ -77,6 +77,14 @@ struct GeneralSettings: View {
         PermissionSettings(capabilities: capabilities, hasShortcut: preferences.value.hasShortcuts, recheck: { session.refreshHotkeys() })
         GlassGroup {
             AppRow(title: I18n.tr("Автоматическая вставка", "Automatic insertion")) { Toggle("", isOn: $preferences.value.automaticInsertion).labelsHidden().toggleStyle(.switch).controlSize(.small) }
+            if preferences.value.automaticInsertion && capabilities.clipboardAccessDenied {
+                Divider()
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(I18n.tr("macOS запретила доступ к буферу. Разрешите его для сохранения прежнего содержимого при вставке.", "macOS has denied clipboard access. Allow it to preserve the previous contents during paste."))
+                        .font(.caption).foregroundStyle(.secondary)
+                    Button(I18n.tr("Настроить доступ к буферу", "Set up clipboard access")) { capabilities.openClipboardSettings() }.controlSize(.small)
+                }.padding(12)
+            }
         }
         StorageModeControl(session: session, preferences: preferences)
         GlassGroup {
@@ -113,14 +121,18 @@ struct PermissionSettings: View {
         FullRowDisclosure(title: I18n.tr("Доступ для записи и вставки", "Recording and insertion access")) {
             permissionRow(I18n.tr("Микрофон", "Microphone"), allowed: capabilities.microphone == .authorized) { Task { await capabilities.requestMicrophone() } }
             permissionRow(I18n.tr("Вставка и клавиши", "Insertion and shortcuts"), allowed: capabilities.accessibility) { if capabilities.accessibilityRequested { capabilities.openAccessibilitySettings() } else { capabilities.requestAccessibility() } }
+            if capabilities.clipboardAccessDenied {
+                permissionRow(I18n.tr("Буфер обмена", "Clipboard"), allowed: false) { capabilities.openClipboardSettings() }
+            }
             HStack {
                 Button(I18n.tr("Настройки macOS…", "macOS Settings…")) { capabilities.openSystemSettings() }
                 Spacer()
                 Button(checked ? I18n.tr("Проверить ещё раз", "Check again") : I18n.tr("Проверить доступ", "Recheck access")) { capabilities.refresh(); recheck(); checked = true }
             }.controlSize(.small)
             if checked {
-                Label(capabilities.microphone == .authorized && capabilities.accessibility ? I18n.tr("Проверено: запись и вставка доступны", "Checked: recording and insertion are available") : I18n.tr("Проверено: разрешите доступы, отмеченные выше", "Checked: allow the access marked above"), systemImage: capabilities.microphone == .authorized && capabilities.accessibility ? "checkmark.circle.fill" : "exclamationmark.circle")
-                    .font(.caption).foregroundStyle(capabilities.microphone == .authorized && capabilities.accessibility ? Color.green : .secondary)
+                let available = capabilities.microphone == .authorized && capabilities.accessibility && !capabilities.clipboardAccessDenied
+                Label(available ? I18n.tr("Проверено: запись и вставка доступны", "Checked: recording and insertion are available") : I18n.tr("Проверено: разрешите доступы, отмеченные выше", "Checked: allow the access marked above"), systemImage: available ? "checkmark.circle.fill" : "exclamationmark.circle")
+                    .font(.caption).foregroundStyle(available ? Color.green : .secondary)
             }
             if capabilities.secureInput { Text(I18n.tr("Защищённый ввод включён. Выйдите из поля пароля для работы клавиш.", "Secure Input is enabled. Leave the password field to use shortcuts.")).font(.caption).foregroundStyle(.secondary) }
             PermissionGuidance(capabilities: capabilities)

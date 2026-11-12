@@ -127,6 +127,7 @@ struct ResultCardView: View {
             switch entry.manualReason {
             case "clipboard_unsupported": return I18n.tr("Автовставка пропущена, чтобы сохранить буфер.", "Auto-paste was skipped to preserve your clipboard.")
             case "clipboard_too_large": return I18n.tr("В буфере слишком много данных для безопасного восстановления. Этот текст можно скопировать.", "The clipboard is too large to restore safely. You can copy this result.")
+            case "clipboard_access_denied": return I18n.tr("macOS запретила доступ к буферу. Разрешите его для Veylume в Системных настройках. Старый буфер сохранён.", "macOS has denied clipboard access. Allow it for Veylume in System Settings. Your previous clipboard is unchanged.")
             case "clipboard_file_promise", "clipboard_provider_unavailable": return I18n.tr("Приложение ещё не подготовило данные в буфере. Этот текст можно скопировать.", "An app has not finished providing the clipboard data. You can copy this result.")
             case "clipboard_changed": return I18n.tr("Буфер изменился во время подготовки вставки. Этот текст можно скопировать.", "The clipboard changed while preparing the paste. You can copy this result.")
             case "no_external_application", "source_changed_before_capture": return I18n.tr("Выберите поле перед следующей записью. Этот текст можно скопировать.", "Choose a field before your next recording. You can copy this text.")

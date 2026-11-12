@@ -23,10 +23,16 @@ struct ClipboardSnapshot {
     let changeCount: Int
     static func capture(_ pasteboard: NSPasteboard, limit: Int = 8 * 1024 * 1024, failure: (String) -> Void = { _ in }) -> ClipboardSnapshot? {
         func reject(_ code: String) -> ClipboardSnapshot? { failure(code); return nil }
+        func unavailable() -> ClipboardSnapshot? {
+            reject(accessBehaviorCode(pasteboard) == "always_deny" ? "clipboard_access_denied" : "clipboard_provider_unavailable")
+        }
         let changeCount = pasteboard.changeCount
+        // nil means an error retrieving items, not an empty clipboard. In
+        // particular, a privacy denial must never authorize clearing contents.
+        guard let sourceItems = pasteboard.pasteboardItems else { return unavailable() }
         var items: [[NSPasteboard.PasteboardType: Data]] = []; var total = 0
-        guard limit >= 0, (pasteboard.pasteboardItems?.count ?? 0) <= 64 else { return reject("clipboard_too_large") }
-        for item in pasteboard.pasteboardItems ?? [] {
+        guard limit >= 0, sourceItems.count <= 64 else { return reject("clipboard_too_large") }
+        for item in sourceItems {
             guard item.types.count <= 64 else { return reject("clipboard_too_large") }
             var stored: [NSPasteboard.PasteboardType: Data] = [:]
             for type in item.types {
@@ -45,7 +51,7 @@ struct ClipboardSnapshot {
                     // its converter returns nil. It is reproducible from the
                     // already-materialized UTF-8 item; arbitrary providers aren't.
                     data = encoded
-                } else { return reject("clipboard_provider_unavailable") }
+                } else { return unavailable() }
                 guard data.count <= limit - total else { return reject("clipboard_too_large") }
                 total += data.count; stored[type] = data
             }
@@ -53,6 +59,19 @@ struct ClipboardSnapshot {
         }
         guard pasteboard.changeCount == changeCount else { return reject("clipboard_changed") }
         return ClipboardSnapshot(items: items, changeCount: changeCount)
+    }
+    /// Permission metadata only. Never reads a payload or changes an OS grant.
+    static func accessBehaviorCode(_ pasteboard: NSPasteboard = .general) -> String {
+        if #available(macOS 15.4, *) {
+            switch pasteboard.accessBehavior {
+            case .default: return "default"
+            case .ask: return "ask"
+            case .alwaysAllow: return "always_allow"
+            case .alwaysDeny: return "always_deny"
+            @unknown default: return "unknown"
+            }
+        }
+        return "legacy"
     }
     private static func isFilePromise(_ type: NSPasteboard.PasteboardType) -> Bool {
         let name = type.rawValue.lowercased()

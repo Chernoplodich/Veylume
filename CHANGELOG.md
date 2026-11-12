@@ -3,6 +3,7 @@
 ## 0.1.2 — Paste and recording feedback
 
 - Automatic paste now preserves materialized custom clipboard formats instead of rejecting every unfamiliar type. File promises, unavailable providers, and oversized snapshots still leave the original clipboard untouched, with a specific explanation.
+- An unreadable clipboard is never treated as empty. A system clipboard-access denial has its own explanation and settings action.
 - Storage is optional. Dictation and insertion continue when Keychain access needs reconnecting after an update. Previous saving preferences and encrypted data are retained; saving, vocabulary, and crash recovery pause until access returns. New installations start without persistent storage.
 - The recording bars respond together to the current microphone level instead of scrolling recent history. Rendering still uses one native layer and no animation timer.
 - Permission actions restore their originating window after confirmation. Closing that window cancels the return.
@@ -11,6 +12,8 @@
 ### По-русски
 
 Автовставка сохраняет дополнительные форматы буфера, из-за которых обычные диктовки могли уходить в Copy. Для слишком большого буфера, ещё не готовых данных и обещаний будущих файлов остаётся безопасное ручное копирование с отдельным объяснением.
+
+Ошибка чтения буфера не считается его пустым содержимым. Системный запрет доступа показан отдельно, с переходом к настройкам.
 
 Хранилище стало необязательным. Если после обновления нужно снова подтвердить доступ, диктовка и вставка работают, а сохранение, словарь и восстановление приостанавливаются. Прежние настройки и зашифрованные данные остаются на месте. Новая установка начинает работу без постоянного хранилища.
 

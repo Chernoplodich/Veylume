@@ -62,6 +62,7 @@
 "Choose your shortcut" = "Выберите клавишу";
 "Clear shortcut" = "Убрать клавишу";
 "Click below, then choose Allow in the macOS dialog." = "Нажмите кнопку ниже и выберите «Разрешить» в окне macOS.";
+"Clipboard" = "Буфер обмена";
 "Close" = "Закрыть";
 "Cohere language" = "Язык Cohere";
 "Cold load" = "Холодная загрузка";
@@ -256,6 +257,7 @@
 "Secure input — shortcut unavailable" = "Защищённый ввод — клавиша недоступна";
 "Secure storage" = "Защищённое хранилище";
 "Select All" = "Выбрать всё";
+"Set up clipboard access" = "Настроить доступ к буферу";
 "Settings sections" = "Разделы настроек";
 "Settings…" = "Настройки…";
 "Shortcut is ready" = "Клавиша работает";
@@ -334,6 +336,8 @@
 "days" = "дней";
 "macOS Live Activities are unavailable. Veylume uses its own indicator." = "Live Activities недоступны для macOS. Используется индикатор Veylume.";
 "macOS Settings…" = "Настройки macOS…";
+"macOS has denied clipboard access. Allow it for Veylume in System Settings. Your previous clipboard is unchanged." = "macOS запретила доступ к буферу. Разрешите его для Veylume в Системных настройках. Старый буфер сохранён.";
+"macOS has denied clipboard access. Allow it to preserve the previous contents during paste." = "macOS запретила доступ к буферу. Разрешите его для сохранения прежнего содержимого при вставке.";
 "macOS is not reporting a camera cutout on this display. The compact indicator will be used." = "macOS не сообщает о вырезе на этом экране. Будет показан компактный индикатор.";
 "macOS will ask you to enable Veylume. Only you can grant access." = "macOS попросит вас включить Veylume. Это делаете только вы.";
 "min" = "мин";

@@ -28,6 +28,8 @@ Some apps require a temporary clipboard transaction for paste. Clipboard manager
 
 Materialized custom formats are preserved as opaque bytes along with standard formats. File promises, unavailable providers, and snapshots over the memory limit cause automatic paste to be skipped; the original clipboard is left untouched. A later user copy always wins over restoration.
 
+Recent macOS versions can separately restrict reading the clipboard. Veylume reports a known system denial and offers the corresponding settings action. An error retrieving clipboard items is never treated as an empty clipboard. Diagnostics include the system access policy, without reading clipboard contents.
+
 ## Permissions and diagnostics
 
 Microphone access is for recording. Accessibility is for shortcuts and insertion. Input Monitoring is requested only when needed. Screen Recording, camera, contacts, and Full Disk Access are not required for dictation.

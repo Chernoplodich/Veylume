@@ -6,6 +6,13 @@ import CryptoKit
 import VeylumeCore
 
 struct BoundaryTests {
+    @Test @MainActor func trulyEmptyClipboardCanBeSnapshottedWithoutConfusingItWithAReadError() throws {
+        let board = NSPasteboard.withUniqueName(); defer { board.releaseGlobally() }
+        board.clearContents()
+        let snapshot = try #require(ClipboardSnapshot.capture(board))
+        #expect(snapshot.items.isEmpty)
+        #expect(ClipboardSnapshot.accessBehaviorCode(board) != "always_deny")
+    }
     @Test @MainActor func clipboardRoundTripPreservesMultipleItemsAndNewOwnerWins() throws {
         let board = NSPasteboard.withUniqueName(); defer { board.releaseGlobally() }
         let first = NSPasteboardItem(); first.setString("original", forType: .string); first.setData(Data([1,2,3]), forType: .rtf)
