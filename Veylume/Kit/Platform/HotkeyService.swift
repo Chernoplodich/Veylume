@@ -56,7 +56,11 @@ final class HotkeyService: @unchecked Sendable {
     func reenable() { if let tap { CGEvent.tapEnable(tap: tap, enable: true) } }
     static func display(_ shortcut: Shortcut?) -> String {
         guard let shortcut else { return I18n.tr("Назначить…", "Assign…") }
-        let modifiers = [(UInt64(1 << 18), "⌃"), (1 << 19, "⌥"), (1 << 17, "⇧"), (1 << 20, "⌘"), (1 << 23, "fn ")].filter { shortcut.modifiers & $0.0 != 0 }.map(\.1).joined()
+        let symbols: [(mask: UInt64, text: String)] = [
+            (1 << 18, "⌃"), (1 << 19, "⌥"), (1 << 17, "⇧"), (1 << 20, "⌘"), (1 << 23, "fn ")
+        ]
+        var modifiers = ""
+        for symbol in symbols where shortcut.modifiers & symbol.mask != 0 { modifiers += symbol.text }
         var name = "Key \(shortcut.keyCode)"
         if let source = TISCopyCurrentKeyboardLayoutInputSource()?.takeRetainedValue(), let pointer = TISGetInputSourceProperty(source, kTISPropertyUnicodeKeyLayoutData) {
             let data = Unmanaged<CFData>.fromOpaque(pointer).takeUnretainedValue()
