@@ -49,4 +49,19 @@ struct ShortcutRouterTests {
         var restarted = try JSONDecoder().decode(Preferences.self, from: JSONEncoder().encode(decoded)); restarted.migrateSettings()
         #expect(!restarted.hasShortcuts)
     }
+    @Test func oldIndicatorSettingsKeepTheShortcutModelAndHistoryWhenPositionIsMissing() throws {
+        var p = Preferences(); p.indicator = .auto; p.holdShortcut = hold
+        p.selectedModel = "whisper-small"; p.historyEnabled = true; p.onboardingCompleted = true
+        var json = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(p)) as? [String: Any])
+        json.removeValue(forKey: "indicatorPosition")
+        var restored = try JSONDecoder().decode(Preferences.self, from: JSONSerialization.data(withJSONObject: json))
+        restored.migrateSettings()
+        #expect(restored.indicator == .notch); #expect(restored.resolvedIndicatorPosition == .top)
+        #expect(restored.holdShortcut == hold); #expect(restored.selectedModel == "whisper-small")
+        #expect(restored.historyEnabled); #expect(restored.onboardingCompleted)
+        restored.indicator = .mini; restored.indicatorPosition = .bottom
+        let restarted = try JSONDecoder().decode(Preferences.self, from: JSONEncoder().encode(restored))
+        #expect(restarted.indicator == .mini); #expect(restarted.resolvedIndicatorPosition == .bottom)
+        #expect(restarted.holdShortcut == hold)
+    }
 }

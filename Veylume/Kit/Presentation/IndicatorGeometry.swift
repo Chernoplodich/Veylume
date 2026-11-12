@@ -29,25 +29,26 @@ struct IndicatorPlacement: Equatable {
 }
 
 enum IndicatorGeometry {
+    static func cameraRect(screen: CGRect, safeAreaTop: CGFloat, leftArea: CGRect?, rightArea: CGRect?) -> CGRect? {
+        guard safeAreaTop.isFinite, safeAreaTop > 0, safeAreaTop < screen.height / 4,
+              let leftArea, let rightArea,
+              [screen, leftArea, rightArea].allSatisfy({ $0.isFiniteRect }),
+              abs(leftArea.minX - screen.minX) <= 1, abs(rightArea.maxX - screen.maxX) <= 1,
+              leftArea.maxX >= screen.minX, rightArea.minX <= screen.maxX,
+              rightArea.minX - leftArea.maxX >= 72, rightArea.minX - leftArea.maxX < screen.width / 2 else { return nil }
+        let band = CGRect(x: screen.minX, y: screen.maxY - safeAreaTop, width: screen.width, height: safeAreaTop)
+        // Auxiliary areas describe visible regions, not a guaranteed menu-row
+        // height. Accept different heights as long as they overlap the top band.
+        guard leftArea.intersects(band), rightArea.intersects(band) else { return nil }
+        return CGRect(x: leftArea.maxX, y: band.minY, width: rightArea.minX - leftArea.maxX, height: safeAreaTop)
+    }
+
     static func placement(screen: CGRect, visible: CGRect, safeAreaTop: CGFloat,
                           leftArea: CGRect?, rightArea: CGRect?, style: IndicatorStyle,
+                          position: IndicatorPosition = .top,
                           resultSize: CGSize? = nil, protectedMenuRects: [CGRect]? = nil) -> IndicatorPlacement {
-        var cutout: CGRect?
-        if style == .auto || style == .notch,
-           safeAreaTop.isFinite, safeAreaTop > 0, safeAreaTop < screen.height / 4,
-           let leftArea, let rightArea,
-           [screen, leftArea, rightArea].allSatisfy({ $0.isFiniteRect }),
-           abs(leftArea.minX - screen.minX) <= 1, abs(rightArea.maxX - screen.maxX) <= 1,
-           abs(leftArea.maxY - screen.maxY) <= 1, abs(rightArea.maxY - screen.maxY) <= 1,
-           abs(leftArea.minY - (screen.maxY - safeAreaTop)) <= 1,
-           abs(rightArea.minY - (screen.maxY - safeAreaTop)) <= 1,
-           leftArea.maxX >= screen.minX, rightArea.minX <= screen.maxX,
-           rightArea.minX - leftArea.maxX >= 72, rightArea.minX - leftArea.maxX < screen.width / 2 {
-            cutout = CGRect(x: leftArea.maxX, y: screen.maxY - safeAreaTop,
-                            width: rightArea.minX - leftArea.maxX, height: safeAreaTop)
-        }
-        if let cutout, resultSize == nil,
-           protectedMenuRects?.contains(where: { !$0.isFiniteRect || $0.intersects(cutout) }) != true {
+        let cutout = style == .auto || style == .notch ? cameraRect(screen: screen, safeAreaTop: safeAreaTop, leftArea: leftArea, rightArea: rightArea) : nil
+        if let cutout, resultSize == nil {
             let wingWidth = IndicatorSurfaceLayout.wingWidth
             let leftWing = CGRect(x: cutout.minX - wingWidth, y: cutout.minY, width: wingWidth, height: cutout.height)
             let rightWing = leftWing.offsetBy(dx: cutout.width + wingWidth, dy: 0)
@@ -63,9 +64,10 @@ enum IndicatorGeometry {
                                       layout: .attached(width: cutout.width, cutoutHeight: cutout.height))
         }
         let size = resultSize ?? CGSize(width: 72, height: 24)
+        let bottom = cutout == nil && position == .bottom
         let top = cutout.map { $0.minY - 6 } ?? visible.maxY - 36
         let x = min(visible.maxX - size.width - 8, max(visible.minX + 8, (cutout?.midX ?? screen.midX) - size.width / 2))
-        return IndicatorPlacement(frame: CGRect(x: x, y: max(visible.minY + 8, top - size.height),
+        return IndicatorPlacement(frame: CGRect(x: x, y: bottom ? visible.minY + 18 : max(visible.minY + 8, top - size.height),
                                                  width: size.width, height: size.height), layout: .mini)
     }
 }

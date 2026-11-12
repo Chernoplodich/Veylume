@@ -94,22 +94,12 @@ struct AppearanceSettings: View {
         PageHeading(title: SettingsSection.appearance.title, subtitle: I18n.tr("Немного стекла, тихие сигналы и ничего лишнего.", "A little glass, gentle cues, and just what you need."))
         GlassGroup {
             AppRow(title: I18n.tr("Тема", "Theme")) { NativePopup(selection: $preferences.value.theme, choices: [(I18n.tr("Как в системе", "System"), Theme.system), (I18n.tr("Светлая", "Light"), .light), (I18n.tr("Тёмная", "Dark"), .dark)], label: I18n.tr("Тема", "Theme")).frame(width: 200) }
-            Divider()
-            AppRow(title: I18n.tr("Индикатор", "Indicator")) {
-                NativePopup(selection: $preferences.value.indicator, choices: [(I18n.tr("Автоматически", "Automatic"), IndicatorStyle.auto), ("Mini", .mini), (I18n.tr("У чёлки", "Near the notch"), .notch)], label: I18n.tr("Индикатор", "Indicator")).frame(width: 200)
-            }
         }
-        HStack { Spacer(); MiniIndicator(session: session, openControls: {}); Spacer() }.padding(.vertical, 6)
-        Text(I18n.tr("На MacBook индикатор примыкает к чёлке. На экране без выреза — компактный Mini. Нажмите на индикатор, чтобы открыть управление.", "On MacBook, the indicator attaches to the notch. Displays without a cutout use compact Mini. Click the indicator for controls.")).font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+        IndicatorSettings(value: $preferences.value)
         GlassGroup {
             AppRow(title: I18n.tr("Звуки", "Sounds")) { Toggle("", isOn: $preferences.value.soundsEnabled).labelsHidden().toggleStyle(.switch).controlSize(.small) }
             Divider(); AppRow(title: I18n.tr("Громкость", "Volume")) { Slider(value: $preferences.value.soundVolume, in: 0...1).frame(width: 160).accessibilityLabel(I18n.tr("Громкость сигналов", "Cue volume")) }
             Divider(); AppRow(title: I18n.tr("Лимит записи", "Recording limit")) { RecordingLimitControl(minutes: $preferences.value.recordingLimitMinutes).frame(width: 200) }
-        }
-        GlassGroup {
-            AppRow(title: I18n.tr("Экран", "Screen")) {
-                NativePopup(selection: Binding(get: { preferences.value.screenID ?? 0 }, set: { preferences.value.screenID = $0 == 0 ? nil : $0 }), choices: [(I18n.tr("Активный экран", "Active screen"), UInt32(0))] + NSScreen.screens.map { ($0.localizedName, ($0.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? UInt32) ?? 0) }, label: I18n.tr("Экран", "Screen")).frame(width: 200)
-            }
         }
     }
 }

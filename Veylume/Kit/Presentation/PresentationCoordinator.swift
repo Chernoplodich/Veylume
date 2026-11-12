@@ -106,6 +106,7 @@ struct ResultOverlayState {
     private var recordingAnchor: Date?
     private var anchorScreenID: UInt32?
     private let controls = NSPopover()
+    private var controlsEdge: NSRectEdge = .minY
     private var observer: NSObjectProtocol?
     private var activationObserver: NSObjectProtocol?
     init(session: SessionCoordinator) {
@@ -155,7 +156,9 @@ struct ResultOverlayState {
         checkMenuSpace(on: screen)
         let placement = IndicatorGeometry.placement(screen: screen.frame, visible: screen.visibleFrame, safeAreaTop: screen.safeAreaInsets.top,
             leftArea: screen.auxiliaryTopLeftArea, rightArea: screen.auxiliaryTopRightArea, style: session.preferences.value.indicator,
+            position: session.preferences.value.resolvedIndicatorPosition,
             resultSize: result.map { CompactResultContent.size(for: $0) }, protectedMenuRects: protectedMenuRects)
+        controlsEdge = placement.frame.midY < screen.frame.midY ? .maxY : .minY
         if panel == nil {
             panel = Self.makeIndicatorPanel(content: miniContent(layout: placement.layout))
             displayedLayout = placement.layout
@@ -192,6 +195,10 @@ struct ResultOverlayState {
     }
     private func checkMenuSpace(on screen: NSScreen) {
         let style = session.preferences.value.indicator
+        if style == .mini || screen.safeAreaInsets.top <= 0 {
+            menuProbe?.cancel(); menuProbe = nil; menuProbeKey = nil; protectedMenuRects = nil
+            return
+        }
         guard result == nil, session.phase == .preparing || session.phase == .recording,
               screen.safeAreaInsets.top > 0, style == .auto || style == .notch,
               let began = session.startedAt, let frontPID = NSWorkspace.shared.frontmostApplication?.processIdentifier,
@@ -221,7 +228,7 @@ struct ResultOverlayState {
     }
     private func showControls() {
         guard let view = panel?.contentView else { return }
-        controls.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
+        controls.show(relativeTo: view.bounds, of: view, preferredEdge: controlsEdge)
     }
 }
 

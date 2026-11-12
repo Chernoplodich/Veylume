@@ -39,6 +39,12 @@ Quit Veylume from its menu. Download the new DMG, replace the existing app in th
 
 The preview has no automatic update channel. macOS may ask you to authorize a changed build again.
 
+## Recording indicator
+
+Open **Settings → Appearance**. Choose **Camera cutout** to attach the indicator to the MacBook camera area. It extends sideways when there is space; if menus occupy that space, the waveform joins the cutout from below. Choose **Compact** for a separate capsule, then set **Position** to **Top** or **Bottom**. **Screen** lets you choose a display or follow the active one.
+
+If macOS does not report a camera cutout, the settings show an explanation and Veylume uses the compact style. This also applies to external monitors. If your MacBook has a cutout but is not detected, include the display geometry from **Diagnostics** when reporting the problem. Do not send a screenshot of private messages or a transcript.
+
 ## If something does not work
 
 Check that the model is ready and Veylume is not paused. Confirm that only one installed copy is running. Put the cursor back in the intended field and leave it there until the result arrives. Password fields can activate Secure Input; leave the protected field before starting another dictation.

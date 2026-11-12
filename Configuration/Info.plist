@@ -12,6 +12,7 @@
 <key>LSMinimumSystemVersion</key><string>14.0</string>
 <key>LSUIElement</key><true/>
 <key>NSHighResolutionCapable</key><true/>
+<key>NSPrefersDisplaySafeAreaCompatibilityMode</key><false/>
 <key>NSMicrophoneUsageDescription</key><string>Veylume uses the microphone to turn your speech into text on this Mac.</string>
 <key>SUEnableAutomaticChecks</key><false/>
 <key>SUAutomaticallyUpdate</key><false/>

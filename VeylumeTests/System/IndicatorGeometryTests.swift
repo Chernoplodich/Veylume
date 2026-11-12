@@ -33,12 +33,35 @@ struct IndicatorGeometryTests {
             #expect(!p.frame.intersects(rect))
         }
     }
-    @Test func anOverlayStraddlingTheCameraKeepsEvenTheCornerBridgeClear() {
+    @Test func windowsSpanningTheCameraDoNotDisableTheReservedCameraAttachment() {
         let overlay = CGRect(x: 850, y: 954, width: 24, height: 24)
         let p = IndicatorGeometry.placement(screen: screen, visible: visible, safeAreaTop: 32,
             leftArea: left, rightArea: right, style: .auto, protectedMenuRects: [overlay])
-        #expect(p.layout == .mini)
-        #expect(!p.frame.intersects(overlay))
+        #expect(p.layout == .attached(width: 192, cutoutHeight: 32))
+        #expect(!p.frame.intersects(overlay.intersection(right)))
+        let backdrop = IndicatorGeometry.placement(screen: screen, visible: visible, safeAreaTop: 32,
+            leftArea: left, rightArea: right, style: .notch, protectedMenuRects: [CGRect(x: 0, y: 950, width: 1512, height: 32)])
+        #expect(backdrop.layout == .attached(width: 192, cutoutHeight: 32))
+        #expect(!backdrop.frame.intersects(left)); #expect(!backdrop.frame.intersects(right))
+    }
+    @Test func auxiliaryAreaHeightCanDifferFromTheCameraInset() {
+        let tallerLeft = CGRect(x: 0, y: 945, width: 660, height: 37)
+        let tallerRight = CGRect(x: 852, y: 945, width: 660, height: 37)
+        let p = IndicatorGeometry.placement(screen: screen, visible: visible, safeAreaTop: 32,
+            leftArea: tallerLeft, rightArea: tallerRight, style: .notch)
+        #expect(p.layout == .attached(width: 192, cutoutHeight: 32))
+    }
+    @Test func compactBottomUsesTheVisibleFrameAboveTheDockAndMovesResultsWithIt() {
+        let p = IndicatorGeometry.placement(screen: screen, visible: visible, safeAreaTop: 32,
+            leftArea: left, rightArea: right, style: .mini, position: .bottom)
+        #expect(p.layout == .mini); #expect(p.frame.minY == visible.minY + 18)
+        #expect(visible.contains(p.frame))
+        let result = IndicatorGeometry.placement(screen: screen, visible: visible, safeAreaTop: 32,
+            leftArea: left, rightArea: right, style: .mini, position: .bottom, resultSize: CGSize(width: 360, height: 180))
+        #expect(result.frame.minY == p.frame.minY); #expect(visible.contains(result.frame))
+        let attached = IndicatorGeometry.placement(screen: screen, visible: visible, safeAreaTop: 32,
+            leftArea: left, rightArea: right, style: .notch, position: .bottom)
+        #expect(attached.frame.maxY == screen.maxY)
     }
     @Test func menuWindowCoordinatesUseThePrimaryScreenTopIncludingNegativeOffsets() {
         let cgFrame = CGRect(x: -900, y: -500, width: 40, height: 24)

@@ -24,6 +24,8 @@ Once the model is installed, dictation works offline. There is no account or sub
 
 Veylume lives in the menu bar. A small indicator shows when you are recording and when your words are being processed. On MacBooks with a camera cutout, it uses the space around the camera when available.
 
+In **Appearance**, choose **Camera cutout** for an integrated indicator or **Compact** for a small capsule. The compact indicator can sit at the top or bottom of your chosen display. If the display has no camera cutout, Veylume uses the compact style.
+
 - **Local speech recognition.** Parakeet V3 is set up automatically; optional Whisper and Cohere models are available in Settings.
 - **Your own shortcuts.** Set separate shortcuts for hold-to-record and press-to-toggle.
 - **Insertion into other apps.** Use it in text editors, browsers, messaging apps, terminals, and IDEs. It never presses Enter or sends a message. If the destination changes or insertion cannot be attempted safely, the text stays available to copy.

@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 
 struct DiagnosticsContent: View {
     @ObservedObject var session: SessionCoordinator
@@ -50,7 +51,14 @@ struct DiagnosticsContent: View {
             lines.append("Recent pipeline codes (no text or app identity):")
             for p in recent.suffix(10) { lines.append(String(format: "%.1f ms; %@; %@; %@", p.stopToResultMilliseconds, p.insertionOutcome, p.destinationDiagnostic, p.insertionDiagnostic)) }
         }
-        lines.append("Presentation: AppKit notch attachment on cutout displays; Mini fallback; ActivityKit unavailable for macOS")
+        lines.append("Indicator: \(session.preferences.value.indicator.rawValue); compact position: \(session.preferences.value.resolvedIndicatorPosition.rawValue)")
+        for (index, screen) in NSScreen.screens.enumerated() {
+            let camera = IndicatorGeometry.cameraRect(screen: screen.frame, safeAreaTop: screen.safeAreaInsets.top,
+                leftArea: screen.auxiliaryTopLeftArea, rightArea: screen.auxiliaryTopRightArea)
+            let left = screen.auxiliaryTopLeftArea, right = screen.auxiliaryTopRightArea
+            let gap = left.flatMap { l in right.map { $0.minX - l.maxX } }
+            lines.append("Display \(index + 1): \(Int(screen.frame.width))x\(Int(screen.frame.height)); safe top: \(screen.safeAreaInsets.top); auxiliary: \(left != nil)/\(right != nil); gap: \(gap.map(String.init(describing:)) ?? "n/a"); camera: \(camera != nil)")
+        }
         return lines.joined(separator: "\n")
     }
 }

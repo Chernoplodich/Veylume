@@ -953,6 +953,62 @@
         }
       }
     },
+    "Bottom": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bottom"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Снизу"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abajo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En bas"
+          }
+        }
+      }
+    },
+    "Camera cutout": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Camera cutout"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У чёлки"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Junto a la cámara"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autour de la caméra"
+          }
+        }
+      }
+    },
     "Cancel": {
       "localizations": {
         "en": {
@@ -1789,6 +1845,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Réduit"
+          }
+        }
+      }
+    },
+    "Compact": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compact"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Компактный"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compacto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compact"
           }
         }
       }
@@ -3501,30 +3585,58 @@
         }
       }
     },
-    "Indicator": {
+    "Indicator position": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Indicator"
+            "value": "Indicator position"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Индикатор"
+            "value": "Положение индикатора"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Indicador"
+            "value": "Posición del indicador"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Indicateur"
+            "value": "Emplacement de l’indicateur"
+          }
+        }
+      }
+    },
+    "Indicator style": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Indicator style"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вид индикатора"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estilo del indicador"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Style de l’indicateur"
           }
         }
       }
@@ -4509,34 +4621,6 @@
         }
       }
     },
-    "Near the notch": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Near the notch"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "У чёлки"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Junto a la muesca"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Au niveau de l’encoche"
-          }
-        }
-      }
-    },
     "Next test the shortcut in your editor. Veylume never presses Enter.": {
       "localizations": {
         "en": {
@@ -4757,34 +4841,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Activé"
-          }
-        }
-      }
-    },
-    "On MacBook, the indicator attaches to the notch. Displays without a cutout use compact Mini. Click the indicator for controls.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "On MacBook, the indicator attaches to the notch. Displays without a cutout use compact Mini. Click the indicator for controls."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "На MacBook индикатор примыкает к чёлке. На экране без выреза — компактный Mini. Нажмите на индикатор, чтобы открыть управление."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "En el MacBook, el indicador se une a la muesca. En pantallas sin muesca se usa Mini. Haz clic para ver los controles."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sur MacBook, l’indicateur prolonge l’encoche. Les écrans sans encoche utilisent Mini. Cliquez dessus pour afficher les commandes."
           }
         }
       }
@@ -5321,6 +5377,34 @@
         }
       }
     },
+    "Position": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Position"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Положение"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Posición"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Emplacement"
+          }
+        }
+      }
+    },
     "Prepare a model": {
       "localizations": {
         "en": {
@@ -5513,6 +5597,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Appuyer pour enregistrer"
+          }
+        }
+      }
+    },
+    "Preview": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preview"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Предпросмотр"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vista previa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aperçu"
           }
         }
       }
@@ -7981,6 +8093,34 @@
         }
       }
     },
+    "The indicator joins the camera cutout and extends to its sides when there is room.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The indicator joins the camera cutout and extends to its sides when there is room."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Индикатор соединяется с чёлкой. Если рядом свободно, он расширяется по бокам."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El indicador se une al recorte de la cámara y se extiende a los lados cuando hay espacio."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’indicateur prolonge l’encoche et s’étend sur les côtés lorsque l’espace le permet."
+          }
+        }
+      }
+    },
     "The model isn’t ready. Open model preparation.": {
       "localizations": {
         "en": {
@@ -8117,6 +8257,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ce raccourci est déjà attribué à l’autre mode d’enregistrement."
+          }
+        }
+      }
+    },
+    "Top": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Top"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сверху"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arriba"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En haut"
           }
         }
       }
@@ -8985,6 +9153,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Réglages macOS…"
+          }
+        }
+      }
+    },
+    "macOS is not reporting a camera cutout on this display. The compact indicator will be used.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS is not reporting a camera cutout on this display. The compact indicator will be used."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS не сообщает о вырезе на этом экране. Будет показан компактный индикатор."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS no detecta un recorte de cámara en esta pantalla. Se usará el indicador compacto."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS ne signale aucune encoche sur cet écran. L’indicateur compact sera utilisé."
           }
         }
       }

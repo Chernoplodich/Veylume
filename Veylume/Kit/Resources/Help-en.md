@@ -20,6 +20,8 @@ Dependencies: FluidAudio (Apache-2.0), Argmax OSS/WhisperKit (MIT), Sparkle (MIT
 
 Before your first dictation, setup checks microphone, insertion, and encryption-key access. Connect secure storage opens the genuine macOS prompt if needed; enter your password only there. If an update loses access, the app shows the required setup step again. When access is retained, setup and password prompts do not repeat.
 
-Interface language: choose English, Russian, Spanish, French, or System in General. This does not change the model’s supported speech languages. Automatic and Near the notch attach the indicator to the real cutout on a MacBook; other screens use Mini. Click the indicator for controls.
+Interface language: choose English, Russian, Spanish, French, or System in General. This does not change the model’s supported speech languages.
+
+In Appearance, choose Camera cutout to join the indicator to a MacBook’s camera area. It extends to the sides when there is room, or below the cutout when menus occupy that space. Choose Compact for a separate capsule at the top or bottom of your selected screen. If macOS does not report a cutout, Veylume uses the compact style and explains this in Settings. Click the indicator for stop and cancel controls.
 
 Opening a new DMG does not update the installed copy by itself. Quit Veylume, replace it in the same Applications folder, then open that copy. Models and settings remain. A new personally signed build can still ask for Keychain access again; the same build’s ordinary relaunch should not require a password. Never enter passwords into Veylume itself.

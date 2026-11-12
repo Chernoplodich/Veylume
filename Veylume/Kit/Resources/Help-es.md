@@ -6,7 +6,7 @@ Para empezar, deja que Parakeet V3 se descargue y prepare automáticamente. Perm
 
 En Atajos puedes asignar dos teclas o combinaciones distintas: mantener para grabar y pulsar para iniciar o detener. Al soltar el atajo de mantener, la captura termina. Escape cancela la grabación o el procesamiento y evita una inserción tardía. Para escribir el carácter asignado, pausa los atajos desde el menú.
 
-El indicador aparece mientras grabas o se procesa el texto. En un MacBook con muesca, Automático y Junto a la muesca lo unen al borde inferior del recorte. En pantallas sin muesca se usa Mini. Pulsa el indicador para detener o cancelar. Veylume no oculta los avisos de privacidad de macOS ni mantiene una animación activa en reposo.
+El indicador aparece mientras grabas o se procesa el texto. En Apariencia, elige Junto a la cámara para integrarlo con la muesca del MacBook. Se extiende por los lados cuando hay espacio; si el menú ocupa esa zona, se une por debajo. La opción Compacto muestra una cápsula independiente: puedes situarla Arriba o Abajo y elegir la pantalla. Si macOS no informa de una muesca, se usa la cápsula compacta y los ajustes lo explican. Pulsa el indicador para detener o cancelar. Veylume no oculta los avisos de privacidad de macOS ni mantiene una animación activa en reposo.
 
 La inserción automática usa el campo activo que elegiste al empezar. Veylume nunca pulsa Intro ni envía mensajes o comandos. Si el campo o la aplicación cambian, la inserción puede omitirse. En ese caso, copia el resultado manualmente. Si se ha enviado la orden de pegado pero la aplicación no puede confirmarla, solo se conserva el último resultado en memoria, hasta el siguiente resultado correcto o hasta salir. No se acumulan copias de cada dictado.
 

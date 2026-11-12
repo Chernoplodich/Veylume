@@ -32,6 +32,8 @@
 "Automatic" = "Автоматически";
 "Automatic insertion" = "Автоматическая вставка";
 "Back" = "Назад";
+"Bottom" = "Снизу";
+"Camera cutout" = "У чёлки";
 "Cancel" = "Отменить";
 "Cancel and quit" = "Отменить и выйти";
 "Cancelled" = "Отменено";
@@ -62,6 +64,7 @@
 "Cohere language" = "Язык Cohere";
 "Cold load" = "Холодная загрузка";
 "Collapsed" = "Свёрнуто";
+"Compact" = "Компактный";
 "Completed recordings" = "Завершённые записи";
 "Connect secure storage" = "Подключить хранилище";
 "Connect secure storage before your first dictation. If a system prompt appears, choose Always Allow. Enter your password only in the macOS dialog." = "Подключите хранилище один раз до первой диктовки. Если появится системный запрос, выберите «Разрешать всегда». Пароль вводится только в окне macOS.";
@@ -123,7 +126,8 @@
 "Import…" = "Импорт…";
 "In an editor, chat, or terminal. Transcription runs on your Mac." = "В редакторе, чате или терминале. Распознавание — на вашем Mac.";
 "Incomplete result" = "Неполный результат";
-"Indicator" = "Индикатор";
+"Indicator position" = "Положение индикатора";
+"Indicator style" = "Вид индикатора";
 "Initial download needed" = "Нужна первоначальная загрузка";
 "Input Monitoring" = "Мониторинг ввода";
 "Insertion and shortcuts" = "Вставка и клавиши";
@@ -159,7 +163,6 @@
 "Models, history, recovery, statistics, dictionary, and settings will be deleted. Login launch will be disabled. macOS permissions are not reset." = "Будут удалены модели, история, восстановления, статистика, словарь и настройки. Автозапуск будет выключен. Системные разрешения macOS не сбрасываются.";
 "Move Veylume to Applications" = "Перенесите Veylume в Applications";
 "Name or term" = "Имя или термин";
-"Near the notch" = "У чёлки";
 "Next test the shortcut in your editor. Veylume never presses Enter." = "Затем проверьте клавишу в своём редакторе. Enter приложение не нажимает.";
 "No account or payment" = "Без аккаунта и оплаты";
 "No speech detected. Try a longer phrase." = "Речь не обнаружена. Попробуйте более длинную фразу.";
@@ -168,7 +171,6 @@
 "Not measured" = "Не измерено";
 "Off" = "Выключено";
 "On" = "Включено";
-"On MacBook, the indicator attaches to the notch. Displays without a cutout use compact Mini. Click the indicator for controls." = "На MacBook индикатор примыкает к чёлке. На экране без выреза — компактный Mini. Нажмите на индикатор, чтобы открыть управление.";
 "On this Mac" = "На этом Mac";
 "On your Mac" = "Только на вашем Mac";
 "Once a model is installed, dictation works offline. Network access is used for model downloads and update checks." = "После установки модели диктовка работает без интернета. Сеть нужна для загрузки моделей и проверки обновлений.";
@@ -188,6 +190,7 @@
 "Pause" = "Пауза";
 "Pause shortcuts" = "Приостановить клавиши";
 "Pause shortcuts in the menu to type this character normally." = "Для обычного ввода этого символа приостановите клавишу в меню.";
+"Position" = "Положение";
 "Prepare a model" = "Подготовьте модель";
 "Preparing Parakeet V3" = "Готовим Parakeet V3";
 "Preparing microphone…" = "Подготовка микрофона…";
@@ -195,6 +198,7 @@
 "Press a key…" = "Нажмите клавишу…";
 "Press again to finish" = "Нажать ещё раз для остановки";
 "Press to record" = "Нажать";
+"Preview" = "Предпросмотр";
 "Protect your recordings" = "Защитим ваши записи";
 "Protected audio and text are available for up to 24 hours; at most 10. Temporary audio is removed after success or cancellation. When the app is closed, cleanup happens next launch. Turning this off does not delete existing recovery." = "Защищённые аудио и текст доступны до 24 часов; максимум 10. После успеха или отмены временное аудио удаляется. При выключенной программе очистка произойдёт при следующем запуске. Выключение настройки не удаляет старые восстановления.";
 "Quick start" = "Быстрый запуск";
@@ -283,11 +287,13 @@
 "The audio device changed. Start a new recording." = "Аудиоустройство изменилось. Начните новую запись.";
 "The field changed. Copy the text where you need it." = "Поле изменилось. Скопируйте текст в нужное место.";
 "The field did not accept insertion. Use Copy." = "Поле не приняло вставку. Нажмите «Скопировать».";
+"The indicator joins the camera cutout and extends to its sides when there is room." = "Индикатор соединяется с чёлкой. Если рядом свободно, он расширяется по бокам.";
 "The model isn’t ready. Open model preparation." = "Модель ещё не готова. Откройте подготовку модели.";
 "The model reached its text limit. The result may be incomplete; automatic insertion was skipped." = "Модель достигла ограничения текста. Полный результат не подтверждён; автоматическая вставка отменена.";
 "The result may be incomplete" = "Результат может быть неполным";
 "Theme" = "Тема";
 "This shortcut is already assigned to the other recording gesture." = "Эта клавиша уже назначена второму способу записи.";
+"Top" = "Сверху";
 "Transcribing…" = "Распознавание…";
 "Transcription failed. Retry available audio in Recovery." = "Не удалось распознать. Доступную запись можно повторить в разделе восстановления.";
 "Try it out" = "Попробуем?";
@@ -319,5 +325,6 @@
 "days" = "дней";
 "macOS Live Activities are unavailable. Veylume uses its own indicator." = "Live Activities недоступны для macOS. Используется индикатор Veylume.";
 "macOS Settings…" = "Настройки macOS…";
+"macOS is not reporting a camera cutout on this display. The compact indicator will be used." = "macOS не сообщает о вырезе на этом экране. Будет показан компактный индикатор.";
 "macOS will ask you to enable Veylume. Only you can grant access." = "macOS попросит вас включить Veylume. Это делаете только вы.";
 "min" = "мин";

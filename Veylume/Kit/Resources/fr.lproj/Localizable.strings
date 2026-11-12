@@ -32,6 +32,8 @@
 "Automatic" = "Automatique";
 "Automatic insertion" = "Insertion automatique";
 "Back" = "Retour";
+"Bottom" = "En bas";
+"Camera cutout" = "Autour de la caméra";
 "Cancel" = "Annuler";
 "Cancel and quit" = "Annuler et quitter";
 "Cancelled" = "Annulé";
@@ -62,6 +64,7 @@
 "Cohere language" = "Langue de Cohere";
 "Cold load" = "Premier chargement";
 "Collapsed" = "Réduit";
+"Compact" = "Compact";
 "Completed recordings" = "Enregistrements terminés";
 "Connect secure storage" = "Activer le stockage sécurisé";
 "Connect secure storage before your first dictation. If a system prompt appears, choose Always Allow. Enter your password only in the macOS dialog." = "Activez le stockage sécurisé avant votre première dictée. Si macOS le demande, choisissez « Toujours autoriser ». Saisissez votre mot de passe uniquement dans la fenêtre macOS.";
@@ -123,7 +126,8 @@
 "Import…" = "Importer…";
 "In an editor, chat, or terminal. Transcription runs on your Mac." = "Dans un éditeur, une conversation ou un terminal. La transcription se fait sur votre Mac.";
 "Incomplete result" = "Résultat incomplet";
-"Indicator" = "Indicateur";
+"Indicator position" = "Emplacement de l’indicateur";
+"Indicator style" = "Style de l’indicateur";
 "Initial download needed" = "Téléchargement initial nécessaire";
 "Input Monitoring" = "Surveillance de l’entrée";
 "Insertion and shortcuts" = "Insertion et raccourcis";
@@ -159,7 +163,6 @@
 "Models, history, recovery, statistics, dictionary, and settings will be deleted. Login launch will be disabled. macOS permissions are not reset." = "Les modèles, l’historique, les récupérations, les statistiques, le dictionnaire et les réglages seront supprimés. L’ouverture à la connexion sera désactivée. Les autorisations macOS ne seront pas réinitialisées.";
 "Move Veylume to Applications" = "Déplacez Veylume dans Applications";
 "Name or term" = "Nom ou terme";
-"Near the notch" = "Au niveau de l’encoche";
 "Next test the shortcut in your editor. Veylume never presses Enter." = "Testez ensuite le raccourci dans votre éditeur. Veylume n’appuie jamais sur Entrée.";
 "No account or payment" = "Sans compte ni paiement";
 "No speech detected. Try a longer phrase." = "Aucune parole détectée. Essayez une phrase plus longue.";
@@ -168,7 +171,6 @@
 "Not measured" = "Pas encore mesuré";
 "Off" = "Désactivé";
 "On" = "Activé";
-"On MacBook, the indicator attaches to the notch. Displays without a cutout use compact Mini. Click the indicator for controls." = "Sur MacBook, l’indicateur prolonge l’encoche. Les écrans sans encoche utilisent Mini. Cliquez dessus pour afficher les commandes.";
 "On this Mac" = "Sur ce Mac";
 "On your Mac" = "Sur votre Mac";
 "Once a model is installed, dictation works offline. Network access is used for model downloads and update checks." = "Une fois un modèle installé, la dictée fonctionne hors ligne. Internet sert au téléchargement des modèles et à la recherche de mises à jour.";
@@ -188,6 +190,7 @@
 "Pause" = "Mettre en pause";
 "Pause shortcuts" = "Suspendre les raccourcis";
 "Pause shortcuts in the menu to type this character normally." = "Pour saisir ce caractère normalement, suspendez les raccourcis dans le menu.";
+"Position" = "Emplacement";
 "Prepare a model" = "Préparer un modèle";
 "Preparing Parakeet V3" = "Préparation de Parakeet V3";
 "Preparing microphone…" = "Préparation du microphone…";
@@ -195,6 +198,7 @@
 "Press a key…" = "Tapez une touche…";
 "Press again to finish" = "Appuyer à nouveau pour terminer";
 "Press to record" = "Appuyer pour enregistrer";
+"Preview" = "Aperçu";
 "Protect your recordings" = "Protégez vos enregistrements";
 "Protected audio and text are available for up to 24 hours; at most 10. Temporary audio is removed after success or cancellation. When the app is closed, cleanup happens next launch. Turning this off does not delete existing recovery." = "L’audio et les textes protégés restent disponibles jusqu’à 24 heures, dans la limite de 10 résultats. L’audio temporaire est supprimé après réussite ou annulation. Si l’application est fermée, le nettoyage a lieu au prochain lancement. Désactiver cette option ne supprime pas les récupérations existantes.";
 "Quick start" = "Démarrage rapide";
@@ -283,11 +287,13 @@
 "The audio device changed. Start a new recording." = "Le périphérique audio a changé. Démarrez un nouvel enregistrement.";
 "The field changed. Copy the text where you need it." = "Le champ a changé. Copiez le texte à l’endroit souhaité.";
 "The field did not accept insertion. Use Copy." = "Le texte n’a pas pu être inséré dans ce champ. Utilisez « Copier ».";
+"The indicator joins the camera cutout and extends to its sides when there is room." = "L’indicateur prolonge l’encoche et s’étend sur les côtés lorsque l’espace le permet.";
 "The model isn’t ready. Open model preparation." = "Le modèle n’est pas encore prêt. Ouvrez sa préparation.";
 "The model reached its text limit. The result may be incomplete; automatic insertion was skipped." = "Le modèle a atteint sa limite de texte. Le résultat peut être incomplet ; l’insertion automatique a été désactivée pour ce résultat.";
 "The result may be incomplete" = "Le résultat peut être incomplet";
 "Theme" = "Thème";
 "This shortcut is already assigned to the other recording gesture." = "Ce raccourci est déjà attribué à l’autre mode d’enregistrement.";
+"Top" = "En haut";
 "Transcribing…" = "Transcription…";
 "Transcription failed. Retry available audio in Recovery." = "La transcription a échoué. Réessayez avec l’audio disponible dans Récupération.";
 "Try it out" = "Essayez";
@@ -319,5 +325,6 @@
 "days" = "jours";
 "macOS Live Activities are unavailable. Veylume uses its own indicator." = "Les activités en direct ne sont pas disponibles sur macOS. L’indicateur de Veylume est utilisé.";
 "macOS Settings…" = "Réglages macOS…";
+"macOS is not reporting a camera cutout on this display. The compact indicator will be used." = "macOS ne signale aucune encoche sur cet écran. L’indicateur compact sera utilisé.";
 "macOS will ask you to enable Veylume. Only you can grant access." = "macOS vous demandera d’activer Veylume. Vous seul pouvez accorder cette autorisation.";
 "min" = "min";

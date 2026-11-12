@@ -32,6 +32,8 @@
 "Automatic" = "Automático";
 "Automatic insertion" = "Inserción automática";
 "Back" = "Atrás";
+"Bottom" = "Abajo";
+"Camera cutout" = "Junto a la cámara";
 "Cancel" = "Cancelar";
 "Cancel and quit" = "Cancelar y salir";
 "Cancelled" = "Cancelado";
@@ -62,6 +64,7 @@
 "Cohere language" = "Idioma de Cohere";
 "Cold load" = "Carga inicial";
 "Collapsed" = "Contraído";
+"Compact" = "Compacto";
 "Completed recordings" = "Grabaciones completadas";
 "Connect secure storage" = "Activar almacenamiento seguro";
 "Connect secure storage before your first dictation. If a system prompt appears, choose Always Allow. Enter your password only in the macOS dialog." = "Activa el almacenamiento seguro antes de tu primer dictado. Si macOS lo solicita, elige «Permitir siempre». Introduce la contraseña solo en la ventana de macOS.";
@@ -123,7 +126,8 @@
 "Import…" = "Importar…";
 "In an editor, chat, or terminal. Transcription runs on your Mac." = "En el editor, el chat o el terminal. La transcripción se hace en tu Mac.";
 "Incomplete result" = "Resultado incompleto";
-"Indicator" = "Indicador";
+"Indicator position" = "Posición del indicador";
+"Indicator style" = "Estilo del indicador";
 "Initial download needed" = "Se necesita una descarga inicial";
 "Input Monitoring" = "Monitorización de entrada";
 "Insertion and shortcuts" = "Inserción y atajos";
@@ -159,7 +163,6 @@
 "Models, history, recovery, statistics, dictionary, and settings will be deleted. Login launch will be disabled. macOS permissions are not reset." = "Se borrarán los modelos, el historial, las recuperaciones, las estadísticas, el diccionario y la configuración. Se desactivará el inicio automático. Los permisos de macOS no se restablecen.";
 "Move Veylume to Applications" = "Mueve Veylume a Aplicaciones";
 "Name or term" = "Nombre o término";
-"Near the notch" = "Junto a la muesca";
 "Next test the shortcut in your editor. Veylume never presses Enter." = "Después, prueba el atajo en tu editor. Veylume nunca pulsa Intro.";
 "No account or payment" = "Sin cuenta ni pagos";
 "No speech detected. Try a longer phrase." = "No se ha detectado voz. Prueba con una frase más larga.";
@@ -168,7 +171,6 @@
 "Not measured" = "Sin medir";
 "Off" = "Desactivado";
 "On" = "Activado";
-"On MacBook, the indicator attaches to the notch. Displays without a cutout use compact Mini. Click the indicator for controls." = "En el MacBook, el indicador se une a la muesca. En pantallas sin muesca se usa Mini. Haz clic para ver los controles.";
 "On this Mac" = "En este Mac";
 "On your Mac" = "Solo en tu Mac";
 "Once a model is installed, dictation works offline. Network access is used for model downloads and update checks." = "Tras instalar un modelo, puedes dictar sin conexión. Internet solo se usa para descargar modelos y buscar actualizaciones.";
@@ -188,6 +190,7 @@
 "Pause" = "Pausar";
 "Pause shortcuts" = "Pausar atajos";
 "Pause shortcuts in the menu to type this character normally." = "Para escribir este carácter, pausa los atajos desde el menú.";
+"Position" = "Posición";
 "Prepare a model" = "Preparar un modelo";
 "Preparing Parakeet V3" = "Preparando Parakeet V3";
 "Preparing microphone…" = "Preparando el micrófono…";
@@ -195,6 +198,7 @@
 "Press a key…" = "Pulsa una tecla…";
 "Press again to finish" = "Pulsa otra vez para terminar";
 "Press to record" = "Pulsar para grabar";
+"Preview" = "Vista previa";
 "Protect your recordings" = "Protege tus grabaciones";
 "Protected audio and text are available for up to 24 hours; at most 10. Temporary audio is removed after success or cancellation. When the app is closed, cleanup happens next launch. Turning this off does not delete existing recovery." = "El audio y el texto protegidos se conservan hasta 24 horas, con un máximo de 10 resultados. El audio temporal se elimina al completar o cancelar la grabación. Si la aplicación está cerrada, se limpiará al abrirla de nuevo. Desactivar esta opción no borra las recuperaciones existentes.";
 "Quick start" = "Inicio rápido";
@@ -283,11 +287,13 @@
 "The audio device changed. Start a new recording." = "El dispositivo de audio ha cambiado. Inicia una nueva grabación.";
 "The field changed. Copy the text where you need it." = "El campo ha cambiado. Copia el texto donde lo necesites.";
 "The field did not accept insertion. Use Copy." = "No se pudo insertar el texto en este campo. Usa «Copiar».";
+"The indicator joins the camera cutout and extends to its sides when there is room." = "El indicador se une al recorte de la cámara y se extiende a los lados cuando hay espacio.";
 "The model isn’t ready. Open model preparation." = "El modelo aún no está listo. Abre su preparación.";
 "The model reached its text limit. The result may be incomplete; automatic insertion was skipped." = "El modelo ha alcanzado su límite de texto. El resultado puede estar incompleto y no se ha insertado automáticamente.";
 "The result may be incomplete" = "El resultado puede estar incompleto";
 "Theme" = "Tema";
 "This shortcut is already assigned to the other recording gesture." = "Este atajo ya está asignado al otro modo de grabación.";
+"Top" = "Arriba";
 "Transcribing…" = "Transcribiendo…";
 "Transcription failed. Retry available audio in Recovery." = "No se pudo transcribir. Vuelve a intentarlo con el audio disponible en Recuperación.";
 "Try it out" = "Pruébalo";
@@ -319,5 +325,6 @@
 "days" = "días";
 "macOS Live Activities are unavailable. Veylume uses its own indicator." = "Las Actividades en directo no están disponibles en macOS. Se utiliza el indicador de Veylume.";
 "macOS Settings…" = "Configuración de macOS…";
+"macOS is not reporting a camera cutout on this display. The compact indicator will be used." = "macOS no detecta un recorte de cámara en esta pantalla. Se usará el indicador compacto.";
 "macOS will ask you to enable Veylume. Only you can grant access." = "macOS te pedirá que actives Veylume. Solo tú puedes conceder el permiso.";
 "min" = "min";

@@ -3,6 +3,7 @@ import Foundation
 public enum Theme: String, Codable, CaseIterable, Sendable { case system, light, dark }
 public enum MaterialStyle: String, Codable, CaseIterable, Sendable { case glass, frosted }
 public enum IndicatorStyle: String, Codable, CaseIterable, Sendable { case auto, mini, notch, island }
+public enum IndicatorPosition: String, Codable, CaseIterable, Sendable { case top, bottom }
 public enum BootstrapState: String, Codable, Sendable { case pending, running, paused, cancelled, completed, removed }
 public struct Preferences: Codable, Sendable {
     public var version = 1
@@ -20,6 +21,7 @@ public struct Preferences: Codable, Sendable {
         }
         // Frosted remains decodable for old settings; the product now uses Glass.
         material = .glass
+        if indicator == .auto || indicator == .island { indicator = .notch }
         recordingLimitMinutes = min(120, max(5, recordingLimitMinutes))
     }
     public var shortcutsPaused = false
@@ -29,7 +31,10 @@ public struct Preferences: Codable, Sendable {
     public var uiLanguage = "system"
     public var theme: Theme = .system
     public var material: MaterialStyle = .glass
-    public var indicator: IndicatorStyle = .auto
+    public var indicator: IndicatorStyle = .notch
+    // Optional so existing settings decode without losing shortcuts/models.
+    public var indicatorPosition: IndicatorPosition?
+    public var resolvedIndicatorPosition: IndicatorPosition { indicatorPosition ?? .top }
     public var screenID: UInt32?
     public var microphoneUID: String?
     public var automaticInsertion = true
