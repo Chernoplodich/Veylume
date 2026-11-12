@@ -13,6 +13,7 @@
 "Active screen" = "Active screen";
 "Add" = "Add";
 "Add replacement" = "Add replacement";
+"After this update, reconnect access to your saved data. Dictation and insertion already work; history, vocabulary and crash recovery are paused until you reconnect." = "After this update, reconnect access to your saved data. Dictation and insertion already work; history, vocabulary and crash recovery are paused until you reconnect.";
 "Allow access" = "Allow access";
 "Allow microphone" = "Allow microphone";
 "Allow microphone access in System Settings." = "Allow microphone access in System Settings.";
@@ -21,6 +22,7 @@
 "Allow the microphone. It turns on only for recording." = "Allow the microphone. It turns on only for recording.";
 "Allow your microphone" = "Allow your microphone";
 "Allow…" = "Allow…";
+"An app has not finished providing the clipboard data. You can copy this result." = "An app has not finished providing the clipboard data. You can copy this result.";
 "Appearance" = "Appearance";
 "Approve launch at login in macOS" = "Approve launch at login in macOS";
 "Assign a single key or a combination. Pause shortcuts in the menu to type the assigned character." = "Assign a single key or a combination. Pause shortcuts in the menu to type the assigned character.";
@@ -67,7 +69,6 @@
 "Compact" = "Compact";
 "Completed recordings" = "Completed recordings";
 "Connect secure storage" = "Connect secure storage";
-"Connect secure storage before your first dictation. If a system prompt appears, choose Always Allow. Enter your password only in the macOS dialog." = "Connect secure storage before your first dictation. If a system prompt appears, choose Always Allow. Enter your password only in the macOS dialog.";
 "Connect storage…" = "Connect storage…";
 "Connect the encryption key to protect temporary recordings and saved data." = "Connect the encryption key to protect temporary recordings and saved data.";
 "Continue" = "Continue";
@@ -89,6 +90,8 @@
 "Delete recording" = "Delete recording";
 "Diagnostics" = "Diagnostics";
 "Diagnostics…" = "Diagnostics…";
+"Dictation and insertion are ready. Reconnect storage separately to resume saving data." = "Dictation and insertion are ready. Reconnect storage separately to resume saving data.";
+"Dictation and insertion work without storage. History, vocabulary and crash recovery are off. The last result stays in memory until the next result or quit. Existing saved data is kept." = "Dictation and insertion work without storage. History, vocabulary and crash recovery are off. The last result stays in memory until the next result or quit. Existing saved data is kept.";
 "Dictionary" = "Dictionary";
 "Done" = "Done";
 "Download" = "Download";
@@ -100,6 +103,7 @@
 "Enable Veylume under Accessibility in macOS settings, then return here." = "Enable Veylume under Accessibility in macOS settings, then return here.";
 "Enable Veylume. Missing? Add it with “+”." = "Enable Veylume. Missing? Add it with “+”.";
 "Enable Veylume’s microphone in macOS settings." = "Enable Veylume’s microphone in macOS settings.";
+"Encrypted storage" = "Encrypted storage";
 "Erase Veylume data?" = "Erase Veylume data?";
 "Erase all data…" = "Erase all data…";
 "Escape cancels recording. Add a separate press-to-record key in Settings." = "Escape cancels recording. Add a separate press-to-record key in Settings.";
@@ -117,7 +121,6 @@
 "Help unavailable." = "Help unavailable.";
 "History" = "History";
 "History is off" = "History is off";
-"History is off. New dictations are not added to history. Previously saved text remains until deletion or expiry." = "History is off. New dictations are not added to history. Previously saved text remains until deletion or expiry.";
 "History, models, and your dictionary remain." = "History, models, and your dictionary remain.";
 "Hold and speak. Release to get your text." = "Hold and speak. Release to get your text.";
 "Hold to record" = "Hold to record";
@@ -163,8 +166,10 @@
 "Models, history, recovery, statistics, dictionary, and settings will be deleted. Login launch will be disabled. macOS permissions are not reset." = "Models, history, recovery, statistics, dictionary, and settings will be deleted. Login launch will be disabled. macOS permissions are not reset.";
 "Move Veylume to Applications" = "Move Veylume to Applications";
 "Name or term" = "Name or term";
+"New text is not being saved. Existing encrypted data remains until deletion or expiry." = "New text is not being saved. Existing encrypted data remains until deletion or expiry.";
 "Next test the shortcut in your editor. Veylume never presses Enter." = "Next test the shortcut in your editor. Veylume never presses Enter.";
 "No account or payment" = "No account or payment";
+"No saved dictations" = "No saved dictations";
 "No speech detected. Try a longer phrase." = "No speech detected. Try a longer phrase.";
 "No temporary results." = "No temporary results.";
 "Not enough disk space to download and prepare the model." = "Not enough disk space to download and prepare the model.";
@@ -199,7 +204,6 @@
 "Press again to finish" = "Press again to finish";
 "Press to record" = "Press to record";
 "Preview" = "Preview";
-"Protect your recordings" = "Protect your recordings";
 "Protected audio and text are available for up to 24 hours; at most 10. Temporary audio is removed after success or cancellation. When the app is closed, cleanup happens next launch. Turning this off does not delete existing recovery." = "Protected audio and text are available for up to 24 hours; at most 10. Temporary audio is removed after success or cancellation. When the app is closed, cleanup happens next launch. Turning this off does not delete existing recovery.";
 "Quick start" = "Quick start";
 "Quit" = "Quit";
@@ -221,7 +225,6 @@
 "Recovery after failure" = "Recovery after failure";
 "Recovery is off. Results in memory will be lost." = "Recovery is off. Results in memory will be lost.";
 "Recovery items remain available for up to 24 hours. The last result in memory will be cleared." = "Recovery items remain available for up to 24 hours. The last result in memory will be cleared.";
-"Recovery lasts up to 24 hours. Update checks are on. Both can be changed in Settings." = "Recovery lasts up to 24 hours. Update checks are on. Both can be changed in Settings.";
 "Redo" = "Redo";
 "Refresh report" = "Refresh report";
 "Release the keys, then copy your text." = "Release the keys, then copy your text.";
@@ -245,6 +248,8 @@
 "Save" = "Save";
 "Save report…" = "Save report…";
 "Save text locally" = "Save text locally";
+"Saved data is enabled, but Keychain access is needed. Dictation and insertion work; history, vocabulary and crash recovery are temporarily paused." = "Saved data is enabled, but Keychain access is needed. Dictation and insertion work; history, vocabulary and crash recovery are temporarily paused.";
+"Saved data · optional" = "Saved data · optional";
 "Say a short phrase. It will appear here." = "Say a short phrase. It will appear here.";
 "Screen" = "Screen";
 "Secure Input is enabled. Leave the password field to use shortcuts." = "Secure Input is enabled. Leave the password field to use shortcuts.";
@@ -269,6 +274,9 @@
 "Stop and preserve" = "Stop and preserve";
 "Stop and process the recording, or cancel it before quitting." = "Stop and process the recording, or cancel it before quitting.";
 "Stop recording" = "Stop recording";
+"Storage" = "Storage";
+"Storage connected" = "Storage connected";
+"Storage is optional. Enable history and crash recovery in Settings when you need them." = "Storage is optional. Enable history and crash recovery in Settings when you need them.";
 "Storage…" = "Storage…";
 "System" = "System";
 "System device" = "System device";
@@ -285,6 +293,8 @@
 "The 1–5 scales are editorial levels, not accuracy percentages. Sizes refer to these complete Core ML bundles, including tokenizers." = "The 1–5 scales are editorial levels, not accuracy percentages. Sizes refer to these complete Core ML bundles, including tokenizers.";
 "The app receiving your text handles it according to its own privacy policy." = "The app receiving your text handles it according to its own privacy policy.";
 "The audio device changed. Start a new recording." = "The audio device changed. Start a new recording.";
+"The clipboard changed while preparing the paste. You can copy this result." = "The clipboard changed while preparing the paste. You can copy this result.";
+"The clipboard is too large to restore safely. You can copy this result." = "The clipboard is too large to restore safely. You can copy this result.";
 "The field changed. Copy the text where you need it." = "The field changed. Copy the text where you need it.";
 "The field did not accept insertion. Use Copy." = "The field did not accept insertion. Use Copy.";
 "The indicator joins the camera cutout and extends to its sides when there is room." = "The indicator joins the camera cutout and extends to its sides when there is room.";
@@ -316,7 +326,6 @@
 "With" = "With";
 "Words" = "Words";
 "You can download it again. Other models and your data will remain." = "You can download it again. Other models and your data will remain.";
-"Your encryption key stays in macOS Keychain." = "Your encryption key stays in macOS Keychain.";
 "Your model prepares automatically" = "Your model prepares automatically";
 "Your result stays on your Mac." = "Your result stays on your Mac.";
 "Your text is ready" = "Your text is ready";

@@ -21,13 +21,37 @@ struct BoundaryTests {
         snapshot.restore(board, ownership: ownership)
         #expect(board.string(forType: .string) == "new user copy")
     }
-    @Test @MainActor func promisedAndUnknownTypesAreNeverCleared() {
+    @Test @MainActor func filePromisesAreNeverClearedEvenIfTheirDescriptorIsMaterialized() {
         let board = NSPasteboard.withUniqueName(); defer { board.releaseGlobally() }
         let item = NSPasteboardItem(); let type = NSPasteboard.PasteboardType("com.apple.pasteboard.promised-file-url")
         item.setData(Data([1,2]), forType: type); board.writeObjects([item]); let change = board.changeCount
         #expect(ClipboardSnapshot.capture(board) == nil)
         #expect(board.changeCount == change)
         #expect(board.data(forType: type) == Data([1,2]))
+    }
+    @Test @MainActor func opaqueApplicationFormatsRoundTripWithoutDisablingTheNextPaste() throws {
+        let board = NSPasteboard.withUniqueName(); defer { board.releaseGlobally() }
+        let item = NSPasteboardItem()
+        let applicationType = NSPasteboard.PasteboardType("com.example.editor.selection-metadata")
+        let opaque = Data([0, 255, 17, 0, 200])
+        item.setString("fixture", forType: .string); item.setData(opaque, forType: applicationType)
+        #expect(board.writeObjects([item]))
+        let snapshot = try #require(ClipboardSnapshot.capture(board))
+        board.clearContents(); board.setString("dictation", forType: .string)
+        snapshot.restore(board, ownership: board.changeCount)
+        #expect(board.string(forType: .string) == "fixture")
+        #expect(board.data(forType: applicationType) == opaque)
+        #expect(ClipboardSnapshot.capture(board) != nil)
+    }
+    @Test @MainActor func oversizedOpaqueClipboardStaysUntouched() {
+        let board = NSPasteboard.withUniqueName(); defer { board.releaseGlobally() }
+        let item = NSPasteboardItem(); let type = NSPasteboard.PasteboardType("com.example.opaque")
+        item.setData(Data(repeating: 7, count: 32), forType: type); board.writeObjects([item])
+        let change = board.changeCount
+        var failure = ""
+        #expect(ClipboardSnapshot.capture(board, limit: 16, failure: { failure = $0 }) == nil)
+        #expect(failure == "clipboard_too_large")
+        #expect(board.changeCount == change); #expect(board.data(forType: type)?.count == 32)
     }
     @Test @MainActor func retainedVeylumePasteCanBeSnapshottedForTheNextDictation() throws {
         let board = NSPasteboard.withUniqueName(); defer { board.releaseGlobally() }

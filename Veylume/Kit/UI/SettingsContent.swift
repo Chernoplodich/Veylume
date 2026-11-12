@@ -51,7 +51,6 @@ struct GeneralSettings: View {
         PageHeading(title: SettingsSection.general.title, subtitle: I18n.tr("Выберите микрофон — и можно начинать.", "Choose a microphone and start dictating."))
         Label(session.status, systemImage: session.busy ? "waveform" : "circle.fill").font(.caption).foregroundStyle(session.models.activeReady && capabilities.microphone == .authorized ? Color.green : Color.secondary)
         if let notice = session.notice { Text(notice).font(.caption).foregroundStyle(.secondary).textSelection(.enabled) }
-        if session.storageNeedsAuthorization { SecureStorageAction(session: session) }
         GlassGroup {
             AppRow(title: I18n.tr("Микрофон", "Microphone")) {
                 NativePopup(selection: Binding(get: { preferences.value.microphoneUID ?? "system" }, set: { preferences.value.microphoneUID = $0 == "system" ? nil : $0 }), choices: [(I18n.tr("Системное устройство", "System device"), "system")] + devices.map { ($0.name, $0.id) }, label: I18n.tr("Микрофон", "Microphone")).frame(width: 200).disabled(session.busy)
@@ -79,6 +78,7 @@ struct GeneralSettings: View {
         GlassGroup {
             AppRow(title: I18n.tr("Автоматическая вставка", "Automatic insertion")) { Toggle("", isOn: $preferences.value.automaticInsertion).labelsHidden().toggleStyle(.switch).controlSize(.small) }
         }
+        StorageModeControl(session: session, preferences: preferences)
         GlassGroup {
             AppRow(title: I18n.tr("Проверять обновления", "Check for updates")) { Toggle("", isOn: $preferences.value.automaticallyCheckUpdates).labelsHidden().toggleStyle(.switch).controlSize(.small) }
             if !updates.configured { Text(I18n.tr("Лента подписанных обновлений ещё не настроена для этой локальной сборки.", "A signed update feed is not configured for this local build.")).font(.caption).foregroundStyle(.secondary).padding(12) }

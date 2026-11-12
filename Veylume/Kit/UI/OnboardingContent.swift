@@ -41,7 +41,7 @@ struct OnboardingContent: View {
                 Spacer()
                 if step > 0 { Button(I18n.tr("Назад", "Back")) { stopTesting(); preferences.value.onboardingStep -= 1 } }
                 Button(primaryTitle, action: primaryAction).keyboardShortcut(.defaultAction).buttonStyle(.borderedProminent)
-                    .disabled(session.authorizingStorage || ((step == 1 || step == 4) && !session.storageAccessChecked))
+                    .disabled(session.authorizingStorage)
             }.controlSize(.large).padding(.horizontal, 28).padding(.vertical, 16)
         }
         .background { MaterialBackground(style: .glass).ignoresSafeArea() }
@@ -76,18 +76,13 @@ struct OnboardingContent: View {
                 Label(I18n.tr("Модель готовится автоматически", "Your model prepares automatically"), systemImage: "checkmark")
             }.font(.callout)
             Button(I18n.tr("Данные и обновления", "Data and updates")) { details = true }.buttonStyle(.link).font(.caption)
-            Text(I18n.tr("Восстановление — до 24 часов. Автопроверка обновлений включена. Всё меняется в настройках.", "Recovery lasts up to 24 hours. Update checks are on. Both can be changed in Settings.")).font(.caption).foregroundStyle(.secondary)
+            Text(I18n.tr("Хранилище необязательно. Историю и восстановление можно подключить в настройках.", "Storage is optional. Enable history and crash recovery in Settings when you need them.")).font(.caption).foregroundStyle(.secondary)
         }
     }
     private var microphone: some View {
         VStack(alignment: .leading, spacing: 18) {
-            if capabilities.microphone == .authorized && session.storageNeedsAuthorization {
-                heading(I18n.tr("Защитим ваши записи", "Protect your recordings"), I18n.tr("Ключ для шифрования хранится в Связке ключей macOS.", "Your encryption key stays in macOS Keychain."), symbol: "lock.shield")
-                Text(I18n.tr("Подключите хранилище один раз до первой диктовки. Если появится системный запрос, выберите «Разрешать всегда». Пароль вводится только в окне macOS.", "Connect secure storage before your first dictation. If a system prompt appears, choose Always Allow. Enter your password only in the macOS dialog.")).font(.callout)
-            } else {
-                heading(I18n.tr("Разрешите микрофон", "Allow your microphone"), I18n.tr("Он включается только после запуска записи.", "It turns on only when you start recording."), symbol: "mic")
-            }
-            if capabilities.microphone == .authorized && !session.storageNeedsAuthorization {
+            heading(I18n.tr("Разрешите микрофон", "Allow your microphone"), I18n.tr("Он включается только после запуска записи.", "It turns on only when you start recording."), symbol: "mic")
+            if capabilities.microphone == .authorized {
                 Label(I18n.tr("Микрофон разрешён", "Microphone allowed"), systemImage: "checkmark.circle.fill").foregroundStyle(.green)
                 HStack(spacing: 16) {
                     Button(testingMicrophone && session.busy ? I18n.tr("Остановить", "Stop") : I18n.tr("Проверить уровень", "Test level")) {
@@ -143,7 +138,7 @@ struct OnboardingContent: View {
             heading(I18n.tr("Попробуем?", "Try it out"), I18n.tr("Произнесите короткую фразу — она появится здесь.", "Say a short phrase. It will appear here."), symbol: "text.bubble")
             TextEditor(text: $practice).font(.body).frame(height: 78).scrollContentBackground(.hidden).padding(8).background(.quaternary.opacity(0.3), in: RoundedRectangle(cornerRadius: 12))
             HStack {
-                Button(session.phase == .recording ? I18n.tr("Остановить", "Stop") : I18n.tr("Записать фразу", "Record a phrase")) { if session.busy { session.stop() } else { session.start() } }.disabled(!models.activeReady || capabilities.microphone != .authorized || !session.storageAccessChecked || session.storageNeedsAuthorization || (session.busy && session.phase != .recording))
+                Button(session.phase == .recording ? I18n.tr("Остановить", "Stop") : I18n.tr("Записать фразу", "Record a phrase")) { if session.busy { session.stop() } else { session.start() } }.disabled(!models.activeReady || capabilities.microphone != .authorized || (session.busy && session.phase != .recording))
                 if session.busy { Button(I18n.tr("Отмена", "Cancel")) { session.cancel() } }
                 Text(session.status).font(.caption).foregroundStyle(.secondary)
             }
@@ -171,14 +166,12 @@ struct OnboardingContent: View {
     }
     private var primaryTitle: String {
         if step == 1 && capabilities.microphone != .authorized { return capabilities.microphone == .notDetermined ? I18n.tr("Разрешить микрофон", "Allow microphone") : I18n.tr("Открыть настройки", "Open Settings") }
-        if (step == 1 || step == 4) && session.storageNeedsAuthorization { return I18n.tr("Подключить хранилище", "Connect secure storage") }
         if step == 3 && !capabilities.accessibility { return capabilities.accessibilityRequested ? I18n.tr("Открыть Accessibility", "Open Accessibility") : I18n.tr("Разрешить доступ", "Allow access") }
         return step == 0 ? I18n.tr("Начать", "Get started") : step == 4 ? I18n.tr("Готово", "Done") : I18n.tr("Продолжить", "Continue")
     }
     private func primaryAction() {
         stopTesting()
         if step == 1 && capabilities.microphone != .authorized { Task { await capabilities.requestMicrophone() }; return }
-        if (step == 1 || step == 4) && session.storageNeedsAuthorization { session.authorizeStorage(); return }
         if step == 3 && !capabilities.accessibility {
             if capabilities.accessibilityRequested { capabilities.openAccessibilitySettings() } else { capabilities.requestAccessibility() }; return
         }

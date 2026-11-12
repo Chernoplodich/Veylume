@@ -13,6 +13,7 @@
 "Active screen" = "Pantalla activa";
 "Add" = "Añadir";
 "Add replacement" = "Añadir sustitución";
+"After this update, reconnect access to your saved data. Dictation and insertion already work; history, vocabulary and crash recovery are paused until you reconnect." = "Tras esta actualización, vuelve a conectar el acceso a tus datos guardados. El dictado y la inserción ya funcionan; el historial, el vocabulario y la recuperación están en pausa hasta que conectes el almacenamiento.";
 "Allow access" = "Permitir acceso";
 "Allow microphone" = "Permitir micrófono";
 "Allow microphone access in System Settings." = "Permite el acceso al micrófono en Configuración del Sistema.";
@@ -21,6 +22,7 @@
 "Allow the microphone. It turns on only for recording." = "Permite el micrófono. Solo se activa al grabar.";
 "Allow your microphone" = "Permite el micrófono";
 "Allow…" = "Permitir…";
+"An app has not finished providing the clipboard data. You can copy this result." = "Una aplicación aún no ha preparado los datos del portapapeles. Puedes copiar este resultado.";
 "Appearance" = "Aspecto";
 "Approve launch at login in macOS" = "Autoriza el inicio automático en macOS";
 "Assign a single key or a combination. Pause shortcuts in the menu to type the assigned character." = "Asigna una tecla o una combinación. Para escribir ese carácter, pausa los atajos desde el menú.";
@@ -67,7 +69,6 @@
 "Compact" = "Compacto";
 "Completed recordings" = "Grabaciones completadas";
 "Connect secure storage" = "Activar almacenamiento seguro";
-"Connect secure storage before your first dictation. If a system prompt appears, choose Always Allow. Enter your password only in the macOS dialog." = "Activa el almacenamiento seguro antes de tu primer dictado. Si macOS lo solicita, elige «Permitir siempre». Introduce la contraseña solo en la ventana de macOS.";
 "Connect storage…" = "Activar almacenamiento…";
 "Connect the encryption key to protect temporary recordings and saved data." = "Activa la clave de cifrado para proteger las grabaciones temporales y los datos guardados.";
 "Continue" = "Continuar";
@@ -89,6 +90,8 @@
 "Delete recording" = "Eliminar grabación";
 "Diagnostics" = "Diagnóstico";
 "Diagnostics…" = "Diagnóstico…";
+"Dictation and insertion are ready. Reconnect storage separately to resume saving data." = "El dictado y la inserción están listos. Puedes conectar el almacenamiento por separado para volver a guardar datos.";
+"Dictation and insertion work without storage. History, vocabulary and crash recovery are off. The last result stays in memory until the next result or quit. Existing saved data is kept." = "El dictado y la inserción funcionan sin almacenamiento. El historial, el vocabulario y la recuperación están desactivados. El último resultado permanece en memoria hasta el siguiente resultado o hasta salir. Los datos guardados anteriormente se conservan.";
 "Dictionary" = "Diccionario";
 "Done" = "Listo";
 "Download" = "Descargar";
@@ -100,6 +103,7 @@
 "Enable Veylume under Accessibility in macOS settings, then return here." = "Activa Veylume en Accesibilidad, en Configuración del Sistema, y vuelve aquí.";
 "Enable Veylume. Missing? Add it with “+”." = "Activa Veylume. Si no aparece, añádelo con «+».";
 "Enable Veylume’s microphone in macOS settings." = "Activa el micrófono para Veylume en Configuración del Sistema.";
+"Encrypted storage" = "Almacenamiento cifrado";
 "Erase Veylume data?" = "¿Borrar los datos de Veylume?";
 "Erase all data…" = "Borrar todos los datos…";
 "Escape cancels recording. Add a separate press-to-record key in Settings." = "Escape cancela la grabación. Puedes añadir otro atajo para grabar con una pulsación en Configuración.";
@@ -117,7 +121,6 @@
 "Help unavailable." = "La ayuda no está disponible.";
 "History" = "Historial";
 "History is off" = "Historial desactivado";
-"History is off. New dictations are not added to history. Previously saved text remains until deletion or expiry." = "El historial está desactivado. Los nuevos dictados no se guardan. Los textos anteriores se conservan hasta que los elimines o caduquen.";
 "History, models, and your dictionary remain." = "Se conservarán el historial, los modelos y el diccionario.";
 "Hold and speak. Release to get your text." = "Mantén la tecla y habla. Suéltala para obtener el texto.";
 "Hold to record" = "Mantener para grabar";
@@ -163,8 +166,10 @@
 "Models, history, recovery, statistics, dictionary, and settings will be deleted. Login launch will be disabled. macOS permissions are not reset." = "Se borrarán los modelos, el historial, las recuperaciones, las estadísticas, el diccionario y la configuración. Se desactivará el inicio automático. Los permisos de macOS no se restablecen.";
 "Move Veylume to Applications" = "Mueve Veylume a Aplicaciones";
 "Name or term" = "Nombre o término";
+"New text is not being saved. Existing encrypted data remains until deletion or expiry." = "Los textos nuevos no se guardan. Los datos cifrados existentes se conservan hasta que los borres o caduquen.";
 "Next test the shortcut in your editor. Veylume never presses Enter." = "Después, prueba el atajo en tu editor. Veylume nunca pulsa Intro.";
 "No account or payment" = "Sin cuenta ni pagos";
+"No saved dictations" = "Sin guardar dictados";
 "No speech detected. Try a longer phrase." = "No se ha detectado voz. Prueba con una frase más larga.";
 "No temporary results." = "No hay resultados temporales.";
 "Not enough disk space to download and prepare the model." = "No hay espacio suficiente para descargar y preparar el modelo.";
@@ -199,7 +204,6 @@
 "Press again to finish" = "Pulsa otra vez para terminar";
 "Press to record" = "Pulsar para grabar";
 "Preview" = "Vista previa";
-"Protect your recordings" = "Protege tus grabaciones";
 "Protected audio and text are available for up to 24 hours; at most 10. Temporary audio is removed after success or cancellation. When the app is closed, cleanup happens next launch. Turning this off does not delete existing recovery." = "El audio y el texto protegidos se conservan hasta 24 horas, con un máximo de 10 resultados. El audio temporal se elimina al completar o cancelar la grabación. Si la aplicación está cerrada, se limpiará al abrirla de nuevo. Desactivar esta opción no borra las recuperaciones existentes.";
 "Quick start" = "Inicio rápido";
 "Quit" = "Salir";
@@ -221,7 +225,6 @@
 "Recovery after failure" = "Recuperar tras un fallo";
 "Recovery is off. Results in memory will be lost." = "La recuperación está desactivada. Se perderán los resultados que estén en memoria.";
 "Recovery items remain available for up to 24 hours. The last result in memory will be cleared." = "Las recuperaciones protegidas estarán disponibles hasta 24 horas. El último resultado en memoria se borrará.";
-"Recovery lasts up to 24 hours. Update checks are on. Both can be changed in Settings." = "La recuperación dura hasta 24 horas. La búsqueda de actualizaciones está activada. Puedes cambiar ambas opciones en Configuración.";
 "Redo" = "Rehacer";
 "Refresh report" = "Actualizar informe";
 "Release the keys, then copy your text." = "Suelta las teclas y copia el texto.";
@@ -245,6 +248,8 @@
 "Save" = "Guardar";
 "Save report…" = "Guardar informe…";
 "Save text locally" = "Guardar texto en este Mac";
+"Saved data is enabled, but Keychain access is needed. Dictation and insertion work; history, vocabulary and crash recovery are temporarily paused." = "Has activado el almacenamiento, pero hace falta acceso al Llavero. El dictado y la inserción funcionan; el historial, el vocabulario y la recuperación están temporalmente en pausa.";
+"Saved data · optional" = "Guardar datos · opcional";
 "Say a short phrase. It will appear here." = "Di una frase corta. El texto aparecerá aquí.";
 "Screen" = "Pantalla";
 "Secure Input is enabled. Leave the password field to use shortcuts." = "La entrada segura está activa. Sal del campo de contraseña para usar los atajos.";
@@ -269,6 +274,9 @@
 "Stop and preserve" = "Detener y conservar";
 "Stop and process the recording, or cancel it before quitting." = "Antes de salir, detén y procesa la grabación o cancélala.";
 "Stop recording" = "Detener grabación";
+"Storage" = "Almacenamiento";
+"Storage connected" = "Almacenamiento conectado";
+"Storage is optional. Enable history and crash recovery in Settings when you need them." = "El almacenamiento es opcional. Activa el historial y la recuperación en Ajustes cuando los necesites.";
 "Storage…" = "Almacenamiento…";
 "System" = "Según el sistema";
 "System device" = "Dispositivo del sistema";
@@ -285,6 +293,8 @@
 "The 1–5 scales are editorial levels, not accuracy percentages. Sizes refer to these complete Core ML bundles, including tokenizers." = "Las escalas del 1 al 5 son valoraciones orientativas, no porcentajes de precisión. El tamaño incluye el paquete completo de Core ML y el tokenizador.";
 "The app receiving your text handles it according to its own privacy policy." = "La aplicación donde insertes el texto lo tratará según su propia política de privacidad.";
 "The audio device changed. Start a new recording." = "El dispositivo de audio ha cambiado. Inicia una nueva grabación.";
+"The clipboard changed while preparing the paste. You can copy this result." = "El portapapeles cambió mientras se preparaba la inserción. Puedes copiar este resultado.";
+"The clipboard is too large to restore safely. You can copy this result." = "El portapapeles contiene demasiados datos para restaurarlos con seguridad. Puedes copiar este resultado.";
 "The field changed. Copy the text where you need it." = "El campo ha cambiado. Copia el texto donde lo necesites.";
 "The field did not accept insertion. Use Copy." = "No se pudo insertar el texto en este campo. Usa «Copiar».";
 "The indicator joins the camera cutout and extends to its sides when there is room." = "El indicador se une al recorte de la cámara y se extiende a los lados cuando hay espacio.";
@@ -316,7 +326,6 @@
 "With" = "Por";
 "Words" = "Palabras";
 "You can download it again. Other models and your data will remain." = "Podrás descargarlo de nuevo. Se conservarán los demás modelos y tus datos.";
-"Your encryption key stays in macOS Keychain." = "Tu clave de cifrado se guarda en el Llavero de macOS.";
 "Your model prepares automatically" = "El modelo se prepara solo";
 "Your result stays on your Mac." = "El resultado se queda en tu Mac.";
 "Your text is ready" = "Tu texto está listo";

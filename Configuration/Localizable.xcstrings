@@ -421,6 +421,34 @@
         }
       }
     },
+    "After this update, reconnect access to your saved data. Dictation and insertion already work; history, vocabulary and crash recovery are paused until you reconnect.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "After this update, reconnect access to your saved data. Dictation and insertion already work; history, vocabulary and crash recovery are paused until you reconnect."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "После обновления подтвердите доступ к сохранённым данным. Диктовка и вставка уже работают; до подключения история, словарь и восстановление приостановлены."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tras esta actualización, vuelve a conectar el acceso a tus datos guardados. El dictado y la inserción ya funcionan; el historial, el vocabulario y la recuperación están en pausa hasta que conectes el almacenamiento."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Après cette mise à jour, rétablissez l’accès à vos données enregistrées. La dictée et l’insertion fonctionnent déjà ; l’historique, le vocabulaire et la récupération restent en pause jusque-là."
+          }
+        }
+      }
+    },
     "Allow access": {
       "localizations": {
         "en": {
@@ -641,6 +669,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Autoriser…"
+          }
+        }
+      }
+    },
+    "An app has not finished providing the clipboard data. You can copy this result.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An app has not finished providing the clipboard data. You can copy this result."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приложение ещё не подготовило данные в буфере. Этот текст можно скопировать."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una aplicación aún no ha preparado los datos del portapapeles. Puedes copiar este resultado."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une application n’a pas encore fourni les données du presse-papiers. Vous pouvez copier ce résultat."
           }
         }
       }
@@ -1933,34 +1989,6 @@
         }
       }
     },
-    "Connect secure storage before your first dictation. If a system prompt appears, choose Always Allow. Enter your password only in the macOS dialog.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Connect secure storage before your first dictation. If a system prompt appears, choose Always Allow. Enter your password only in the macOS dialog."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Подключите хранилище один раз до первой диктовки. Если появится системный запрос, выберите «Разрешать всегда». Пароль вводится только в окне macOS."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Activa el almacenamiento seguro antes de tu primer dictado. Si macOS lo solicita, elige «Permitir siempre». Introduce la contraseña solo en la ventana de macOS."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Activez le stockage sécurisé avant votre première dictée. Si macOS le demande, choisissez « Toujours autoriser ». Saisissez votre mot de passe uniquement dans la fenêtre macOS."
-          }
-        }
-      }
-    },
     "Connect storage…": {
       "localizations": {
         "en": {
@@ -2549,6 +2577,62 @@
         }
       }
     },
+    "Dictation and insertion are ready. Reconnect storage separately to resume saving data.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dictation and insertion are ready. Reconnect storage separately to resume saving data."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Диктовка и вставка готовы. Чтобы вернуть сохранение данных, подключите хранилище отдельно."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El dictado y la inserción están listos. Puedes conectar el almacenamiento por separado para volver a guardar datos."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La dictée et l’insertion sont prêtes. Vous pouvez reconnecter le stockage séparément pour reprendre la conservation des données."
+          }
+        }
+      }
+    },
+    "Dictation and insertion work without storage. History, vocabulary and crash recovery are off. The last result stays in memory until the next result or quit. Existing saved data is kept.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dictation and insertion work without storage. History, vocabulary and crash recovery are off. The last result stays in memory until the next result or quit. Existing saved data is kept."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Диктовка и вставка работают без хранилища. История, словарь и восстановление выключены. Последний текст остаётся в памяти до следующего результата или выхода. Старые сохранения не удаляются."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El dictado y la inserción funcionan sin almacenamiento. El historial, el vocabulario y la recuperación están desactivados. El último resultado permanece en memoria hasta el siguiente resultado o hasta salir. Los datos guardados anteriormente se conservan."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La dictée et l’insertion fonctionnent sans stockage. L’historique, le vocabulaire et la récupération sont désactivés. Le dernier résultat reste en mémoire jusqu’au suivant ou à la fermeture. Les données déjà enregistrées sont conservées."
+          }
+        }
+      }
+    },
     "Dictionary": {
       "localizations": {
         "en": {
@@ -2853,6 +2937,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Autorisez le microphone pour Veylume dans Réglages Système."
+          }
+        }
+      }
+    },
+    "Encrypted storage": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encrypted storage"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Защищённое хранилище"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Almacenamiento cifrado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stockage chiffré"
           }
         }
       }
@@ -3329,34 +3441,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Historique désactivé"
-          }
-        }
-      }
-    },
-    "History is off. New dictations are not added to history. Previously saved text remains until deletion or expiry.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "History is off. New dictations are not added to history. Previously saved text remains until deletion or expiry."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "История выключена. Новые диктовки не сохраняются в истории. Ранее сохранённые тексты остаются до удаления или истечения срока."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "El historial está desactivado. Los nuevos dictados no se guardan. Los textos anteriores se conservan hasta que los elimines o caduquen."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "L’historique est désactivé. Les nouvelles dictées ne sont pas conservées. Les textes déjà enregistrés restent disponibles jusqu’à leur suppression ou expiration."
           }
         }
       }
@@ -4621,6 +4705,34 @@
         }
       }
     },
+    "New text is not being saved. Existing encrypted data remains until deletion or expiry.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New text is not being saved. Existing encrypted data remains until deletion or expiry."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новые тексты сейчас не сохраняются. Существующие зашифрованные данные остаются до удаления или истечения срока."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los textos nuevos no se guardan. Los datos cifrados existentes se conservan hasta que los borres o caduquen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les nouveaux textes ne sont pas enregistrés. Les données chiffrées existantes restent disponibles jusqu’à leur suppression ou leur expiration."
+          }
+        }
+      }
+    },
     "Next test the shortcut in your editor. Veylume never presses Enter.": {
       "localizations": {
         "en": {
@@ -4673,6 +4785,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sans compte ni paiement"
+          }
+        }
+      }
+    },
+    "No saved dictations": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No saved dictations"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без сохранения"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin guardar dictados"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sans conservation"
           }
         }
       }
@@ -5629,34 +5769,6 @@
         }
       }
     },
-    "Protect your recordings": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Protect your recordings"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Защитим ваши записи"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Protege tus grabaciones"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Protégez vos enregistrements"
-          }
-        }
-      }
-    },
     "Protected audio and text are available for up to 24 hours; at most 10. Temporary audio is removed after success or cancellation. When the app is closed, cleanup happens next launch. Turning this off does not delete existing recovery.": {
       "localizations": {
         "en": {
@@ -6241,34 +6353,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Les récupérations protégées restent disponibles jusqu’à 24 heures. Le dernier résultat en mémoire sera effacé."
-          }
-        }
-      }
-    },
-    "Recovery lasts up to 24 hours. Update checks are on. Both can be changed in Settings.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Recovery lasts up to 24 hours. Update checks are on. Both can be changed in Settings."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Восстановление — до 24 часов. Автопроверка обновлений включена. Всё меняется в настройках."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La recuperación dura hasta 24 horas. La búsqueda de actualizaciones está activada. Puedes cambiar ambas opciones en Configuración."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La récupération est disponible jusqu’à 24 heures. La recherche de mises à jour est activée. Ces deux options se modifient dans les réglages."
           }
         }
       }
@@ -6913,6 +6997,62 @@
           "stringUnit": {
             "state": "translated",
             "value": "Conserver le texte sur ce Mac"
+          }
+        }
+      }
+    },
+    "Saved data is enabled, but Keychain access is needed. Dictation and insertion work; history, vocabulary and crash recovery are temporarily paused.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saved data is enabled, but Keychain access is needed. Dictation and insertion work; history, vocabulary and crash recovery are temporarily paused."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранение включено, но нужен доступ к Связке ключей. Диктовка и вставка работают; история, словарь и восстановление временно приостановлены."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Has activado el almacenamiento, pero hace falta acceso al Llavero. El dictado y la inserción funcionan; el historial, el vocabulario y la recuperación están temporalmente en pausa."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La conservation des données est activée, mais l’accès au Trousseau est nécessaire. La dictée et l’insertion fonctionnent ; l’historique, le vocabulaire et la récupération sont temporairement en pause."
+          }
+        }
+      }
+    },
+    "Saved data · optional": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saved data · optional"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранение · необязательно"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar datos · opcional"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conservation · facultative"
           }
         }
       }
@@ -7589,6 +7729,90 @@
         }
       }
     },
+    "Storage": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Storage"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хранилище"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Almacenamiento"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stockage"
+          }
+        }
+      }
+    },
+    "Storage connected": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Storage connected"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хранилище подключено"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Almacenamiento conectado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stockage connecté"
+          }
+        }
+      }
+    },
+    "Storage is optional. Enable history and crash recovery in Settings when you need them.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Storage is optional. Enable history and crash recovery in Settings when you need them."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хранилище необязательно. Историю и восстановление можно подключить в настройках."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El almacenamiento es opcional. Activa el historial y la recuperación en Ajustes cuando los necesites."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le stockage est facultatif. Activez l’historique et la récupération dans Réglages lorsque vous en avez besoin."
+          }
+        }
+      }
+    },
     "Storage…": {
       "localizations": {
         "en": {
@@ -8033,6 +8257,62 @@
           "stringUnit": {
             "state": "translated",
             "value": "Le périphérique audio a changé. Démarrez un nouvel enregistrement."
+          }
+        }
+      }
+    },
+    "The clipboard changed while preparing the paste. You can copy this result.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The clipboard changed while preparing the paste. You can copy this result."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Буфер изменился во время подготовки вставки. Этот текст можно скопировать."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El portapapeles cambió mientras se preparaba la inserción. Puedes copiar este resultado."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le presse-papiers a changé pendant la préparation du collage. Vous pouvez copier ce résultat."
+          }
+        }
+      }
+    },
+    "The clipboard is too large to restore safely. You can copy this result.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The clipboard is too large to restore safely. You can copy this result."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В буфере слишком много данных для безопасного восстановления. Этот текст можно скопировать."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El portapapeles contiene demasiados datos para restaurarlos con seguridad. Puedes copiar este resultado."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le presse-papiers contient trop de données pour être restauré en toute sécurité. Vous pouvez copier ce résultat."
           }
         }
       }
@@ -8901,34 +9181,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vous pourrez le télécharger à nouveau. Les autres modèles et vos données seront conservés."
-          }
-        }
-      }
-    },
-    "Your encryption key stays in macOS Keychain.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your encryption key stays in macOS Keychain."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ключ для шифрования хранится в Связке ключей macOS."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tu clave de cifrado se guarda en el Llavero de macOS."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Votre clé de chiffrement reste dans le Trousseau macOS."
           }
         }
       }

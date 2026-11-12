@@ -67,11 +67,15 @@ final class RecoveryManager: @unchecked Sendable {
         let m = entry.metadata
         return AudioArchive(id: m.id, directory: entry.directory, keyData: m.audioKey, chunkCount: m.chunks, sampleCount: m.samples)
     }
-    func pruneExpired(now: Date = Date()) throws {
+    func pruneExpired(now: Date = Date(), excluding activeID: UUID? = nil) throws {
         for directory in try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil) {
-            guard UUID(uuidString: directory.lastPathComponent) != nil,
-                  let data = try? Data(contentsOf: directory.appendingPathComponent("recovery.aead")),
-                  let envelope = try? JSONDecoder().decode(RecoveryEnvelope.self, from: data) else { continue }
+            guard let id = UUID(uuidString: directory.lastPathComponent), id != activeID else { continue }
+            guard let data = try? Data(contentsOf: directory.appendingPathComponent("recovery.aead")),
+                  let envelope = try? JSONDecoder().decode(RecoveryEnvelope.self, from: data) else {
+                // A session-only spool has no persisted key. After a crash it
+                // cannot be recovered and must not accumulate on disk.
+                try FileManager.default.removeItem(at: directory); continue
+            }
             if envelope.expires <= now { try FileManager.default.removeItem(at: directory) }
         }
     }

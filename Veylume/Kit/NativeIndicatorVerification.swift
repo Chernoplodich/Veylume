@@ -34,7 +34,7 @@ import VeylumeCore
         window?.contentView = host
         window?.setContentSize(host.fittingSize)
         // Attach the real waveform to a window, but keep the fixture offscreen.
-        for level in [0.2, 0.4, 0.9, 0.6, 0.3, 0.7, 0.95, 0.55, 0.25] { meter.update(level) }
+        meter.update(0.8)
         Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] _ in MainActor.assumeIsolated { self?.capture() } }
     }
     private func example(_ title: String, phase: SessionPhase, layout: IndicatorSurfaceLayout) -> some View {

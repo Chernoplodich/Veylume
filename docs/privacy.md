@@ -16,13 +16,17 @@ The preview has no active automatic update feed. A future configured update chan
 
 Text history is off by default. The most recent successful result stays in memory until replaced by another result or until the app exits. Enabling history stores text locally; audio is not saved as history.
 
-Optional recovery keeps encrypted temporary data after a failure for up to 24 hours, with a limit of ten pending results. Encryption keys are stored in macOS Keychain. This does not protect data from someone already able to read your unlocked session or inspect process memory.
+New installations can dictate without persistent storage. Temporary audio is still encrypted before disk writes, using a per-recording key held in memory. Successful or cancelled recordings remove the spool; unrecoverable leftovers after a crash are cleaned on the next launch. There is no plaintext fallback.
+
+Optional protected storage uses macOS Keychain for persistent encryption keys. It enables vocabulary, optional text history, and encrypted recovery after a failure for up to 24 hours, with a limit of ten pending results. If access needs reconnecting after an update, these features pause and dictation continues without saving new content. Previously saved settings and encrypted data are retained until deletion or their normal expiry. Encryption does not protect data from someone already able to read your unlocked session or inspect process memory.
 
 ## Insertion and the clipboard
 
 Veylume checks the destination to avoid putting words into a different field. It does not scan documents or replace the entire field as an insertion shortcut.
 
 Some apps require a temporary clipboard transaction for paste. Clipboard managers, Universal Clipboard, or other software with access may observe that text. A manual **Copy** also places text on the clipboard. Do not treat the clipboard as private storage.
+
+Materialized custom formats are preserved as opaque bytes along with standard formats. File promises, unavailable providers, and snapshots over the memory limit cause automatic paste to be skipped; the original clipboard is left untouched. A later user copy always wins over restoration.
 
 ## Permissions and diagnostics
 

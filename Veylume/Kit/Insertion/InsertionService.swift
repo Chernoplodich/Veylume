@@ -21,16 +21,21 @@ final class InsertionGate: @unchecked Sendable {
 struct ClipboardSnapshot {
     let items: [[NSPasteboard.PasteboardType: Data]]
     let changeCount: Int
-    static func capture(_ pasteboard: NSPasteboard, limit: Int = 8 * 1024 * 1024) -> ClipboardSnapshot? {
-        let canonical = [NSPasteboard.PasteboardType.string, .rtf, .rtfd, .html, .png, .tiff, .fileURL, .URL].map(\.rawValue)
-        let safeTypes = Set(canonical + ["public.utf8-plain-text", "public.utf16-plain-text", "public.utf16-external-plain-text", "NSStringPboardType", "public.rtf", "public.rtfd", "com.apple.flat-rtfd", "public.html", "public.png", "public.tiff", "public.jpeg", "public.file-url", "public.url", "com.apple.webarchive", "org.nspasteboard.TransientType", "org.nspasteboard.ConcealedType"])
+    static func capture(_ pasteboard: NSPasteboard, limit: Int = 8 * 1024 * 1024, failure: (String) -> Void = { _ in }) -> ClipboardSnapshot? {
+        func reject(_ code: String) -> ClipboardSnapshot? { failure(code); return nil }
         let changeCount = pasteboard.changeCount
         var items: [[NSPasteboard.PasteboardType: Data]] = []; var total = 0
-        guard (pasteboard.pasteboardItems?.count ?? 0) <= 64 else { return nil }
+        guard limit >= 0, (pasteboard.pasteboardItems?.count ?? 0) <= 64 else { return reject("clipboard_too_large") }
         for item in pasteboard.pasteboardItems ?? [] {
+            guard item.types.count <= 64 else { return reject("clipboard_too_large") }
             var stored: [NSPasteboard.PasteboardType: Data] = [:]
             for type in item.types {
-                guard safeTypes.contains(type.rawValue) else { return nil }
+                // Apps add their own opaque representations to otherwise normal
+                // copies (including Finder). Preserve every materialized byte,
+                // rather than treating an unfamiliar type as a reason to refuse
+                // dictation. File promises need their original provider and
+                // cannot be reconstructed by storing a descriptor alone.
+                guard !isFilePromise(type) else { return reject("clipboard_file_promise") }
                 let data: Data
                 if let materialized = item.data(forType: type) { data = materialized }
                 else if ["public.utf16-external-plain-text", "public.utf16-plain-text"].contains(type.rawValue),
@@ -40,13 +45,19 @@ struct ClipboardSnapshot {
                     // its converter returns nil. It is reproducible from the
                     // already-materialized UTF-8 item; arbitrary providers aren't.
                     data = encoded
-                } else { return nil }
-                total += data.count; guard total <= limit else { return nil }; stored[type] = data
+                } else { return reject("clipboard_provider_unavailable") }
+                guard data.count <= limit - total else { return reject("clipboard_too_large") }
+                total += data.count; stored[type] = data
             }
             items.append(stored)
         }
-        guard pasteboard.changeCount == changeCount else { return nil }
+        guard pasteboard.changeCount == changeCount else { return reject("clipboard_changed") }
         return ClipboardSnapshot(items: items, changeCount: changeCount)
+    }
+    private static func isFilePromise(_ type: NSPasteboard.PasteboardType) -> Bool {
+        let name = type.rawValue.lowercased()
+        return name.hasPrefix("com.apple.pasteboard.promised-file")
+            || name == "nsfilespromisepboardtype" || name == "com.apple.nsfilepromiseitemmetadata"
     }
     func restore(_ pasteboard: NSPasteboard, ownership: Int) {
         guard pasteboard.changeCount == ownership else { return }
@@ -91,7 +102,8 @@ actor InsertionService {
         let transaction: (InsertionOutcome, ClipboardSnapshot?, Int?) = {
             let pasteboard = NSPasteboard.general
             guard !gate.cancelled, tracker.matches(destination) else { diagnosticCode = "destination_changed"; return (.manualRequired, nil, nil) }
-            guard let snapshot = ClipboardSnapshot.capture(pasteboard) else { diagnosticCode = "clipboard_unsupported"; return (.manualRequired, nil, nil) }
+            var clipboardFailure = "clipboard_unsupported"
+            guard let snapshot = ClipboardSnapshot.capture(pasteboard, failure: { clipboardFailure = $0 }) else { diagnosticCode = clipboardFailure; return (.manualRequired, nil, nil) }
             let previousCount = snapshot.changeCount
             let payload = NSPasteboardItem(); payload.setString(text, forType: .string)
             payload.setString("", forType: NSPasteboard.PasteboardType("org.nspasteboard.TransientType"))

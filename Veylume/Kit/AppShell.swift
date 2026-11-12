@@ -20,6 +20,7 @@ public enum VeylumeApplication {
     private var quitAfterStop = false
     private var menuLanguage: String?
     private var escapeMonitor: Any?
+    private let permissionFocus = PermissionFlowFocus()
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
         installMainMenu()
@@ -40,6 +41,10 @@ public enum VeylumeApplication {
             session.onPresentResult = { [weak self] entry in self?.showResult(entry) }
             session.onRecoveryLimit = { [weak self] in self?.showSettings(section: .history) }
             session.onReadinessRequired = { [weak self] in self?.showReadiness() }
+            capabilities.onPermissionRequest = { [weak self] request in self?.beginPermissionRequest(request) }
+            capabilities.onPermissionResolved = { [weak self] request in self?.permissionFocus.resolved(request) }
+            session.onStorageAuthorizationBegan = { [weak self] in self?.beginPermissionRequest(.storage) }
+            session.onStorageAuthorizationFinished = { [weak self] in self?.permissionFocus.resolved(.storage) }
             session.onIdle = { [weak self] in
                 self?.updates?.resumeIfSafe()
                 if self?.quitAfterStop == true { self?.quitAfterStop = false; NSApp.reply(toApplicationShouldTerminate: true) }
@@ -56,6 +61,8 @@ public enum VeylumeApplication {
             applyAppearance()
             if AppPaths.needsInstallation { showInstallation() }
             else if !preferences.value.onboardingCompleted { showOnboarding() }
+            let appURL = Bundle.main.bundleURL
+            Task.detached(priority: .utility) { InstallerDisk.ejectMatchingImage(app: appURL) }
         } catch {
             let alert = NSAlert(); alert.messageText = "Veylume"; alert.informativeText = Problem.storage.message; alert.runModal(); NSApp.terminate(nil)
         }
@@ -109,6 +116,15 @@ public enum VeylumeApplication {
         }
         applyAppearance(); readiness?.makeKeyAndOrderFront(nil); NSApp.activate(ignoringOtherApps: true)
     }
+    private func beginPermissionRequest(_ request: PermissionRequest) {
+        let windows = [readiness, onboarding, settings].compactMap { $0 }
+        let key = NSApp.keyWindow?.sheetParent ?? NSApp.keyWindow
+        let existing = windows.first { $0 === key && $0.isVisible } ?? windows.first(where: \.isVisible)
+        menu.close()
+        if existing == nil { showReadiness() }
+        let owner = existing ?? [readiness, onboarding, settings].compactMap { $0 }.first(where: \.isVisible)
+        permissionFocus.begin(request, owner: owner)
+    }
     private func showInstallation() {
         guard let session else { return }
         onboarding = window(title: "Veylume", size: NSSize(width: 600, height: 430), content: InstallationContent(preferences: session.preferences))
@@ -124,18 +140,19 @@ public enum VeylumeApplication {
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool { if !flag { showSettings() }; return true }
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         guard let session else { return .terminateNow }
+        let recoveryEnabled = session.preferences.value.recordingConfiguration(storageAvailable: session.storageAvailable).recoveryEnabled
         if session.busy {
             let alert = NSAlert(); alert.messageText = I18n.tr("Завершить запись?", "Finish recording?")
             alert.informativeText = I18n.tr("Остановите и обработайте запись либо отмените её перед выходом.", "Stop and process the recording, or cancel it before quitting.")
             for text in [I18n.tr("Остановить и сохранить", "Stop and preserve"), I18n.tr("Отменить и выйти", "Cancel and quit"), I18n.tr("Остаться", "Stay")] { alert.addButton(withTitle: text) }
             let response = alert.runModal()
-            if response == .alertFirstButtonReturn { quitAfterStop = session.preferences.value.recoveryEnabled; session.stop(); return quitAfterStop ? .terminateLater : .terminateCancel }
+            if response == .alertFirstButtonReturn { quitAfterStop = recoveryEnabled; session.stop(); return quitAfterStop ? .terminateLater : .terminateCancel }
             if response == .alertSecondButtonReturn { quitAfterStop = true; session.cancel(); return .terminateLater }
             return .terminateCancel
         }
         if session.unresolvedCount > 0 {
             let alert = NSAlert(); alert.messageText = I18n.tr("Остались временные результаты", "Temporary results remain")
-            alert.informativeText = session.preferences.value.recoveryEnabled ? I18n.tr("Защищённые восстановления доступны до 24 часов. Последний результат в памяти будет очищен.", "Recovery items remain available for up to 24 hours. The last result in memory will be cleared.") : I18n.tr("Восстановление выключено. Результаты в памяти будут потеряны.", "Recovery is off. Results in memory will be lost.")
+            alert.informativeText = recoveryEnabled ? I18n.tr("Защищённые восстановления доступны до 24 часов. Последний результат в памяти будет очищен.", "Recovery items remain available for up to 24 hours. The last result in memory will be cleared.") : I18n.tr("Восстановление выключено. Результаты в памяти будут потеряны.", "Recovery is off. Results in memory will be lost.")
             alert.addButton(withTitle: I18n.tr("Выйти", "Quit")); alert.addButton(withTitle: I18n.tr("Остаться", "Stay"))
             guard alert.runModal() == .alertFirstButtonReturn else { return .terminateCancel }
         }
@@ -144,6 +161,8 @@ public enum VeylumeApplication {
     func applicationWillTerminate(_ notification: Notification) { session?.shutdown() }
     func windowWillClose(_ notification: Notification) {
         if let window = notification.object as? NSWindow {
+            let cancelled = permissionFocus.closed(window)
+            session?.capabilities.cancelRequests(cancelled)
             // Remove the hosting view so its permission-check task cannot keep
             // running in a retained, closed window.
             if window === readiness { window.contentView = nil; readiness = nil }

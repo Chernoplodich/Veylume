@@ -61,10 +61,10 @@ struct MeterAndBrandTests {
         meter.update(0.5)
         #expect(frames.count == 1)
         #expect(frames.first?.level == 0.5)
-        #expect(frames.first?.history.last == 0.5)
         meter.update(.nan); meter.update(.infinity); meter.update(-1); meter.update(2)
-        #expect(meter.frame.history.count == 9)
-        #expect(meter.frame.history.allSatisfy { $0.isFinite && (0...1).contains($0) })
+        #expect(frames.allSatisfy { $0.level.isFinite && (0...1).contains($0.level) })
+        let unchanged = frames.count; meter.update(1)
+        #expect(frames.count == unchanged)
         meter.reset(); let afterReset = frames.count
         meter.reset(); meter.update(0)
         #expect(frames.count == afterReset)
@@ -73,19 +73,19 @@ struct MeterAndBrandTests {
     @Test @MainActor func nativeWaveformSkipsSubpixelNoiseAndImplicitAnimations() {
         _ = NSApplication.shared
         let view = NativeWaveformView(frame: NSRect(x: 0, y: 0, width: 34, height: 16))
-        view.render(Array(repeating: 0.5, count: 9))
+        view.render(0.5)
         let before = view.renderCount
-        for _ in 0..<1000 { view.render(Array(repeating: 0.50001, count: 9)) }
+        for _ in 0..<1000 { view.render(0.50001) }
         #expect(view.renderCount == before)
         #expect(view.layer?.sublayers?.count == 1)
         #expect(view.layer?.sublayers?.first?.animationKeys()?.isEmpty != false)
-        view.render(Array(repeating: 1, count: 9))
+        view.render(1)
         #expect(view.renderCount == before + 1)
     }
     @Test @MainActor func wideWaveformFillsItsSurfaceAndRelayoutsWithoutNewAudio() {
         _ = NSApplication.shared
         let view = NativeWaveformView(frame: NSRect(x: 0, y: 0, width: 154, height: 16))
-        view.render([0, 0.2, 0.7, 0.5, 0.9, 0.3, 0.4, 0.8, 0.1])
+        view.render(0.8)
         let layer = view.layer?.sublayers?.first as? CAShapeLayer
         #expect(layer?.path?.boundingBoxOfPath.minX == 0)
         #expect(abs((layer?.path?.boundingBoxOfPath.maxX ?? 0) - 154) <= 0.5)
@@ -94,6 +94,18 @@ struct MeterAndBrandTests {
         #expect(view.renderCount == count + 1)
         #expect(layer?.path?.boundingBoxOfPath.maxX == 34)
         #expect(view.layer?.sublayers?.count == 1)
+        #expect(layer?.animationKeys()?.isEmpty != false)
+    }
+    @Test @MainActor func liveMeterSettlesImmediatelyWithoutAHistoryTravellingAcrossTheBars() {
+        _ = NSApplication.shared
+        let view = NativeWaveformView(frame: NSRect(x: 0, y: 0, width: 34, height: 16))
+        let layer = view.layer?.sublayers?.first as? CAShapeLayer
+        view.render(0); let silent = layer?.path
+        view.render(1); #expect((layer?.path?.boundingBoxOfPath.height ?? 0) > 12)
+        view.render(0); #expect(layer?.path == silent)
+        let count = view.renderCount
+        for _ in 0..<30 { view.render(0) }
+        #expect(view.renderCount == count)
         #expect(layer?.animationKeys()?.isEmpty != false)
     }
     @Test @MainActor func processingSpinnerRespectsReducedMotionAndStopsWhenDetached() {

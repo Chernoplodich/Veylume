@@ -52,6 +52,8 @@ struct DiagnosticsContent: View {
             for p in recent.suffix(10) { lines.append(String(format: "%.1f ms; %@; %@; %@", p.stopToResultMilliseconds, p.insertionOutcome, p.destinationDiagnostic, p.insertionDiagnostic)) }
         }
         lines.append("Indicator: \(session.preferences.value.indicator.rawValue); compact position: \(session.preferences.value.resolvedIndicatorPosition.rawValue)")
+        let saved = session.preferences.value
+        lines.append("Storage: configured=\(saved.usesProtectedStorage); available=\(session.storageAvailable); reconnect=\(session.storageNeedsAuthorization); requested history=\(saved.historyEnabled); requested recovery=\(saved.recoveryEnabled)")
         for (index, screen) in NSScreen.screens.enumerated() {
             let camera = IndicatorGeometry.cameraRect(screen: screen.frame, safeAreaTop: screen.safeAreaInsets.top,
                 leftArea: screen.auxiliaryTopLeftArea, rightArea: screen.auxiliaryTopRightArea)

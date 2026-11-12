@@ -10,7 +10,7 @@ final class NativeWaveformView: NSView {
     private weak var meter: AudioMeter?
     private var renderedHeights: [CGFloat] = []
     private var renderedSize = CGSize.zero
-    private var lastHistory: [Double] = []
+    private var lastLevel = 0.0
     private(set) var renderCount = 0
     override init(frame: NSRect) {
         super.init(frame: frame)
@@ -26,25 +26,27 @@ final class NativeWaveformView: NSView {
     override func viewDidMoveToWindow() { super.viewDidMoveToWindow(); subscribeIfVisible() }
     override func layout() {
         super.layout()
-        if bounds.size != renderedSize { render(lastHistory) }
+        if bounds.size != renderedSize { render(lastLevel) }
     }
     private func subscribeIfVisible() {
         subscription = nil
         guard window != nil, let meter else { return }
-        subscription = meter.$frame.sink { [weak self] frame in self?.render(frame.history) }
+        subscription = meter.$frame.sink { [weak self] frame in self?.render(frame.level) }
     }
-    func render(_ history: [Double]) {
-        lastHistory = history
+    func render(_ level: Double) {
+        lastLevel = level.isFinite ? min(1, max(0, level)) : 0
         let scale = window?.backingScaleFactor ?? 2
-        let samples = history.suffix(9).map { $0.isFinite ? min(1, max(0, $0)) : 0 }
-        // Fill the wider attached surface with interpolated history, rather
-        // than stretching nine tiny bars apart. Still one path and one layer.
+        // All bars respond to the current measured level. A scrolling history
+        // made each syllable travel backwards after the user stopped speaking.
+        // Interpolate the same symmetric profile on compact and wide surfaces.
+        let profile = [0.30, 0.55, 0.80, 0.60, 1.0, 0.60, 0.80, 0.55, 0.30]
         let count = max(2, min(40, Int((bounds.width + 2) / 4)))
         let heights = (0..<count).map { index -> CGFloat in
-            let position = Double(index) / Double(count - 1) * Double(max(0, samples.count - 1))
-            let lower = Int(position), upper = min(lower + 1, samples.count - 1)
-            let level = samples.isEmpty ? 0 : samples[lower] + (samples[upper] - samples[lower]) * (position - Double(lower))
-            return (CGFloat(3 + level * 13) * scale).rounded() / scale
+            let position = Double(index) / Double(count - 1) * Double(profile.count - 1)
+            let lower = Int(position), upper = min(lower + 1, profile.count - 1)
+            let weight = profile[lower] + (profile[upper] - profile[lower]) * (position - Double(lower))
+            let height = min(max(0, bounds.height), CGFloat(3 + lastLevel * 13 * weight))
+            return (height * scale).rounded() / scale
         }
         guard heights != renderedHeights || renderedSize != bounds.size else { return }
         renderedHeights = heights; renderedSize = bounds.size; renderCount += 1

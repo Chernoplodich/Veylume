@@ -6,9 +6,9 @@ Grant Microphone for capture. Accessibility is used for destination checks and i
 
 Place the caret before recording. Moving the pointer alone does not change the destination. Changing the field, window, application, or observable selection skips automatic insertion. Copy remains explicit. Paste is never retried automatically and never sends Enter. Terminal/console payloads are flattened to one line and stripped of control sequences. Clipboard managers may see transient paste data. If consumption cannot be verified, the paste payload remains on the clipboard to avoid a premature restore.
 
-The last completed result remains in RAM until the next success or exit. Errors and cancelled sessions do not replace it. History is off by default; enabling it stores only encrypted text. Disabling history stops new entries without deleting old ones. Statistics are independent, content-free session counters.
+The last completed result remains in RAM until the next success or exit. Errors and cancelled sessions do not replace it. Persistent storage is optional and off for new installations. Enable encrypted storage in General to use vocabulary, optional text history, and crash recovery. Statistics remain independent, content-free session counters.
 
-Recovery is separate: encrypted temporary audio/text, at most ten results, available for up to 24 hours. Data that expires while the app is closed is deleted on next launch. Encryption keys are in Keychain; there is no plaintext fallback. Device-local recovery keys are not intended to migrate through backups. APFS snapshots/backups are not secure erase. Success/cancellation removes temporary audio. Retry never automatically pastes into an old destination.
+Temporary audio is encrypted before disk writes with a per-recording key kept in memory. Without connected storage, success or cancellation removes the spool; a crash leaves no recoverable key, and leftovers are cleaned on next launch. Connected recovery wraps that key with Keychain protection and keeps at most ten results for up to 24 hours. Existing protected data is retained until deletion or expiry. APFS snapshots/backups are not secure erase. Retry never automatically pastes into an old destination.
 
 Cohere requires an explicit supported language and does not support Russian. Its decoder token limit is checked. No result marked incomplete is automatically pasted. Other models retain their own language capabilities. Vocabulary hints are currently unavailable in these bundles; literal replacements are supported.
 
@@ -18,10 +18,12 @@ To uninstall, first disable Launch at login. Use History → Erase all data if y
 
 Dependencies: FluidAudio (Apache-2.0), Argmax OSS/WhisperKit (MIT), Sparkle (MIT), Swift Argument Parser (Apache-2.0). Parakeet conversion: FluidInference, CC-BY-4.0; NVIDIA model authors credited in its bundled model card. Cohere conversion: FluidInference/Cohere, Apache-2.0. Whisper conversions: Argmax/OpenAI, MIT; local tokenizer model cards accompany the verified catalogue. Original provider monograms are identification labels, not official logos. See Acknowledgements for source URLs and notices.
 
-Before your first dictation, setup checks microphone, insertion, and encryption-key access. Connect secure storage opens the genuine macOS prompt if needed; enter your password only there. If an update loses access, the app shows the required setup step again. When access is retained, setup and password prompts do not repeat.
+Setup checks microphone and insertion access. Saving is optional. If an update needs renewed Keychain access, Veylume shows that saving was enabled and offers to reconnect it. Dictation and automatic insertion continue; history, vocabulary, and recovery pause until access returns. Your previous choices stay in place. Connect secure storage opens the genuine macOS prompt if needed; enter your password only there. The originating window returns after your confirmation, unless you closed it.
 
 Interface language: choose English, Russian, Spanish, French, or System in General. This does not change the model’s supported speech languages.
 
 In Appearance, choose Camera cutout to join the indicator to a MacBook’s camera area. It extends to the sides when there is room, or below the cutout when menus occupy that space. Choose Compact for a separate capsule at the top or bottom of your selected screen. If macOS does not report a cutout, Veylume uses the compact style and explains this in Settings. Click the indicator for stop and cancel controls.
 
 Opening a new DMG does not update the installed copy by itself. Quit Veylume, replace it in the same Applications folder, then open that copy. Models and settings remain. A new personally signed build can still ask for Keychain access again; the same build’s ordinary relaunch should not require a password. Never enter passwords into Veylume itself.
+
+The recording bars react together to the current microphone level, without scrolling history. After launch from Applications, Veylume tries to eject its exact matching read-only installer disk. The downloaded DMG is not deleted; if it remains in use, eject it in Finder.

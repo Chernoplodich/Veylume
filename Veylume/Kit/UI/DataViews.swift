@@ -14,6 +14,7 @@ struct DictionarySettings: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             PageHeading(title: SettingsSection.dictionary.title, subtitle: I18n.tr("Термины и буквальные замены без переписывания стиля.", "Terms and literal replacements without rewriting your style."))
+            if !session.storageAvailable { StorageModeControl(session: session, preferences: session.preferences) }
             Text(I18n.tr("Подсказки терминов в выбранных комплектах пока не включены. Замены применяются после распознавания, за один проход.", "Vocabulary hints are not enabled in these bundles yet. Replacements run after transcription in a single pass.")).font(.caption).foregroundStyle(.secondary)
             GlassGroup {
                 ForEach(Array(draft.terms.enumerated()), id: \.offset) { index, value in
@@ -38,12 +39,18 @@ struct DictionarySettings: View {
             TextField(I18n.tr("Текст для проверки замен", "Text to preview replacements"), text: $preview)
             if !preview.isEmpty { Text(TextFinalizer.apply(preview, rules: draft.replacements)).textSelection(.enabled).font(.callout).padding(10).frame(maxWidth: .infinity, alignment: .leading).background(.quaternary.opacity(0.25), in: RoundedRectangle(cornerRadius: 8)) }
             HStack {
-                Button(I18n.tr("Сохранить", "Save")) { Task { do { try await session.saveDictionary(draft) } catch { session.notice = I18n.tr("Проверьте размер словаря и доступ к защищённому хранилищу.", "Check the dictionary size and secure storage access.") } } }
+                Button(I18n.tr("Сохранить", "Save")) { Task { do { try await session.saveDictionary(draft) } catch { session.notice = I18n.tr("Проверьте размер словаря и доступ к защищённому хранилищу.", "Check the dictionary size and secure storage access.") } } }.disabled(!session.storageAvailable || session.busy)
                 Button(I18n.tr("Импорт…", "Import…")) { importDictionary() }
                 Button(I18n.tr("Экспорт…", "Export…")) { if let data = try? JSONEncoder().encode(draft) { FileActions.save(data, name: "Veylume-dictionary.json", type: .json) } }
             }.controlSize(.small)
             if let notice = session.notice { Text(notice).font(.caption).foregroundStyle(.secondary) }
         }.onAppear { draft = session.dictionary }
+            .task(id: session.storageAvailable) {
+                if session.storageAvailable {
+                    await session.refreshData()
+                    if draft.terms.isEmpty && draft.replacements.isEmpty { draft = session.dictionary }
+                }
+            }
     }
     private func importDictionary() {
         let panel = NSOpenPanel(); panel.allowedContentTypes = [.json]; panel.allowsMultipleSelection = false
@@ -61,14 +68,15 @@ struct HistorySettings: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             PageHeading(title: SettingsSection.history.title, subtitle: session.unresolvedCount >= 10 ? Problem.pendingLimit.message : I18n.tr("Вы решаете, сохранять ли тексты диктовок.", "Choose whether to keep dictation text."))
+            StorageModeControl(session: session, preferences: preferences)
             GlassGroup {
-                AppRow(title: I18n.tr("Сохранять текст локально", "Save text locally")) { Toggle("", isOn: $preferences.value.historyEnabled).labelsHidden().toggleStyle(.switch).controlSize(.small) }
+                AppRow(title: I18n.tr("Сохранять текст локально", "Save text locally")) { Toggle("", isOn: $preferences.value.historyEnabled).labelsHidden().toggleStyle(.switch).controlSize(.small).disabled(!session.storageAvailable || session.busy) }
                 if preferences.value.historyEnabled {
                     Divider(); AppRow(title: I18n.tr("Хранить", "Keep for")) {
                         Picker("", selection: $preferences.value.historyDays) { ForEach([7, 30, 90], id: \.self) { Text("\($0) " + I18n.tr("дней", "days")).tag($0) }; Text(I18n.tr("До удаления", "Until deleted")).tag(0) }.labelsHidden().frame(width: 150)
                     }
                 }
-                Text(preferences.value.historyEnabled ? I18n.tr("Сохраняется только текст новых диктовок. Аудио в историю не попадает.", "Only new dictation text is saved. Audio is never added to history.") : I18n.tr("История выключена. Новые диктовки не сохраняются в истории. Ранее сохранённые тексты остаются до удаления или истечения срока.", "History is off. New dictations are not added to history. Previously saved text remains until deletion or expiry.")).font(.caption).foregroundStyle(.secondary).padding(12)
+                Text(session.storageAvailable && preferences.value.historyEnabled ? I18n.tr("Сохраняется только текст новых диктовок. Аудио в историю не попадает.", "Only new dictation text is saved. Audio is never added to history.") : I18n.tr("Новые тексты сейчас не сохраняются. Существующие зашифрованные данные остаются до удаления или истечения срока.", "New text is not being saved. Existing encrypted data remains until deletion or expiry.")).font(.caption).foregroundStyle(.secondary).padding(12)
             }
             if !session.history.isEmpty {
                 ForEach(session.history) { entry in
@@ -89,8 +97,10 @@ struct HistorySettings: View {
                 }.controlSize(.small)
             }
             Text(I18n.tr("Временное восстановление", "Temporary recovery")).font(.headline)
-            GlassGroup { AppRow(title: I18n.tr("Восстановление после сбоя", "Recovery after failure")) { Toggle("", isOn: $preferences.value.recoveryEnabled).labelsHidden().toggleStyle(.switch).controlSize(.small) } }
-            Text(I18n.tr("Защищённые аудио и текст доступны до 24 часов; максимум 10. После успеха или отмены временное аудио удаляется. При выключенной программе очистка произойдёт при следующем запуске. Выключение настройки не удаляет старые восстановления.", "Protected audio and text are available for up to 24 hours; at most 10. Temporary audio is removed after success or cancellation. When the app is closed, cleanup happens next launch. Turning this off does not delete existing recovery.")).font(.caption).foregroundStyle(.secondary)
+            GlassGroup { AppRow(title: I18n.tr("Восстановление после сбоя", "Recovery after failure")) { Toggle("", isOn: $preferences.value.recoveryEnabled).labelsHidden().toggleStyle(.switch).controlSize(.small).disabled(!session.storageAvailable || session.busy) } }
+            if session.storageAvailable {
+                Text(I18n.tr("Защищённые аудио и текст доступны до 24 часов; максимум 10. После успеха или отмены временное аудио удаляется. При выключенной программе очистка произойдёт при следующем запуске. Выключение настройки не удаляет старые восстановления.", "Protected audio and text are available for up to 24 hours; at most 10. Temporary audio is removed after success or cancellation. When the app is closed, cleanup happens next launch. Turning this off does not delete existing recovery.")).font(.caption).foregroundStyle(.secondary)
+            }
             ForEach(session.pending) { entry in
                 GlassGroup {
                     VStack(alignment: .leading, spacing: 8) {

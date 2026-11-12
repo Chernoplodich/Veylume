@@ -12,6 +12,18 @@ private struct TestKeys: SecretKeyProvider {
     }
 }
 struct StorageTests {
+    @Test func metadataAndStatisticsRemainAvailableWithoutOpeningOrChangingProtectedContent() async throws {
+        let root = try root(); defer { try? FileManager.default.removeItem(at: root) }
+        let url = root.appendingPathComponent("store.sqlite"), id = UUID()
+        let healthy = try EncryptedStore(url: url, keys: TestKeys())
+        try await healthy.save(id: id, kind: .history, data: Data("Protected fixture".utf8))
+        let denied = try EncryptedStore(url: url, keys: TestKeys(unavailable: true))
+        #expect(try await denied.keyPurposesForStoredData() == ["history"])
+        try await denied.record(StatisticsEvent(id: UUID(), startedAt: Date(), words: 3, duration: 1, modelID: "fixture", revision: "fixed"))
+        #expect(try await denied.summary().words == 3)
+        await #expect(throws: ValidationError.keychain) { try await denied.load(kind: .history) }
+        #expect(try await healthy.load(kind: .history).first?.2 == Data("Protected fixture".utf8))
+    }
     private func sql(_ url: URL, _ command: String) throws {
         var db: OpaquePointer?
         #expect(sqlite3_open(url.path, &db) == SQLITE_OK)

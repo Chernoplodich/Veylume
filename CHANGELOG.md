@@ -1,5 +1,21 @@
 # Release notes
 
+## 0.1.2 — Paste and recording feedback
+
+- Automatic paste now preserves materialized custom clipboard formats instead of rejecting every unfamiliar type. File promises, unavailable providers, and oversized snapshots still leave the original clipboard untouched, with a specific explanation.
+- Storage is optional. Dictation and insertion continue when Keychain access needs reconnecting after an update. Previous saving preferences and encrypted data are retained; saving, vocabulary, and crash recovery pause until access returns. New installations start without persistent storage.
+- The recording bars respond together to the current microphone level instead of scrolling recent history. Rendering still uses one native layer and no animation timer.
+- Permission actions restore their originating window after confirmation. Closing that window cancels the return.
+- An installed copy tries to eject its exact matching read-only DMG after launch. Other images, writable volumes, and a copy running from the image are excluded.
+
+### По-русски
+
+Автовставка сохраняет дополнительные форматы буфера, из-за которых обычные диктовки могли уходить в Copy. Для слишком большого буфера, ещё не готовых данных и обещаний будущих файлов остаётся безопасное ручное копирование с отдельным объяснением.
+
+Хранилище стало необязательным. Если после обновления нужно снова подтвердить доступ, диктовка и вставка работают, а сохранение, словарь и восстановление приостанавливаются. Прежние настройки и зашифрованные данные остаются на месте. Новая установка начинает работу без постоянного хранилища.
+
+Полоски записи одновременно реагируют на текущую громкость, без бегущего следа. После системного подтверждения возвращается окно, из которого был запрошен доступ. Установленная копия также пробует извлечь свой DMG с той же сборкой; посторонние диски не затрагиваются.
+
 ## 0.1.1 — Indicator controls
 
 - Choose a camera-cutout indicator or a compact capsule in Appearance. Place the compact indicator at the top or bottom of a selected display; its controls open toward the screen.

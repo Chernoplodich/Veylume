@@ -54,11 +54,13 @@ struct ShortcutRouterTests {
         p.selectedModel = "whisper-small"; p.historyEnabled = true; p.onboardingCompleted = true
         var json = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(p)) as? [String: Any])
         json.removeValue(forKey: "indicatorPosition")
+        json.removeValue(forKey: "storageMode"); json.removeValue(forKey: "lastAuthorizedStorageBuild")
         var restored = try JSONDecoder().decode(Preferences.self, from: JSONSerialization.data(withJSONObject: json))
         restored.migrateSettings()
         #expect(restored.indicator == .notch); #expect(restored.resolvedIndicatorPosition == .top)
         #expect(restored.holdShortcut == hold); #expect(restored.selectedModel == "whisper-small")
         #expect(restored.historyEnabled); #expect(restored.onboardingCompleted)
+        #expect(restored.usesProtectedStorage)
         restored.indicator = .mini; restored.indicatorPosition = .bottom
         let restarted = try JSONDecoder().decode(Preferences.self, from: JSONEncoder().encode(restored))
         #expect(restarted.indicator == .mini); #expect(restarted.resolvedIndicatorPosition == .bottom)

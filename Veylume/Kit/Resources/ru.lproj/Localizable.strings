@@ -13,6 +13,7 @@
 "Active screen" = "Активный экран";
 "Add" = "Добавить";
 "Add replacement" = "Добавить замену";
+"After this update, reconnect access to your saved data. Dictation and insertion already work; history, vocabulary and crash recovery are paused until you reconnect." = "После обновления подтвердите доступ к сохранённым данным. Диктовка и вставка уже работают; до подключения история, словарь и восстановление приостановлены.";
 "Allow access" = "Разрешить доступ";
 "Allow microphone" = "Разрешить микрофон";
 "Allow microphone access in System Settings." = "Разрешите микрофон в Системных настройках.";
@@ -21,6 +22,7 @@
 "Allow the microphone. It turns on only for recording." = "Разрешите микрофон. Он включается только для записи.";
 "Allow your microphone" = "Разрешите микрофон";
 "Allow…" = "Разрешить…";
+"An app has not finished providing the clipboard data. You can copy this result." = "Приложение ещё не подготовило данные в буфере. Этот текст можно скопировать.";
 "Appearance" = "Оформление";
 "Approve launch at login in macOS" = "Подтвердите автозапуск в macOS";
 "Assign a single key or a combination. Pause shortcuts in the menu to type the assigned character." = "Можно назначить одну клавишу или сочетание. Чтобы печатать назначенный символ, приостановите клавиши в меню.";
@@ -67,7 +69,6 @@
 "Compact" = "Компактный";
 "Completed recordings" = "Завершённые записи";
 "Connect secure storage" = "Подключить хранилище";
-"Connect secure storage before your first dictation. If a system prompt appears, choose Always Allow. Enter your password only in the macOS dialog." = "Подключите хранилище один раз до первой диктовки. Если появится системный запрос, выберите «Разрешать всегда». Пароль вводится только в окне macOS.";
 "Connect storage…" = "Подключить хранилище…";
 "Connect the encryption key to protect temporary recordings and saved data." = "Подключите ключ шифрования для защиты временных записей и сохранённых данных.";
 "Continue" = "Продолжить";
@@ -89,6 +90,8 @@
 "Delete recording" = "Удалить запись";
 "Diagnostics" = "Диагностика";
 "Diagnostics…" = "Диагностика…";
+"Dictation and insertion are ready. Reconnect storage separately to resume saving data." = "Диктовка и вставка готовы. Чтобы вернуть сохранение данных, подключите хранилище отдельно.";
+"Dictation and insertion work without storage. History, vocabulary and crash recovery are off. The last result stays in memory until the next result or quit. Existing saved data is kept." = "Диктовка и вставка работают без хранилища. История, словарь и восстановление выключены. Последний текст остаётся в памяти до следующего результата или выхода. Старые сохранения не удаляются.";
 "Dictionary" = "Словарь";
 "Done" = "Готово";
 "Download" = "Скачать";
@@ -100,6 +103,7 @@
 "Enable Veylume under Accessibility in macOS settings, then return here." = "В настройках macOS включите Veylume в Accessibility, затем вернитесь сюда.";
 "Enable Veylume. Missing? Add it with “+”." = "Включите Veylume. Нет в списке? Добавьте через «+».";
 "Enable Veylume’s microphone in macOS settings." = "В настройках macOS включите микрофон для Veylume.";
+"Encrypted storage" = "Защищённое хранилище";
 "Erase Veylume data?" = "Очистить данные Veylume?";
 "Erase all data…" = "Очистить все данные…";
 "Escape cancels recording. Add a separate press-to-record key in Settings." = "Escape отменяет запись. Клавишу для записи по нажатию можно добавить в настройках.";
@@ -117,7 +121,6 @@
 "Help unavailable." = "Справка недоступна.";
 "History" = "История";
 "History is off" = "История выключена";
-"History is off. New dictations are not added to history. Previously saved text remains until deletion or expiry." = "История выключена. Новые диктовки не сохраняются в истории. Ранее сохранённые тексты остаются до удаления или истечения срока.";
 "History, models, and your dictionary remain." = "История, модели и словарь останутся.";
 "Hold and speak. Release to get your text." = "Удерживайте — говорите. Отпустите — получите текст.";
 "Hold to record" = "Удерживать";
@@ -163,8 +166,10 @@
 "Models, history, recovery, statistics, dictionary, and settings will be deleted. Login launch will be disabled. macOS permissions are not reset." = "Будут удалены модели, история, восстановления, статистика, словарь и настройки. Автозапуск будет выключен. Системные разрешения macOS не сбрасываются.";
 "Move Veylume to Applications" = "Перенесите Veylume в Applications";
 "Name or term" = "Имя или термин";
+"New text is not being saved. Existing encrypted data remains until deletion or expiry." = "Новые тексты сейчас не сохраняются. Существующие зашифрованные данные остаются до удаления или истечения срока.";
 "Next test the shortcut in your editor. Veylume never presses Enter." = "Затем проверьте клавишу в своём редакторе. Enter приложение не нажимает.";
 "No account or payment" = "Без аккаунта и оплаты";
+"No saved dictations" = "Без сохранения";
 "No speech detected. Try a longer phrase." = "Речь не обнаружена. Попробуйте более длинную фразу.";
 "No temporary results." = "Временных результатов нет.";
 "Not enough disk space to download and prepare the model." = "Недостаточно места для модели и безопасной подготовки.";
@@ -199,7 +204,6 @@
 "Press again to finish" = "Нажать ещё раз для остановки";
 "Press to record" = "Нажать";
 "Preview" = "Предпросмотр";
-"Protect your recordings" = "Защитим ваши записи";
 "Protected audio and text are available for up to 24 hours; at most 10. Temporary audio is removed after success or cancellation. When the app is closed, cleanup happens next launch. Turning this off does not delete existing recovery." = "Защищённые аудио и текст доступны до 24 часов; максимум 10. После успеха или отмены временное аудио удаляется. При выключенной программе очистка произойдёт при следующем запуске. Выключение настройки не удаляет старые восстановления.";
 "Quick start" = "Быстрый запуск";
 "Quit" = "Выйти";
@@ -221,7 +225,6 @@
 "Recovery after failure" = "Восстановление после сбоя";
 "Recovery is off. Results in memory will be lost." = "Восстановление выключено. Результаты в памяти будут потеряны.";
 "Recovery items remain available for up to 24 hours. The last result in memory will be cleared." = "Защищённые восстановления доступны до 24 часов. Последний результат в памяти будет очищен.";
-"Recovery lasts up to 24 hours. Update checks are on. Both can be changed in Settings." = "Восстановление — до 24 часов. Автопроверка обновлений включена. Всё меняется в настройках.";
 "Redo" = "Повторить";
 "Refresh report" = "Обновить отчёт";
 "Release the keys, then copy your text." = "Отпустите клавиши и скопируйте текст.";
@@ -245,6 +248,8 @@
 "Save" = "Сохранить";
 "Save report…" = "Сохранить отчёт…";
 "Save text locally" = "Сохранять текст локально";
+"Saved data is enabled, but Keychain access is needed. Dictation and insertion work; history, vocabulary and crash recovery are temporarily paused." = "Сохранение включено, но нужен доступ к Связке ключей. Диктовка и вставка работают; история, словарь и восстановление временно приостановлены.";
+"Saved data · optional" = "Сохранение · необязательно";
 "Say a short phrase. It will appear here." = "Произнесите короткую фразу — она появится здесь.";
 "Screen" = "Экран";
 "Secure Input is enabled. Leave the password field to use shortcuts." = "Защищённый ввод включён. Выйдите из поля пароля для работы клавиш.";
@@ -269,6 +274,9 @@
 "Stop and preserve" = "Остановить и сохранить";
 "Stop and process the recording, or cancel it before quitting." = "Остановите и обработайте запись либо отмените её перед выходом.";
 "Stop recording" = "Остановить запись";
+"Storage" = "Хранилище";
+"Storage connected" = "Хранилище подключено";
+"Storage is optional. Enable history and crash recovery in Settings when you need them." = "Хранилище необязательно. Историю и восстановление можно подключить в настройках.";
 "Storage…" = "Хранилище…";
 "System" = "Как в системе";
 "System device" = "Системное устройство";
@@ -285,6 +293,8 @@
 "The 1–5 scales are editorial levels, not accuracy percentages. Sizes refer to these complete Core ML bundles, including tokenizers." = "Шкалы 1–5 — редакционные уровни, не проценты точности. Размеры относятся к этому полному комплекту Core ML, включая токенизатор.";
 "The app receiving your text handles it according to its own privacy policy." = "Приложение, в которое вы вставляете текст, обрабатывает его по собственным правилам.";
 "The audio device changed. Start a new recording." = "Аудиоустройство изменилось. Начните новую запись.";
+"The clipboard changed while preparing the paste. You can copy this result." = "Буфер изменился во время подготовки вставки. Этот текст можно скопировать.";
+"The clipboard is too large to restore safely. You can copy this result." = "В буфере слишком много данных для безопасного восстановления. Этот текст можно скопировать.";
 "The field changed. Copy the text where you need it." = "Поле изменилось. Скопируйте текст в нужное место.";
 "The field did not accept insertion. Use Copy." = "Поле не приняло вставку. Нажмите «Скопировать».";
 "The indicator joins the camera cutout and extends to its sides when there is room." = "Индикатор соединяется с чёлкой. Если рядом свободно, он расширяется по бокам.";
@@ -316,7 +326,6 @@
 "With" = "На";
 "Words" = "Слова";
 "You can download it again. Other models and your data will remain." = "Комплект можно скачать снова. Другие модели и ваши данные сохранятся.";
-"Your encryption key stays in macOS Keychain." = "Ключ для шифрования хранится в Связке ключей macOS.";
 "Your model prepares automatically" = "Модель готовится автоматически";
 "Your result stays on your Mac." = "Готовый результат остаётся на вашем Mac.";
 "Your text is ready" = "Текст готов";

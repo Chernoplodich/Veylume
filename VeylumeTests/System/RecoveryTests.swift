@@ -46,8 +46,10 @@ struct RecoveryTests {
         try archive.append([Float](repeating: 0.25, count: 16000))
         let manager = RecoveryManager(root: root, keys: keys)
         #expect(try manager.entries(excluding: archive.id).isEmpty)
+        try manager.pruneExpired(excluding: archive.id)
         #expect(FileManager.default.fileExists(atPath: archive.directory.path))
         #expect(keys.reads == 0)
+        try manager.pruneExpired()
         #expect(try manager.entries().isEmpty)
         #expect(!FileManager.default.fileExists(atPath: archive.directory.path))
     }

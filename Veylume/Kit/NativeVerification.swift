@@ -8,6 +8,9 @@ import Security
 /// Veylume.app. Reports contain metrics/assertions, never the transcript or paths.
 public enum NativeVerification {
     public static func run(arguments: [String]) async -> Int32 {
+        if arguments.count == 2, arguments[0] == "followup" {
+            return await NativeFollowupVerification.run(output: URL(fileURLWithPath: arguments[1], isDirectory: true))
+        }
         if arguments.count == 2, arguments[0] == "indicator-settings" {
             return await NativeIndicatorSettingsVerification.run(output: URL(fileURLWithPath: arguments[1], isDirectory: true))
         }

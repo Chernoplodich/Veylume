@@ -39,6 +39,8 @@ Compatibility depends on the destination app and field. Password fields and Secu
 
 Audio and transcripts are processed locally. Model downloads require internet access; dictation does not send speech to a server. Text history is off by default. The last result stays in memory, and optional recovery data is encrypted locally.
 
+Encrypted storage is optional. If an update needs renewed Keychain access, dictation and automatic insertion keep working. Veylume pauses saving and shows how to reconnect; your previous settings and encrypted data stay in place.
+
 [Read the privacy details](docs/privacy.md), including clipboard behavior and how to delete local data.
 
 ## Updating

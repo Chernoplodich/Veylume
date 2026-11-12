@@ -12,7 +12,7 @@ Allow about 483 MB for the default model in addition to the app. You need intern
 
 1. [Download the DMG](https://github.com/Chernoplodich/Veylume/releases/latest/download/Veylume-arm64.dmg).
 2. Drag **Veylume** into **Applications**. If you already use `~/Applications`, keep using that folder.
-3. Eject the disk image and open the installed app. Keep one installed copy.
+3. Open the installed app. Keep one installed copy. Veylume tries to eject its matching read-only installer after launch. The desktop disk icon is the mounted DMG; if it remains in use, eject it in Finder when finished.
 
 ## Opening the preview
 
@@ -28,7 +28,7 @@ Veylume prepares Parakeet V3 automatically while you finish setup. There is no m
 
 - **Microphone:** allow Veylume in the system dialog. It records only when you start a dictation.
 - **Insertion and shortcuts:** open the macOS Accessibility settings from Veylume, enable the installed copy, then return to the app. Use **Check access** to see the current status. Input Monitoring is requested only if the selected shortcut path needs it.
-- **Local storage:** Veylume stores encryption keys in macOS Keychain. If a Keychain dialog appears, enter its password only in the macOS dialog. Veylume does not have a password-entry form.
+- **Saved data, optional:** ordinary dictation and insertion need no storage password. Choose encrypted storage in General if you want vocabulary, history, or crash recovery. Enter a Keychain password only in macOS's dialog. Veylume does not have a password-entry form.
 - **Shortcut:** choose your own hold shortcut. You can add a separate press-to-toggle shortcut later.
 
 Click in a text field and try a short phrase. You can finish setup with manual copying if insertion access is unavailable.
@@ -37,7 +37,7 @@ Click in a text field and try a short phrase. You can finish setup with manual c
 
 Quit Veylume from its menu. Download the new DMG, replace the existing app in the same folder, and reopen it. Do not run another copy from the disk image. Models, settings, and local data are stored separately and are retained.
 
-The preview has no automatic update channel. macOS may ask you to authorize a changed build again.
+The preview has no automatic update channel. macOS may ask you to authorize a changed build again. If encrypted storage was enabled but Keychain access is lost, Veylume shows a reconnect action. Dictation and insertion remain available; history, vocabulary, and crash recovery pause until you reconnect. Your previous choices are retained. This preview cannot guarantee prompt-free access to encrypted data across personally signed updates.
 
 ## Recording indicator
 

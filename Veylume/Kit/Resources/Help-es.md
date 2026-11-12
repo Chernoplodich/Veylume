@@ -2,7 +2,7 @@ Veylume convierte tu voz en texto en este Mac. No envía audio ni dictados a la 
 
 En General puedes elegir English, Русский, Español o Français. «Según el sistema» sigue los idiomas preferidos de macOS; si ninguno es compatible, se usa inglés. El idioma de la interfaz y el del dictado son independientes. La disponibilidad de idiomas de voz depende del modelo seleccionado.
 
-Para empezar, deja que Parakeet V3 se descargue y prepare automáticamente. Permite el micrófono, activa Veylume en Accesibilidad y conecta el almacenamiento seguro. Si el Llavero de macOS pide permiso, elige «Permitir siempre» solo si confías en esta copia. Introduce la contraseña únicamente en la ventana del sistema. Una versión personal nueva puede volver a solicitar el acceso al Llavero; no necesitas escribir la contraseña en Veylume.
+Para empezar, deja que Parakeet V3 se descargue y prepare automáticamente. Permite el micrófono y activa Veylume en Accesibilidad. Guardar datos es opcional y está desactivado en una instalación nueva. Puedes conectar el almacenamiento cifrado en General cuando quieras usar vocabulario, historial o recuperación. Si el Llavero pide permiso, introduce la contraseña solo en la ventana de macOS. Después de confirmar, vuelve la ventana desde la que lo solicitaste, salvo que la hayas cerrado.
 
 En Atajos puedes asignar dos teclas o combinaciones distintas: mantener para grabar y pulsar para iniciar o detener. Al soltar el atajo de mantener, la captura termina. Escape cancela la grabación o el procesamiento y evita una inserción tardía. Para escribir el carácter asignado, pausa los atajos desde el menú.
 
@@ -12,7 +12,7 @@ La inserción automática usa el campo activo que elegiste al empezar. Veylume n
 
 Los campos de contraseña están protegidos por la entrada segura de macOS. Mientras esté activa, el atajo global puede no estar disponible. Sal del campo protegido y vuelve a intentarlo. No desactives la protección del sistema. En terminales, comprueba el texto antes de ejecutarlo tú mismo.
 
-El historial está desactivado inicialmente. Si lo activas, guarda texto cifrado, nunca audio. La recuperación temporal conserva hasta 10 resultados durante un máximo de 24 horas. El audio temporal se elimina tras completar o cancelar una grabación. Si Veylume está cerrado, la limpieza se realiza al volver a abrirlo. Las claves se guardan en el Llavero. Desactivar la recuperación no borra elementos anteriores. Usa Historial para revisarlos o eliminarlos.
+Si conectas el almacenamiento, puedes activar el historial de texto cifrado y la recuperación temporal de hasta 10 resultados durante un máximo de 24 horas. El audio temporal siempre se cifra con una clave de cada grabación. Sin almacenamiento conectado, esa clave solo vive en memoria: el audio se borra tras completar o cancelar, y los restos irrecuperables de un fallo se limpian al abrir de nuevo la app. Cambiar el modo no borra los datos cifrados anteriores; siguen sujetos a su plazo de conservación.
 
 Las estadísticas se calculan en este Mac sin guardar el contenido del dictado. Copiar o reintentar no aumenta los contadores. Los informes de diagnóstico no contienen textos, audio, portapapeles, pulsaciones, rutas ni documentos de otras aplicaciones. Los códigos técnicos conservan nombres estables para facilitar el soporte. El informe solo se guarda o copia cuando lo decides.
 
@@ -20,8 +20,10 @@ El modelo Cohere requiere seleccionar un idioma compatible y no admite ruso. Un 
 
 «Abrir al iniciar sesión» es opcional. Se configura en General y puede requerir aprobación en los ítems de inicio de macOS. Al iniciar sesión, Veylume aparece en la barra de menús; no enciende el micrófono por sí solo.
 
-Abrir un DMG nuevo no actualiza la aplicación automáticamente. Sal de Veylume, arrastra la nueva copia a la misma carpeta de Aplicaciones donde está la anterior y elige «Reemplazar». Abre esa copia. Se conservan los modelos y los datos. No crees una segunda instalación en otra carpeta. Esta versión personal no está notarizada por Apple; ante un aviso de Gatekeeper, usa el procedimiento normal de «Abrir igualmente» de macOS solo si confías en el archivo. No desactives Gatekeeper ni elimines la cuarentena con comandos. Las actualizaciones automáticas necesitan un canal firmado real, aún no configurado en esta versión local.
+Para actualizar, sal de Veylume, reemplázalo en la misma carpeta de Aplicaciones y abre la copia instalada. Abrir un DMG no actualiza la app por sí solo. Veylume intenta expulsar su instalador de solo lectura con la misma versión; si sigue en uso, expúlsalo desde Finder. Los modelos y los datos se conservan. Si el almacenamiento estaba activado y pierde acceso al Llavero tras actualizar, verás cómo reconectarlo. El dictado y la inserción siguen funcionando; el guardado, el vocabulario y la recuperación quedan en pausa hasta entonces. Esta versión personal no está notarizada por Apple. No desactives Gatekeeper ni elimines la cuarentena. El canal de actualizaciones automáticas aún no está configurado.
 
 Antes de desinstalar, desactiva el inicio automático. «Historial → Borrar todos los datos» elimina modelos, diccionario, historial, recuperaciones, estadísticas y configuración. Llevar Veylume a la papelera solo elimina la aplicación; los datos y los permisos de macOS pueden permanecer.
 
 Dependencias: FluidAudio (Apache-2.0), Argmax OSS/WhisperKit (MIT), Sparkle (MIT) y Swift Argument Parser (Apache-2.0). Conversión de Parakeet: FluidInference (CC-BY-4.0), con NVIDIA como autor del modelo. Cohere: FluidInference/Cohere (Apache-2.0). Whisper: Argmax/OpenAI (MIT). Los distintivos de proveedores son identificadores propios, no logotipos oficiales. Consulta las licencias y los avisos incluidos.
+
+Las barras reaccionan juntas al nivel actual del micrófono, sin desplazar el historial del sonido. El archivo DMG descargado no se elimina al expulsar el disco.

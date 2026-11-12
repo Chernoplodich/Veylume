@@ -4,6 +4,7 @@ public enum Theme: String, Codable, CaseIterable, Sendable { case system, light,
 public enum MaterialStyle: String, Codable, CaseIterable, Sendable { case glass, frosted }
 public enum IndicatorStyle: String, Codable, CaseIterable, Sendable { case auto, mini, notch, island }
 public enum IndicatorPosition: String, Codable, CaseIterable, Sendable { case top, bottom }
+public enum StorageMode: String, Codable, CaseIterable, Sendable { case sessionOnly, protected }
 public enum BootstrapState: String, Codable, Sendable { case pending, running, paused, cancelled, completed, removed }
 public struct Preferences: Codable, Sendable {
     public var version = 1
@@ -38,6 +39,16 @@ public struct Preferences: Codable, Sendable {
     public var screenID: UInt32?
     public var microphoneUID: String?
     public var automaticInsertion = true
+    // Missing in older settings: preserve their configured encrypted storage.
+    // New installations can dictate without creating a persistent key.
+    public var storageMode: StorageMode? = .sessionOnly
+    public var lastAuthorizedStorageBuild: String?
+    public var usesProtectedStorage: Bool { (storageMode ?? .protected) == .protected }
+    public func recordingConfiguration(storageAvailable: Bool) -> Preferences {
+        var result = self
+        if !usesProtectedStorage || !storageAvailable { result.recoveryEnabled = false; result.historyEnabled = false }
+        return result
+    }
     public var recoveryEnabled = true
     public var historyEnabled = false
     public var historyDays = 30

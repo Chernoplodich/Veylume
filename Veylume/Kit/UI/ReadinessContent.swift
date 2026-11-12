@@ -11,8 +11,10 @@ struct ReadinessContent: View {
     var body: some View {
         ReadinessSurface(step: step, microphoneReady: capabilities.microphone == .authorized,
             externalReady: capabilities.accessibility || !(session.preferences.value.hasShortcuts || session.preferences.value.automaticInsertion),
-            storageReady: session.storageAccessChecked && !session.storageNeedsAuthorization,
-            authorizingStorage: session.authorizingStorage, close: close, advance: advance)
+            storageReady: !session.preferences.value.usesProtectedStorage || (session.storageAccessChecked && !session.storageNeedsAuthorization),
+            authorizingStorage: session.authorizingStorage, storageOptional: true,
+            storageConfigured: session.preferences.value.usesProtectedStorage,
+            connectStorage: { session.authorizeStorage() }, close: close, advance: advance)
             .task {
                 while !Task.isCancelled {
                     capabilities.refresh(); session.refreshHotkeys()
@@ -37,6 +39,8 @@ struct ReadinessSurface: View {
     let step: SetupStep
     let microphoneReady: Bool, externalReady: Bool, storageReady: Bool
     var authorizingStorage = false
+    var storageOptional = false, storageConfigured = true
+    var connectStorage: () -> Void = {}
     var close: () -> Void, advance: () -> Void
     var body: some View {
         VStack(spacing: 0) {
@@ -52,9 +56,13 @@ struct ReadinessSurface: View {
                         Divider()
                         status(I18n.tr("Вставка и клавиши", "Insertion and shortcuts"), ready: externalReady)
                         Divider()
-                        status(I18n.tr("Защищённое хранилище", "Secure storage"), ready: storageReady)
+                        status(storageOptional ? (storageConfigured ? I18n.tr("Сохранение · необязательно", "Saved data · optional") : I18n.tr("Без сохранения", "No saved dictations")) : I18n.tr("Защищённое хранилище", "Secure storage"), ready: storageReady)
                     }
                     Text(explanation).font(.system(size: 13)).fixedSize(horizontal: false, vertical: true)
+                    if storageOptional && storageConfigured && !storageReady && step == .ready {
+                        Button(I18n.tr("Подключить хранилище", "Connect secure storage"), action: connectStorage)
+                            .buttonStyle(.link).disabled(authorizingStorage)
+                    }
                     if step == .storage {
                         Text(I18n.tr("Если macOS спросит, выберите «Разрешать всегда». Пароль вводится только в системном окне.", "If macOS asks, choose Always Allow. Enter your password only in the system dialog.")).font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
                     }
@@ -79,7 +87,11 @@ struct ReadinessSurface: View {
         case .microphone: return I18n.tr("Разрешите микрофон. Он включается только для записи.", "Allow the microphone. It turns on only for recording.")
         case .accessibility: return I18n.tr("В настройках macOS включите Veylume в Accessibility, затем вернитесь сюда.", "Enable Veylume under Accessibility in macOS settings, then return here.")
         case .storage: return I18n.tr("Подключите ключ шифрования для защиты временных записей и сохранённых данных.", "Connect the encryption key to protect temporary recordings and saved data.")
-        case .ready: return I18n.tr("Доступы готовы. Можно вернуться в своё приложение и начать диктовку.", "Access is ready. Return to your app and start dictating.")
+        case .ready:
+            if storageOptional && storageConfigured && !storageReady {
+                return I18n.tr("Диктовка и вставка готовы. Чтобы вернуть сохранение данных, подключите хранилище отдельно.", "Dictation and insertion are ready. Reconnect storage separately to resume saving data.")
+            }
+            return I18n.tr("Доступы готовы. Можно вернуться в своё приложение и начать диктовку.", "Access is ready. Return to your app and start dictating.")
         }
     }
     private var actionTitle: String {

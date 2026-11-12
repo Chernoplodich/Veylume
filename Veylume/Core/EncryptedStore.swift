@@ -100,6 +100,20 @@ public actor EncryptedStore {
         let s = try statement("DELETE FROM blobs WHERE id=? AND kind=?"); defer { sqlite3_finalize(s) }
         bind(id.uuidString, to: s, at: 1); bind(kind.rawValue, to: s, at: 2); try step(s)
     }
+    /// Metadata only: choosing which existing keys to authorize must not decrypt
+    /// a row, nor create/replace a key that belongs to an earlier installation.
+    public func keyPurposesForStoredData() throws -> [String] {
+        let s = try statement("SELECT DISTINCT kind FROM blobs"); defer { sqlite3_finalize(s) }
+        var purposes = Set<String>()
+        var status = sqlite3_step(s)
+        while status == SQLITE_ROW {
+            guard let kind = BlobKind(rawValue: String(cString: sqlite3_column_text(s, 0))) else { throw ValidationError.database }
+            purposes.insert(kind == .recovery ? "recovery" : "history")
+            status = sqlite3_step(s)
+        }
+        guard status == SQLITE_DONE else { throw ValidationError.database }
+        return purposes.sorted()
+    }
     public func deleteAll(kind: BlobKind) throws {
         let s = try statement("DELETE FROM blobs WHERE kind=?"); defer { sqlite3_finalize(s) }; bind(kind.rawValue, to: s, at: 1); try step(s)
         try Self.execute(db, "PRAGMA wal_checkpoint(TRUNCATE)")

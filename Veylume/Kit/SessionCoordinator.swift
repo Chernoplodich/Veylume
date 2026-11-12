@@ -23,6 +23,12 @@ private struct SessionSnapshot {
     let dictionary: DictionaryDocument
     let testOnly: Bool
 }
+private struct StorageConfiguration: Equatable {
+    let enabled: Bool, recovery: Bool, history: Bool
+    init(_ preferences: Preferences) {
+        enabled = preferences.usesProtectedStorage; recovery = preferences.recoveryEnabled; history = preferences.historyEnabled
+    }
+}
 struct PipelineMeasurement: Codable {
     let capturePreparationMilliseconds: Double
     let captureStopMilliseconds: Double
@@ -38,14 +44,12 @@ struct PipelineMeasurement: Codable {
 @MainActor final class AudioMeter: ObservableObject {
     struct Frame: Equatable {
         var level = 0.0
-        var history = Array(repeating: 0.0, count: 9)
     }
     @Published private(set) var frame = Frame()
     var level: Double { frame.level }
     func update(_ value: Double) {
         let level = value.isFinite ? min(1, max(0, value)) : 0
-        var next = frame
-        next.level = level; next.history.removeFirst(); next.history.append(level)
+        let next = Frame(level: level)
         if next != frame { frame = next }
     }
     func reset() { if frame != Frame() { frame = Frame() } }
@@ -107,6 +111,8 @@ struct PipelineMeasurement: Codable {
     var onPresentResult: ((ResultEntry) -> Void)?
     var onRecoveryLimit: (() -> Void)?
     var onReadinessRequired: (() -> Void)?
+    var onStorageAuthorizationBegan: (() -> Void)?
+    var onStorageAuthorizationFinished: (() -> Void)?
     var onPhaseChange: (() -> Void)?
     var onIdle: (() -> Void)?
     var busy: Bool { machine.isBusy || work != nil }
@@ -129,7 +135,17 @@ struct PipelineMeasurement: Codable {
             self.refreshHotkeys()
         } }
         hotkeys.onLost = { [weak self] in Task { @MainActor in self?.interrupt(.permissionChanged); self?.hotkeys.reenable() } }
-        preferences.onChange = { [weak self] in self?.refreshHotkeys(); self?.onPhaseChange?(); self?.prepareSelectedEngine() }
+        var storageConfiguration = StorageConfiguration(preferences.value)
+        preferences.onChange = { [weak self] in
+            guard let self else { return }
+            self.refreshHotkeys(); self.onPhaseChange?(); self.prepareSelectedEngine()
+            let next = StorageConfiguration(self.preferences.value)
+            if next != storageConfiguration {
+                storageConfiguration = next
+                if !next.enabled { self.storageNeedsAuthorization = false; self.storageAccessChecked = true; keys.clearCache() }
+                Task { await self.refreshData(); await self.checkStorageReadiness(presentIfNeeded: false) }
+            }
+        }
         models.sessionIsBusy = { [weak self] in self?.busy ?? false }
         models.onActiveReady = { [weak self] in self?.prepareSelectedEngine() }
         let pressure = DispatchSource.makeMemoryPressureSource(eventMask: [.warning, .critical], queue: .global(qos: .utility))
@@ -179,27 +195,48 @@ struct PipelineMeasurement: Codable {
             refreshHotkeys()
         }
     }
-    private var requiredStoragePurposes: [String] {
-        (preferences.value.recoveryEnabled ? ["recovery"] : []) + (preferences.value.historyEnabled ? ["history"] : [])
+    private func requiredStoragePurposes() async -> [String] {
+        guard preferences.value.usesProtectedStorage else { return [] }
+        var purposes = Set((preferences.value.recoveryEnabled ? ["recovery"] : []) + (preferences.value.historyEnabled ? ["history"] : []))
+        if let stored = try? await store.keyPurposesForStoredData() { purposes.formUnion(stored) }
+        return purposes.sorted()
+    }
+    var storageAvailable: Bool { preferences.value.usesProtectedStorage && storageAccessChecked && !storageNeedsAuthorization && !authorizingStorage }
+    var storageReconnectionAfterUpdate: Bool {
+        guard storageNeedsAuthorization else { return false }
+        if let previous = preferences.value.lastAuthorizedStorageBuild,
+           let current = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String { return previous != current }
+        return preferences.value.storageMode == nil && preferences.value.onboardingCompleted
+    }
+    func useSessionOnlyStorage() {
+        guard !busy, !authorizingStorage else { return }
+        preferences.value.storageMode = .sessionOnly
+        storageNeedsAuthorization = false; storageAccessChecked = true
+        if notice == Problem.keychain.message { notice = nil }
     }
     var setupStep: SetupStep {
         SetupReadiness.next(microphone: capabilities.microphone == .authorized, accessibility: capabilities.accessibility,
             requiresExternalAccess: preferences.value.hasShortcuts || preferences.value.automaticInsertion,
-            storageChecked: storageAccessChecked, storageNeedsAuthorization: storageNeedsAuthorization)
+            storageChecked: storageAccessChecked, storageNeedsAuthorization: storageNeedsAuthorization, requiresProtectedStorage: false)
     }
     private func checkStorageReadiness(presentIfNeeded: Bool = true) async {
+        guard preferences.value.usesProtectedStorage else {
+            storageNeedsAuthorization = false; storageAccessChecked = true; return
+        }
         guard !checkingStorage, !authorizingStorage, !busy else { return }
         checkingStorage = true; defer { checkingStorage = false }
-        let purposes = requiredStoragePurposes
+        let purposes = await requiredStoragePurposes()
         let needsAccess = await StorageReadinessProbe.needsAuthorization(requiredKeyAccess: { [keys] in
             await Task.detached {
                 do { try keys.verifyRequiredAccess(to: purposes); return true }
                 catch { return false }
             }.value
         }, storedDataAccess: { await self.refreshData() })
+        guard preferences.value.usesProtectedStorage else { return }
         storageNeedsAuthorization = needsAccess
         if !needsAccess && notice == Problem.keychain.message { notice = nil }
         storageAccessChecked = true
+        if !needsAccess { recordStorageAccessBuild() }
         if presentIfNeeded && preferences.value.onboardingCompleted && setupStep != .ready { onReadinessRequired?() }
     }
     private func prepareSelectedEngine() {
@@ -220,7 +257,6 @@ struct PipelineMeasurement: Codable {
         case .idle:
             if !storageAccessChecked { return I18n.tr("Проверяем подготовку…", "Checking setup…") }
             if capabilities.microphone != .authorized { return I18n.tr("Нужен доступ к микрофону", "Microphone access needed") }
-            if storageNeedsAuthorization { return I18n.tr("Подключите хранилище", "Connect secure storage") }
             if unresolvedCount >= 10 { return I18n.tr("Откройте восстановление", "Open recovery") }
             if !models.activeReady { return I18n.tr("Подготовьте модель", "Prepare a model") }
             if let active = models.active, (try? active.validate(language: preferences.value.speechLanguage)) == nil { return Problem.language.message }
@@ -249,7 +285,6 @@ struct PipelineMeasurement: Codable {
     func start(testOnly: Bool = false, fromShortcut: Bool = false, shortcutMode: RecordingMode? = nil) {
         guard !busy, !recordingShortcut, probeProgress == nil || testOnly else { return }
         guard !authorizingStorage else { return }
-        if !testOnly && (!storageAccessChecked || storageNeedsAuthorization) { notice = Problem.keychain.message; onReadinessRequired?(); return }
         capabilities.refresh()
         if fromShortcut, capabilities.secureInput { notice = I18n.tr("Выйдите из поля пароля, затем запишите снова.", "Leave the password field, then try recording again."); return }
         guard capabilities.microphone == .authorized else { notice = Problem.microphone.message; onReadinessRequired?(); return }
@@ -257,11 +292,11 @@ struct PipelineMeasurement: Codable {
         guard testOnly || !models.isPreparing else { notice = I18n.tr("Модель подготавливается. Дождитесь завершения или приостановите её загрузку.", "A model is being prepared. Wait for it to finish or pause its installation."); return }
         guard unresolvedCount < 10 else { notice = Problem.pendingLimit.message; onRecoveryLimit?(); return }
         if !testOnly, let active = models.active, (try? active.validate(language: preferences.value.speechLanguage)) == nil { notice = Problem.language.message; return }
-        var effectivePreferences = preferences.value
+        var effectivePreferences = preferences.value.recordingConfiguration(storageAvailable: storageAvailable)
         effectivePreferences.mode = fromShortcut ? (shortcutMode ?? .hold) : .toggle
         effectivePreferences.shortcut = effectivePreferences.mode == .hold ? preferences.value.holdShortcut : preferences.value.toggleShortcut
         let destinationRequest = tracker.request()
-        let snapshot = SessionSnapshot(id: UUID(), startedAt: Date(), preferences: effectivePreferences, model: models.active, dictionary: dictionary, testOnly: testOnly)
+        let snapshot = SessionSnapshot(id: UUID(), startedAt: Date(), preferences: effectivePreferences, model: models.active, dictionary: storageAvailable ? dictionary : DictionaryDocument(), testOnly: testOnly)
         if !testOnly { prepareSelectedEngine() }
         notice = nil; progress = 0; interruption = nil; isTestSession = testOnly; startedAt = snapshot.startedAt; insertionGate = InsertionGate()
         capture.beginSession()
@@ -304,7 +339,8 @@ struct PipelineMeasurement: Codable {
             stopSignal?.resume(); stopSignal = nil
         }
     }
-    private func run(_ snapshot: SessionSnapshot, destinationRequest: DestinationRequest) async {
+    private func run(_ requestedSnapshot: SessionSnapshot, destinationRequest: DestinationRequest) async {
+        var snapshot = requestedSnapshot
         var archive: AudioArchive?
         do {
             let preparationStarted = DispatchTime.now().uptimeNanoseconds
@@ -314,10 +350,18 @@ struct PipelineMeasurement: Codable {
             let newArchive = try AudioArchive(id: snapshot.id, root: recovery.root); archive = newArchive
             if snapshot.preferences.recoveryEnabled && !snapshot.testOnly {
                 let metadata = AudioRecoveryMetadata(id: snapshot.id, modelID: snapshot.model!.id, language: snapshot.preferences.speechLanguage, rules: snapshot.dictionary.replacements, startedAt: snapshot.startedAt, audioKey: newArchive.keyData, chunks: 0, samples: 0)
-                // Check Keychain before microphone start. Never silently fall back
-                // to plaintext when the protected recovery key is unavailable.
-                let journal = try await Task.detached { [recovery] in try recovery.journaler(metadata) }.value
-                try journal(newArchive); capture.onChunk = journal
+                // A key can become unavailable after the startup probe. Basic
+                // dictation still uses an encrypted spool with a RAM-only key;
+                // pause persistent saving for this snapshot and show reconnect.
+                do {
+                    let journal = try await Task.detached { [recovery] in try recovery.journaler(metadata) }.value
+                    try journal(newArchive); capture.onChunk = journal
+                } catch ValidationError.keychain {
+                    storageNeedsAuthorization = true; storageAccessChecked = true; capture.onChunk = nil
+                    snapshot = SessionSnapshot(id: snapshot.id, startedAt: snapshot.startedAt,
+                        preferences: snapshot.preferences.recordingConfiguration(storageAvailable: false), model: snapshot.model,
+                        dictionary: DictionaryDocument(), testOnly: snapshot.testOnly)
+                }
             } else { capture.onChunk = nil }
             try await capture.start(archive: newArchive, deviceUID: snapshot.preferences.microphoneUID)
             capturePreparationMilliseconds = Double(DispatchTime.now().uptimeNanoseconds - preparationStarted) / 1_000_000
@@ -423,6 +467,7 @@ struct PipelineMeasurement: Codable {
         refreshHotkeys(); onPhaseChange?(); onIdle?()
     }
     func retry(_ entry: AudioRecoveryEntry) {
+        guard storageAvailable else { notice = Problem.keychain.message; return }
         guard !busy, let manifest = models.catalogue.first(where: { $0.id == entry.metadata.modelID }), models.states[manifest.id] == .ready else { notice = Problem.modelNotReady.message; return }
         var p = preferences.value; p.speechLanguage = entry.metadata.language
         var dict = DictionaryDocument(); dict.replacements = entry.metadata.rules
@@ -437,19 +482,33 @@ struct PipelineMeasurement: Codable {
     }
     @discardableResult func refreshData() async -> Bool {
         guard !authorizingStorage else { return false }
+        defer {
+            if !preferences.value.usesProtectedStorage {
+                history = []; audioRecovery = []; dictionary = DictionaryDocument()
+                storageNeedsAuthorization = false; storageAccessChecked = true
+                if notice == Problem.keychain.message { notice = nil }
+            }
+        }
         do {
             try await store.cleanup()
+            statistics = try await store.summary()
+            if !preferences.value.usesProtectedStorage {
+                history = []; audioRecovery = []; dictionary = DictionaryDocument()
+                let excluded = busy ? machine.id : nil
+                try await Task.detached { [recovery] in try recovery.pruneExpired(excluding: excluded) }.value
+                storageNeedsAuthorization = false; storageAccessChecked = true
+                return true
+            }
             let restored = try await store.load(kind: .recovery).compactMap { try? JSONDecoder().decode(ResultEntry.self, from: $0.2) }
             pending.removeAll { Date().timeIntervalSince($0.date) >= 86400 }
             for entry in restored where !pending.contains(where: { $0.id == entry.id }) { pending.append(entry) }
             let excluded = busy ? machine.id : nil
             audioRecovery = try await Task.detached { [recovery] in try recovery.entries(excluding: excluded) }.value
             history = try await store.load(kind: .history).compactMap { id, date, data in String(data: data, encoding: .utf8).map { StoredText(id: id, date: date, text: $0) } }
-            statistics = try await store.summary()
             if let data = try await store.load(kind: .dictionary).first?.2 { dictionary = try JSONDecoder().decode(DictionaryDocument.self, from: data) }
             return true
         } catch {
-            if (error as? ValidationError) == .keychain { storageNeedsAuthorization = true; notice = Problem.keychain.message; return false }
+            if (error as? ValidationError) == .keychain { storageNeedsAuthorization = true; storageAccessChecked = true; return false }
             notice = Problem.storage.message
             // A disk/integrity error must not be presented as a missing grant.
             return true
@@ -457,10 +516,13 @@ struct PipelineMeasurement: Codable {
     }
     func authorizeStorage() {
         guard !busy, !authorizingStorage else { return }
+        preferences.value.storageMode = .protected
+        onStorageAuthorizationBegan?()
         authorizingStorage = true
         Task {
+            defer { onStorageAuthorizationFinished?() }
             do {
-                let purposes = requiredStoragePurposes
+                let purposes = await requiredStoragePurposes()
                 try await Task.detached { [keys] in try keys.authorizeNeeded(required: purposes) }.value
                 storageNeedsAuthorization = false
                 storageAccessChecked = true
@@ -469,14 +531,20 @@ struct PipelineMeasurement: Codable {
                         try await store.save(id: entry.id, kind: .recovery, data: JSONEncoder().encode(entry), date: entry.date, expires: entry.date.addingTimeInterval(86400))
                     }
                 }
-                authorizingStorage = false; notice = nil; await refreshData()
+                authorizingStorage = false; notice = nil
+                if await refreshData(), !storageNeedsAuthorization { recordStorageAccessBuild() }
             } catch { authorizingStorage = false; storageNeedsAuthorization = true; notice = Problem.keychain.message }
         }
     }
     func saveDictionary(_ document: DictionaryDocument) async throws {
+        guard storageAvailable else { throw Problem.keychain }
         do {
             try document.validate(); try await store.save(id: UUID(uuidString: "00000000-0000-0000-0000-000000000001")!, kind: .dictionary, data: JSONEncoder().encode(document)); dictionary = document
         } catch { if (error as? ValidationError) == .keychain { storageNeedsAuthorization = true }; throw error }
+    }
+    private func recordStorageAccessBuild() {
+        if let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String,
+           preferences.value.lastAuthorizedStorageBuild != build { preferences.value.lastAuthorizedStorageBuild = build }
     }
     func removePending(_ entry: ResultEntry) async {
         do { try await store.delete(id: entry.id, kind: .recovery); pending.removeAll { $0.id == entry.id }; onIdle?() }
