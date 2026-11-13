@@ -3,6 +3,14 @@ import Foundation
 @testable import VeylumeCore
 
 struct StoragePolicyTests {
+    @Test func audioMutingIsOptInAndOldSettingsStillDecode() throws {
+        let fresh = Preferences(); #expect(!fresh.mutesOutputDuringRecording)
+        var json = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(fresh)) as? [String: Any])
+        json.removeValue(forKey: "muteOutputDuringRecording")
+        var old = try JSONDecoder().decode(Preferences.self, from: JSONSerialization.data(withJSONObject: json))
+        #expect(!old.mutesOutputDuringRecording); old.muteOutputDuringRecording = true
+        #expect(try JSONDecoder().decode(Preferences.self, from: JSONEncoder().encode(old)).mutesOutputDuringRecording)
+    }
     @Test func freshDictationNeedsNoPersistentKeyAndKeepsItsInsertionSettings() {
         var preferences = Preferences(); preferences.selectedModel = "parakeet-v3"; preferences.speechLanguage = "ru"
         #expect(!preferences.usesProtectedStorage)

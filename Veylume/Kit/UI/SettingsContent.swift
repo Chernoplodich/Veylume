@@ -55,6 +55,8 @@ struct GeneralSettings: View {
             AppRow(title: I18n.tr("Микрофон", "Microphone")) {
                 NativePopup(selection: Binding(get: { preferences.value.microphoneUID ?? "system" }, set: { preferences.value.microphoneUID = $0 == "system" ? nil : $0 }), choices: [(I18n.tr("Системное устройство", "System device"), "system")] + devices.map { ($0.name, $0.id) }, label: I18n.tr("Микрофон", "Microphone")).frame(width: 200).disabled(session.busy)
             }; Divider()
+            OutputMuteSetting(enabled: Binding(get: { preferences.value.mutesOutputDuringRecording }, set: { preferences.value.muteOutputDuringRecording = $0 })).disabled(session.busy)
+            Divider()
             AppRow(title: I18n.tr("Язык речи", "Speech language")) { SpeechLanguagePicker(preferences: preferences, manifest: models.active).disabled(session.busy) }; Divider()
             AppRow(title: I18n.tr("Язык интерфейса", "Interface language")) {
                 NativePopup(selection: $preferences.value.uiLanguage, choices: [(I18n.tr("Как в системе", "System"), "system"), ("English", "en"), ("Русский", "ru"), ("Español", "es"), ("Français", "fr")], label: I18n.tr("Язык интерфейса", "Interface language")).frame(width: 200)
@@ -99,6 +101,16 @@ struct GeneralSettings: View {
             .sheet(isPresented: $diagnostics) { DiagnosticsContent(session: session, capabilities: capabilities) }
             .onAppear { devices = AudioCaptureService.devices(); capabilities.refresh() }
         if let message = updates.message { Text(message).font(.caption).foregroundStyle(.secondary) }
+    }
+}
+
+struct OutputMuteSetting: View {
+    @Binding var enabled: Bool
+    var body: some View {
+        AppRow(title: I18n.tr("Отключать звук при записи", "Mute Mac audio while recording")) {
+            Toggle("", isOn: $enabled).labelsHidden().toggleStyle(.switch).controlSize(.small)
+                .accessibilityLabel(I18n.tr("Отключать звук при записи", "Mute Mac audio while recording"))
+        }.help(I18n.tr("Музыка и системные звуки отключаются на время записи, затем возвращаются. Поддержка зависит от аудиовыхода. Ваши изменения громкости сохраняются.", "Music and system sounds are muted during recording, then restored. Support depends on the audio output. Your own volume changes are preserved."))
     }
 }
 

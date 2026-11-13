@@ -701,6 +701,34 @@
         }
       }
     },
+    "An audio output could not be muted. You can still record; turn its volume down manually.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An audio output could not be muted. You can still record; turn its volume down manually."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось отключить звук на одном из аудиовыходов. Запись доступна; уменьшите громкость вручную."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo silenciar una salida de audio. Puedes seguir grabando; baja su volumen manualmente."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une sortie audio ne peut pas être coupée. La dictée reste disponible ; baissez son volume manuellement."
+          }
+        }
+      }
+    },
     "Appearance": {
       "localizations": {
         "en": {
@@ -4701,6 +4729,62 @@
           "stringUnit": {
             "state": "translated",
             "value": "Déplacez Veylume dans Applications"
+          }
+        }
+      }
+    },
+    "Music and system sounds are muted during recording, then restored. Support depends on the audio output. Your own volume changes are preserved.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Music and system sounds are muted during recording, then restored. Support depends on the audio output. Your own volume changes are preserved."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Музыка и системные звуки отключаются на время записи, затем возвращаются. Поддержка зависит от аудиовыхода. Ваши изменения громкости сохраняются."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La música y los sonidos del sistema se silencian durante la grabación y vuelven al terminar. Depende de la salida de audio. Se respetan tus cambios de volumen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La musique et les sons du système sont coupés pendant la dictée, puis rétablis. La prise en charge dépend de la sortie audio. Vos réglages de volume restent prioritaires."
+          }
+        }
+      }
+    },
+    "Mute Mac audio while recording": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mute Mac audio while recording"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отключать звук при записи"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Silenciar al grabar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couper le son pendant la dictée"
           }
         }
       }

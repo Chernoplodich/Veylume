@@ -70,6 +70,7 @@ struct PipelineMeasurement: Codable {
     private let capture = AudioCaptureService()
     private lazy var insertion = InsertionService(tracker: tracker)
     private let sounds = SoundService()
+    private let outputSilencer = OutputSilencer(journal: AppPaths.root.appendingPathComponent("output-mute.json"))
     private var machine = SessionMachine()
     private var work: Task<Void, Never>?
     private var stopSignal: CheckedContinuation<Void, Never>?
@@ -342,6 +343,7 @@ struct PipelineMeasurement: Codable {
     private func run(_ requestedSnapshot: SessionSnapshot, destinationRequest: DestinationRequest) async {
         var snapshot = requestedSnapshot
         var archive: AudioArchive?
+        defer { outputSilencer.end(session: snapshot.id) }
         do {
             let preparationStarted = DispatchTime.now().uptimeNanoseconds
             let destination = snapshot.testOnly ? nil : await tracker.capture(destinationRequest)
@@ -363,6 +365,14 @@ struct PipelineMeasurement: Codable {
                         dictionary: DictionaryDocument(), testOnly: snapshot.testOnly)
                 }
             } else { capture.onChunk = nil }
+            if snapshot.preferences.mutesOutputDuringRecording {
+                let report = await outputSilencer.begin(session: snapshot.id)
+                if report.unavailable > 0 || report.outputs == 0 {
+                    notice = I18n.tr("Не удалось отключить звук на одном из аудиовыходов. Запись доступна; уменьшите громкость вручную.", "An audio output could not be muted. You can still record; turn its volume down manually.")
+                }
+            }
+            try Task.checkCancellation()
+            if machine.stopRequested { throw Problem.noSpeech }
             try await capture.start(archive: newArchive, deviceUID: snapshot.preferences.microphoneUID)
             capturePreparationMilliseconds = Double(DispatchTime.now().uptimeNanoseconds - preparationStarted) / 1_000_000
             try Task.checkCancellation()
@@ -372,6 +382,7 @@ struct PipelineMeasurement: Codable {
                 await withCheckedContinuation { stopSignal = $0 }
             }
             let captured = try await capture.stop()
+            outputSilencer.end(session: snapshot.id)
             if let captured { captureStopMilliseconds = captured.stopMilliseconds; stopLatencies.append(captured.stopMilliseconds); if stopLatencies.count > 200 { stopLatencies.removeFirst() } }
             try Task.checkCancellation()
             sounds.play(.stop, preferences: snapshot.preferences)
@@ -382,6 +393,7 @@ struct PipelineMeasurement: Codable {
             try await recognize(snapshot, archive: captured.archive, destination: destination)
         } catch is CancellationError {
             _ = try? await capture.stop()
+            outputSilencer.end(session: snapshot.id)
             if interruption == nil || !snapshot.preferences.recoveryEnabled || snapshot.testOnly { try? archive?.remove() }
             if let interruption { notice = interruption.message }
             sounds.play(.cancel, preferences: snapshot.preferences)
@@ -390,6 +402,7 @@ struct PipelineMeasurement: Codable {
             finish()
         } catch {
             _ = try? await capture.stop()
+            outputSilencer.end(session: snapshot.id)
             let problem = interruption ?? (error as? Problem) ?? ((error as? ValidationError) == .keychain ? .keychain : .recognition)
             if problem == .keychain { storageNeedsAuthorization = true }
             if problem == .noSpeech || !snapshot.preferences.recoveryEnabled || snapshot.testOnly { try? archive?.remove() }
@@ -573,7 +586,7 @@ struct PipelineMeasurement: Codable {
             await models.refresh(); await refreshData()
         } catch { notice = Problem.storage.message }
     }
-    func shutdown() { hotkeys.stop(); maintenance?.invalidate(); health?.invalidate(); memoryPressure?.cancel() }
+    func shutdown() { hotkeys.stop(); maintenance?.invalidate(); health?.invalidate(); memoryPressure?.cancel(); outputSilencer.shutdown() }
     #if DEBUG
     func probeCaptureStops() {
         guard !busy, probeProgress == nil else { return }

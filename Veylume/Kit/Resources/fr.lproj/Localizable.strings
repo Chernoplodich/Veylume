@@ -23,6 +23,7 @@
 "Allow your microphone" = "Autorisez le microphone";
 "Allow…" = "Autoriser…";
 "An app has not finished providing the clipboard data. You can copy this result." = "Une application n’a pas encore fourni les données du presse-papiers. Vous pouvez copier ce résultat.";
+"An audio output could not be muted. You can still record; turn its volume down manually." = "Une sortie audio ne peut pas être coupée. La dictée reste disponible ; baissez son volume manuellement.";
 "Appearance" = "Apparence";
 "Approve launch at login in macOS" = "Autorisez l’ouverture à la connexion dans macOS";
 "Assign a single key or a combination. Pause shortcuts in the menu to type the assigned character." = "Choisissez une touche ou une combinaison. Pour saisir ce caractère, suspendez les raccourcis dans le menu.";
@@ -166,6 +167,8 @@
 "Models" = "Modèles";
 "Models, history, recovery, statistics, dictionary, and settings will be deleted. Login launch will be disabled. macOS permissions are not reset." = "Les modèles, l’historique, les récupérations, les statistiques, le dictionnaire et les réglages seront supprimés. L’ouverture à la connexion sera désactivée. Les autorisations macOS ne seront pas réinitialisées.";
 "Move Veylume to Applications" = "Déplacez Veylume dans Applications";
+"Music and system sounds are muted during recording, then restored. Support depends on the audio output. Your own volume changes are preserved." = "La musique et les sons du système sont coupés pendant la dictée, puis rétablis. La prise en charge dépend de la sortie audio. Vos réglages de volume restent prioritaires.";
+"Mute Mac audio while recording" = "Couper le son pendant la dictée";
 "Name or term" = "Nom ou terme";
 "New text is not being saved. Existing encrypted data remains until deletion or expiry." = "Les nouveaux textes ne sont pas enregistrés. Les données chiffrées existantes restent disponibles jusqu’à leur suppression ou leur expiration.";
 "Next test the shortcut in your editor. Veylume never presses Enter." = "Testez ensuite le raccourci dans votre éditeur. Veylume n’appuie jamais sur Entrée.";

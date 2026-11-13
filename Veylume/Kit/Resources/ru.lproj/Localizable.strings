@@ -23,6 +23,7 @@
 "Allow your microphone" = "Разрешите микрофон";
 "Allow…" = "Разрешить…";
 "An app has not finished providing the clipboard data. You can copy this result." = "Приложение ещё не подготовило данные в буфере. Этот текст можно скопировать.";
+"An audio output could not be muted. You can still record; turn its volume down manually." = "Не удалось отключить звук на одном из аудиовыходов. Запись доступна; уменьшите громкость вручную.";
 "Appearance" = "Оформление";
 "Approve launch at login in macOS" = "Подтвердите автозапуск в macOS";
 "Assign a single key or a combination. Pause shortcuts in the menu to type the assigned character." = "Можно назначить одну клавишу или сочетание. Чтобы печатать назначенный символ, приостановите клавиши в меню.";
@@ -166,6 +167,8 @@
 "Models" = "Модели";
 "Models, history, recovery, statistics, dictionary, and settings will be deleted. Login launch will be disabled. macOS permissions are not reset." = "Будут удалены модели, история, восстановления, статистика, словарь и настройки. Автозапуск будет выключен. Системные разрешения macOS не сбрасываются.";
 "Move Veylume to Applications" = "Перенесите Veylume в Applications";
+"Music and system sounds are muted during recording, then restored. Support depends on the audio output. Your own volume changes are preserved." = "Музыка и системные звуки отключаются на время записи, затем возвращаются. Поддержка зависит от аудиовыхода. Ваши изменения громкости сохраняются.";
+"Mute Mac audio while recording" = "Отключать звук при записи";
 "Name or term" = "Имя или термин";
 "New text is not being saved. Existing encrypted data remains until deletion or expiry." = "Новые тексты сейчас не сохраняются. Существующие зашифрованные данные остаются до удаления или истечения срока.";
 "Next test the shortcut in your editor. Veylume never presses Enter." = "Затем проверьте клавишу в своём редакторе. Enter приложение не нажимает.";

@@ -23,6 +23,7 @@
 "Allow your microphone" = "Allow your microphone";
 "Allow…" = "Allow…";
 "An app has not finished providing the clipboard data. You can copy this result." = "An app has not finished providing the clipboard data. You can copy this result.";
+"An audio output could not be muted. You can still record; turn its volume down manually." = "An audio output could not be muted. You can still record; turn its volume down manually.";
 "Appearance" = "Appearance";
 "Approve launch at login in macOS" = "Approve launch at login in macOS";
 "Assign a single key or a combination. Pause shortcuts in the menu to type the assigned character." = "Assign a single key or a combination. Pause shortcuts in the menu to type the assigned character.";
@@ -166,6 +167,8 @@
 "Models" = "Models";
 "Models, history, recovery, statistics, dictionary, and settings will be deleted. Login launch will be disabled. macOS permissions are not reset." = "Models, history, recovery, statistics, dictionary, and settings will be deleted. Login launch will be disabled. macOS permissions are not reset.";
 "Move Veylume to Applications" = "Move Veylume to Applications";
+"Music and system sounds are muted during recording, then restored. Support depends on the audio output. Your own volume changes are preserved." = "Music and system sounds are muted during recording, then restored. Support depends on the audio output. Your own volume changes are preserved.";
+"Mute Mac audio while recording" = "Mute Mac audio while recording";
 "Name or term" = "Name or term";
 "New text is not being saved. Existing encrypted data remains until deletion or expiry." = "New text is not being saved. Existing encrypted data remains until deletion or expiry.";
 "Next test the shortcut in your editor. Veylume never presses Enter." = "Next test the shortcut in your editor. Veylume never presses Enter.";

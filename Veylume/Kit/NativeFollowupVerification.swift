@@ -27,7 +27,7 @@ import VeylumeCore
         window?.isReleasedWhenClosed = false; next()
     }
     private func next() {
-        guard index < 40 else { finish(); return }
+        guard index < 48 else { finish(); return }
         let group = index / 8, language = ["en", "ru", "es", "fr"][(index % 8) / 2], dark = index % 2 == 1
         I18n.language = language
         let size = group == 4 ? CGSize(width: 600, height: 430) : CGSize(width: 424, height: 340)
@@ -35,6 +35,12 @@ import VeylumeCore
         if group == 4 {
             root = AnyView(ReadinessSurface(step: .ready, microphoneReady: true, externalReady: true,
                 storageReady: false, storageOptional: true, storageConfigured: true, close: {}, advance: {}))
+        } else if group == 5 {
+            root = AnyView(VStack(alignment: .leading, spacing: 14) {
+                PageHeading(title: SettingsSection.general.title, subtitle: I18n.tr("Выберите микрофон — и можно начинать.", "Choose a microphone and start dictating."))
+                GlassGroup { OutputMuteSetting(enabled: .constant(true)) }
+                Spacer(minLength: 0)
+            }.padding(22).frame(width: size.width, height: size.height).background { MaterialBackground(style: .glass) })
         } else {
             root = AnyView(VStack(alignment: .leading, spacing: 14) {
                 PageHeading(title: SettingsSection.general.title, subtitle: I18n.tr("Выберите микрофон — и можно начинать.", "Choose a microphone and start dictating."))
@@ -46,7 +52,7 @@ import VeylumeCore
         let host = NSHostingView(rootView: root.environment(\.locale, I18n.locale)); host.sizingOptions = []
         window?.appearance = NSAppearance(named: dark ? .darkAqua : .aqua)
         window?.contentView = host; window?.setContentSize(size)
-        let state = ["session-only", "reconnect-after-update", "connected", "authorizing", "optional-ready"][group]
+        let state = ["session-only", "reconnect-after-update", "connected", "authorizing", "optional-ready", "mute-output"][group]
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { [weak self] _ in MainActor.assumeIsolated {
             self?.capture(name: "followup-\(state)-\(language)-\(dark ? "dark" : "light").png")
         } }

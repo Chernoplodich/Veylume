@@ -1,5 +1,17 @@
 # Release notes
 
+## 0.1.3 — Quiet while recording
+
+- An optional General setting mutes the default playback and system-alert outputs during microphone capture. The previous state returns after stop, cancellation, or exit; later manual volume changes take priority. It starts off and needs no additional permissions.
+- Output changes are followed only during recording, without an idle timer. Unsupported hardware produces a warning rather than blocking dictation. Apps independently routed to other devices are not affected.
+- A small local journal allows a best-effort restoration after an unclean exit. It contains output identifiers and control values, never speech or recorded sound.
+
+### По-русски
+
+В «Общем» появился тумблер «Отключать звук при записи». Музыка и системные сигналы на стандартных выходах замолкают на время захвата, затем возвращаются к прежним настройкам. Ваши изменения громкости имеют приоритет. Изначально тумблер выключен, дополнительные разрешения не нужны.
+
+Смена аудиовыхода отслеживается только во время записи. Если устройство не поддерживает программную регулировку, приложение предупреждает и позволяет продолжить диктовку. Для незавершённых изменений сохраняется небольшой журнал без текста и аудио; после аварийного выхода восстановление пробуется при следующем запуске.
+
 ## 0.1.2 — Paste and recording feedback
 
 - Automatic paste now preserves materialized custom clipboard formats instead of rejecting every unfamiliar type. File promises, unavailable providers, and oversized snapshots still leave the original clipboard untouched, with a specific explanation.

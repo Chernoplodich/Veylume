@@ -38,6 +38,8 @@ public struct Preferences: Codable, Sendable {
     public var resolvedIndicatorPosition: IndicatorPosition { indicatorPosition ?? .top }
     public var screenID: UInt32?
     public var microphoneUID: String?
+    public var muteOutputDuringRecording: Bool?
+    public var mutesOutputDuringRecording: Bool { muteOutputDuringRecording ?? false }
     public var automaticInsertion = true
     // Missing in older settings: preserve their configured encrypted storage.
     // New installations can dictate without creating a persistent key.

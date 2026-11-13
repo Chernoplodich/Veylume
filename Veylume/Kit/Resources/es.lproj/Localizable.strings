@@ -23,6 +23,7 @@
 "Allow your microphone" = "Permite el micrófono";
 "Allow…" = "Permitir…";
 "An app has not finished providing the clipboard data. You can copy this result." = "Una aplicación aún no ha preparado los datos del portapapeles. Puedes copiar este resultado.";
+"An audio output could not be muted. You can still record; turn its volume down manually." = "No se pudo silenciar una salida de audio. Puedes seguir grabando; baja su volumen manualmente.";
 "Appearance" = "Aspecto";
 "Approve launch at login in macOS" = "Autoriza el inicio automático en macOS";
 "Assign a single key or a combination. Pause shortcuts in the menu to type the assigned character." = "Asigna una tecla o una combinación. Para escribir ese carácter, pausa los atajos desde el menú.";
@@ -166,6 +167,8 @@
 "Models" = "Modelos";
 "Models, history, recovery, statistics, dictionary, and settings will be deleted. Login launch will be disabled. macOS permissions are not reset." = "Se borrarán los modelos, el historial, las recuperaciones, las estadísticas, el diccionario y la configuración. Se desactivará el inicio automático. Los permisos de macOS no se restablecen.";
 "Move Veylume to Applications" = "Mueve Veylume a Aplicaciones";
+"Music and system sounds are muted during recording, then restored. Support depends on the audio output. Your own volume changes are preserved." = "La música y los sonidos del sistema se silencian durante la grabación y vuelven al terminar. Depende de la salida de audio. Se respetan tus cambios de volumen.";
+"Mute Mac audio while recording" = "Silenciar al grabar";
 "Name or term" = "Nombre o término";
 "New text is not being saved. Existing encrypted data remains until deletion or expiry." = "Los textos nuevos no se guardan. Los datos cifrados existentes se conservan hasta que los borres o caduquen.";
 "Next test the shortcut in your editor. Veylume never presses Enter." = "Después, prueba el atajo en tu editor. Veylume nunca pulsa Intro.";

@@ -15,8 +15,8 @@ mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources" "$app/Contents/Framewor
 cp "$bin/Veylume" "$app/Contents/MacOS/"
 cp Configuration/Info.plist "$app/Contents/Info.plist"
 /usr/libexec/PlistBuddy -c 'Set :CFBundleIdentifier local.Veylume.dev' "$app/Contents/Info.plist"
-/usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${VEY_LOCAL_VERSION:-0.1.2}" "$app/Contents/Info.plist"
-/usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${VEY_LOCAL_BUILD:-15}" "$app/Contents/Info.plist"
+/usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${VEY_LOCAL_VERSION:-0.1.3}" "$app/Contents/Info.plist"
+/usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${VEY_LOCAL_BUILD:-16}" "$app/Contents/Info.plist"
 for bundle in "$bin/"*.bundle; do
   [[ ! -e "$bundle" ]] || ditto "$bundle" "$app/Contents/Resources/$(basename "$bundle")"
 done
